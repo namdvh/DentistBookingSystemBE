@@ -1,5 +1,0 @@
-D:\NET\PRN211-Semester 7\DentistBookingSystem\DentistBooking.ViewModels\obj\Debug\net5.0\DentistBooking.ViewModels.csproj.AssemblyReference.cache
-D:\NET\PRN211-Semester 7\DentistBookingSystem\DentistBooking.ViewModels\obj\Debug\net5.0\DentistBooking.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
-D:\NET\PRN211-Semester 7\DentistBookingSystem\DentistBooking.ViewModels\obj\Debug\net5.0\DentistBooking.ViewModels.AssemblyInfoInputs.cache
-D:\NET\PRN211-Semester 7\DentistBookingSystem\DentistBooking.ViewModels\obj\Debug\net5.0\DentistBooking.ViewModels.AssemblyInfo.cs
-D:\NET\PRN211-Semester 7\DentistBookingSystem\DentistBooking.ViewModels\obj\Debug\net5.0\DentistBooking.ViewModels.csproj.CoreCompileInputs.cache
