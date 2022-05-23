@@ -1,4 +1,5 @@
 ﻿using DentisBooking.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,27 @@ namespace DentisBooking.Data.Extensions
             //        Updated_by = Guid.Parse("854b84b1-9f37-4c78-acf8-4cdeaa8a1b72"),
             //        Deleted_by = Guid.Parse("854b84b1-9f37-4c78-acf8-4cdeaa8a1b72")
             //    });
+            var adminId = new Guid("D5A918C6-5ED4-43EB-BCDF-042594AE26CF");
+            var roleId = new Guid("20EFD516-F16C-41B3-B11D-BC908CD20565");
+            var hasher = new PasswordHasher<User>();
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = adminId,
+                NormalizedUserName = "admin",
+                Email = "doanvuhoainam15@gmail.com",
+                NormalizedEmail = "doanvuhoainam15@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "abcd1234$"),
+                SecurityStamp = string.Empty,
+                FirstName = "Toan",
+                LastName = "Bach",
+                DOB = new DateTime(2021, 07, 12)
+            });
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId,
+            });
         }
     }
 }
