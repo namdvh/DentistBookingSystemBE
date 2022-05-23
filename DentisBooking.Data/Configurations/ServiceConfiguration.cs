@@ -8,7 +8,7 @@ namespace DentisBooking.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {
-            builder.ToTable("Service");
+            builder.ToTable("Services");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 

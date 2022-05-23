@@ -24,7 +24,7 @@ namespace DentisBooking.Api
             services.AddDbContext<DentistDBContext>(options => options.
             UseSqlServer(Configuration.GetConnectionString("DefaultDb")));
             //Delcare DI
-            services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<IUserService, UserService>();
             services.AddControllers();
             services.AddControllersWithViews();
             //services.AddSwaggerGen(c =>

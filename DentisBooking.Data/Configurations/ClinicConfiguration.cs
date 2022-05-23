@@ -8,7 +8,7 @@ namespace DentisBooking.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Clinic> builder)
         {
-            builder.ToTable("Clinic");
+            builder.ToTable("Clinics");
 
             builder.HasKey(x => x.Id);
 

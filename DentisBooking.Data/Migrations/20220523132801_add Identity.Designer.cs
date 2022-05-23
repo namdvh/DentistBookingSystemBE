@@ -4,14 +4,16 @@ using DentisBooking.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentisBooking.Data.Migrations
 {
     [DbContext(typeof(DentistDBContext))]
-    partial class DentistDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220523132801_add Identity")]
+    partial class addIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,7 +166,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clinics");
+                    b.ToTable("Clinic");
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Dentist", b =>
@@ -242,7 +244,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("Dentists");
+                    b.ToTable("Dentist");
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Discount", b =>
@@ -299,7 +301,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Discounts");
+                    b.ToTable("Discount");
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Role", b =>
@@ -324,7 +326,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Service", b =>
@@ -377,7 +379,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasIndex("DiscountId");
 
-                    b.ToTable("Services");
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.ServiceDentist", b =>

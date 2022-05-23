@@ -9,7 +9,7 @@ namespace DentisBooking.Data.Configurations
         public void Configure(EntityTypeBuilder<Discount> builder)
         {
 
-            builder.ToTable("Discount");
+            builder.ToTable("Discounts");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
