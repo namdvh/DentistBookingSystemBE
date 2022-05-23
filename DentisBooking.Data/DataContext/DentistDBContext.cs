@@ -1,5 +1,6 @@
 ﻿using DentisBooking.Data.Configurations;
 using DentisBooking.Data.Entities;
+using DentisBooking.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DentisBooking.Data.DataContext
@@ -13,7 +14,7 @@ namespace DentisBooking.Data.DataContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+            
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new BookingConfiguration());
             modelBuilder.ApplyConfiguration(new BookingDetailConfiguration());
@@ -22,6 +23,8 @@ namespace DentisBooking.Data.DataContext
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new DentistConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceDentistConfiguration());
+
+            modelBuilder.Seed();
 
         }
 

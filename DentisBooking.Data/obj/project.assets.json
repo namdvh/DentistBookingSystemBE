@@ -6018,19 +6018,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MSI\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
+      "projectUniqueName": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Data\\DentisBooking.Data.csproj",
       "projectName": "DentisBooking.Data",
-      "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
-      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-      "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\obj\\",
+      "projectPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Data\\DentisBooking.Data.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Data\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6094,7 +6099,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
