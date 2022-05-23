@@ -48,7 +48,8 @@ namespace DentisBooking.Data.Extensions
                 SecurityStamp = string.Empty,
                 FirstName = "Toan",
                 LastName = "Bach",
-                DOB = new DateTime(2021, 07, 12)
+                DOB = new DateTime(2021, 07, 12),
+                Gender="male"
             });
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
             {

@@ -4,14 +4,16 @@ using DentisBooking.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentisBooking.Data.Migrations
 {
     [DbContext(typeof(DentistDBContext))]
-    partial class DentistDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220523150710_Edit Configuration")]
+    partial class EditConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
