@@ -1,0 +1,6 @@
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.csproj.AssemblyReference.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.AssemblyInfoInputs.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.AssemblyInfo.cs
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.csproj.CoreCompileInputs.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Api\obj\Debug\net5.0\DentisBooking.Api.MvcApplicationPartsAssemblyInfo.cache

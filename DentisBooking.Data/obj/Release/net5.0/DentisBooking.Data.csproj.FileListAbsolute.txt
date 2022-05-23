@@ -1,0 +1,15 @@
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\bin\Release\net5.0\DentisBooking.Data.deps.json
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\bin\Release\net5.0\DentisBooking.Data.runtimeconfig.json
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\bin\Release\net5.0\DentisBooking.Data.runtimeconfig.dev.json
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\bin\Release\net5.0\DentisBooking.Data.dll
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\bin\Release\net5.0\DentisBooking.Data.pdb
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.csproj.AssemblyReference.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.AssemblyInfoInputs.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.AssemblyInfo.cs
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.csproj.CoreCompileInputs.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.dll
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\refint\DentisBooking.Data.dll
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.pdb
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\DentisBooking.Data.genruntimeconfig.cache
+D:\NET\PRN211-Semester 7\DentistBookingSystem\DentisBooking.Data\obj\Release\net5.0\ref\DentisBooking.Data.dll

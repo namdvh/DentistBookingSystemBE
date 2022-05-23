@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Catalog\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DentisBooking.Data\DentisBooking.Data.csproj" />
+    <ProjectReference Include="..\DentistBooking.ViewModels\DentistBooking.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
