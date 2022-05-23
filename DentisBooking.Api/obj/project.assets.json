@@ -6079,19 +6079,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MSI\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Api\\DentisBooking.Api.csproj",
+      "projectUniqueName": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Api\\DentisBooking.Api.csproj",
       "projectName": "DentisBooking.Api",
-      "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Api\\DentisBooking.Api.csproj",
-      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-      "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Api\\obj\\",
+      "projectPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Api\\DentisBooking.Api.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Api\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6105,11 +6110,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj": {
-              "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj"
+            "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Data\\DentisBooking.Data.csproj": {
+              "projectPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentisBooking.Data\\DentisBooking.Data.csproj"
             },
-            "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.Application\\DentistBooking.Application.csproj": {
-              "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.Application\\DentistBooking.Application.csproj"
+            "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentistBooking.Application\\DentistBooking.Application.csproj": {
+              "projectPath": "D:\\FPT\\SUMMER 2022\\DentistBookingSystemFinal\\backend\\DentistBooking.Application\\DentistBooking.Application.csproj"
             }
           }
         }
@@ -6171,7 +6176,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
