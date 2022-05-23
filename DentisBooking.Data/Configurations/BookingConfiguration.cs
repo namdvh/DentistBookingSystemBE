@@ -17,7 +17,7 @@ namespace DentisBooking.Data.Configurations
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.Created_at).HasDefaultValueSql("getutcdate()");
             //builder.HasOne(x => x.Created_by).WithOne(x => x.Booking).HasForeignKey<User>(x=>x.BookingId);
-            builder.HasMany(x => x.BookingDetail).WithOne(x => x.Booking).HasForeignKey(x=>x.BookingId);
+            //builder.HasMany(x => x.BookingDetail).WithOne(x => x.Booking).HasForeignKey(x=>x.BookingId);
             
             
         }

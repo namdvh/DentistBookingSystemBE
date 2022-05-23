@@ -25,7 +25,7 @@ namespace DentisBooking.Data.Entities
         public ICollection<ServiceDentist> ServiceDentists { get; set; }
 
         //public int BookingDetailId { get; set; }
-        public BookingDetail BookingDetail { get; set; }
+        public ICollection<BookingDetail> BookingDetails { get; set; }
 
         public int DiscountId { get; set; }
         public Discount Discount { get; set; }

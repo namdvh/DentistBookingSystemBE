@@ -22,7 +22,7 @@ namespace DentisBooking.Data.Entities
 
         //Relationship
 
-        public List<BookingDetail> BookingDetail { get; set; }
+        public List<BookingDetail> BookingDetails { get; set; }
         public Guid UserId { get; set; }
         public User Created_by { get; set; }
 

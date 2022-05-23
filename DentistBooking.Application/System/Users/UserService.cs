@@ -64,7 +64,7 @@ namespace DentistBooking.Application.System.Users
                 LastName=request.LastName,
                 UserName=request.UserName,
                 PhoneNumber=request.PhoneNumber,
-                Status=AllCode.ACTIVE,
+                Status=Status.ACTIVE,
                 Gender=request.Gender,
             };
             var rs=await _userService.CreateAsync(user,request.Password);

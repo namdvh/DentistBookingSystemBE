@@ -20,7 +20,7 @@ namespace DentisBooking.Data.Configurations
 
             //builder.HasOne(x => x.BookingDetail)
             //       .WithOne(x => x.Service)
-            //       .HasForeignKey<Service>(x => x.BookingDetailId);
+            //       .HasForeignKey<BookingDetail>(x => x.ServiceId);
 
             //builder.HasMany(x => x.Images)
             //       .WithOne(x => x.Service)
