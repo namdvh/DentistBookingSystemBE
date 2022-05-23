@@ -1,8 +1,7 @@
 ﻿namespace DentisBooking.Data.Enum
 {
-    public enum AllCode
+    public enum Status
     {
-        ADMIN,
         ACTIVE,
         INACTIVE
     }

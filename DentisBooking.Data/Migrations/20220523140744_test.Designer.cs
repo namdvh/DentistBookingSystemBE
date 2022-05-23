@@ -4,14 +4,16 @@ using DentisBooking.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DentisBooking.Data.Migrations
 {
     [DbContext(typeof(DentistDBContext))]
-    partial class DentistDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220523140744_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +38,10 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("KeyTime")
@@ -52,10 +54,10 @@ namespace DentisBooking.Data.Migrations
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -84,13 +86,13 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Note")
@@ -100,13 +102,10 @@ namespace DentisBooking.Data.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -136,13 +135,13 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -159,13 +158,10 @@ namespace DentisBooking.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -193,13 +189,13 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -269,10 +265,10 @@ namespace DentisBooking.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
@@ -303,13 +299,13 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -331,14 +327,11 @@ namespace DentisBooking.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -382,13 +375,13 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("DiscountId")
@@ -410,10 +403,10 @@ namespace DentisBooking.Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -455,16 +448,16 @@ namespace DentisBooking.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<Guid?>("Created_by")
+                    b.Property<Guid>("Created_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Deleted_at")
+                    b.Property<DateTime>("Deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Deleted_by")
+                    b.Property<Guid>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -513,6 +506,9 @@ namespace DentisBooking.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -526,10 +522,10 @@ namespace DentisBooking.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("Updated_at")
+                    b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("Updated_by")
+                    b.Property<Guid>("Updated_by")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
@@ -538,34 +534,6 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae26cf"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a0a14b5-610f-457e-8298-6a10059bbba0",
-                            Created_at = new DateTime(2022, 5, 23, 14, 23, 44, 522, DateTimeKind.Utc).AddTicks(88),
-                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae26cf"),
-                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted_at = new DateTime(2022, 5, 23, 14, 23, 44, 522, DateTimeKind.Utc).AddTicks(900),
-                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae26cf"),
-                            Email = "doanvuhoainam15@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Toan",
-                            Gender = "Male",
-                            LastName = "Bach",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEECIBEnReTJikfD01tP5q4uJIL08iJveatY7/k6hd5rkv3TFCeCqXU2+AdH6APMQrw==",
-                            PhoneNumber = "0868644651",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 0,
-                            Token = "xxx",
-                            TwoFactorEnabled = false,
-                            Updated_at = new DateTime(2022, 5, 23, 14, 23, 44, 522, DateTimeKind.Utc).AddTicks(304),
-                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae26cf")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -641,13 +609,6 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae26cf"),
-                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd20565")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>

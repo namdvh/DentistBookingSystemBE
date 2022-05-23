@@ -12,9 +12,10 @@ namespace DentisBooking.Data.Configurations
             builder.ToTable("Users");
             builder.HasKey(x=> x.Id);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.PasswordHash).IsRequired();
+            builder.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(15);
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Role).IsRequired();
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.Gender).IsRequired();
             builder.Property(x => x.Token).IsRequired();

@@ -14,14 +14,13 @@ namespace DentisBooking.Data.Entities
 
 
         public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Deleted_at { get; set; }
-        public Guid Created_by { get; set; }
-        public Guid Deleted_by { get; set; }
-        public Guid Updated_by { get; set; }
+        public DateTime? Updated_at { get; set; }
+        public DateTime? Deleted_at { get; set; }
+        public Guid? Created_by { get; set; }
+        public Guid? Deleted_by { get; set; }
+        public Guid? Updated_by { get; set; }
 
-        public AllCode Role { get; set; }
-        public AllCode Status { get; set; }
+        public Status Status { get; set; }
 
         //Realtionship
 
