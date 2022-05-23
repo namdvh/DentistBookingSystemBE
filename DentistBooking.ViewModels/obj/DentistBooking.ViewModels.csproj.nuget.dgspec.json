@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj": {}
+    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj": {}
   },
   "projects": {
-    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj": {
+    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
+        "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj",
         "projectName": "DentisBooking.Data",
-        "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
+        "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj",
         "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-        "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\obj\\",
+        "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,14 +82,14 @@
         }
       }
     },
-    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj": {
+    "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj",
+        "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj",
         "projectName": "DentistBooking.ViewModels",
-        "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj",
+        "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentistBooking.ViewModels\\DentistBooking.ViewModels.csproj",
         "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-        "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentistBooking.ViewModels\\obj\\",
+        "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentistBooking.ViewModels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -106,8 +106,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj": {
-                "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj"
+              "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj": {
+                "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj"
               }
             }
           }

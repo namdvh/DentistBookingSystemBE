@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ps4V7eaeo9MP5KNqnk3uLP0u/NPt/sJOYVcFO+bk6ChW00UIbWjUbFAQcqldNwwKOYn8yLyflh0UbJfKAF+iKw==",
+  "dgSpecHash": "SlK5Iv442Y46q6bOYk5V+m0BmJVB6U66MGohDQOItBTYspIPh9pDQ719suXHDN/PyHytn1k9bGCZScUoi32sEA==",
   "success": true,
-  "projectFilePath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Api\\DentisBooking.Api.csproj",
+  "projectFilePath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Api\\DentisBooking.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MSI\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\MSI\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",

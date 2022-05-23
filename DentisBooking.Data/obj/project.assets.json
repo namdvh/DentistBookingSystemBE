@@ -6023,11 +6023,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
+      "projectUniqueName": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj",
       "projectName": "DentisBooking.Data",
-      "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\DentisBooking.Data.csproj",
+      "projectPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\DentisBooking.Data.csproj",
       "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-      "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystem\\DentisBooking.Data\\obj\\",
+      "outputPath": "D:\\NET\\PRN211-Semester 7\\DentistBookingSystemBE\\DentisBooking.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
