@@ -14,13 +14,15 @@ namespace DentisBooking.Data.Configurations
 
             builder.Property(x => x.Note).HasMaxLength(300);
 
-            builder.HasOne(x => x.Booking)
-                   .WithMany(x => x.BookingDetail)
-                   .HasForeignKey(x => x.BookingId);
+            builder
+                .HasOne<Booking>(x => x.Booking)
+                .WithMany(x => x.BookingDetails)
+                .HasForeignKey(x => x.BookingId);
 
-            builder.HasOne(x => x.Service)
-                   .WithOne(x => x.BookingDetail)
-                   .HasForeignKey<BookingDetail>(x => x.ServiceId);
+            builder
+                .HasOne<Service>(x => x.Service)
+                .WithMany(x => x.BookingDetails)
+                .HasForeignKey(x => x.ServiceId);
 
             builder.Property(x => x.Created_at).HasDefaultValueSql("getutcdate()");
 
