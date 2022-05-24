@@ -18,6 +18,5 @@ namespace DentistBooking.ViewModels.System.Users
         public string PhoneNumber { get; set; }
         public string ConfirmPassword { get; set; }
         public string Gender { get; set; }
-        public IEnumerable<Status> Status { get; set; }
     }
 }
