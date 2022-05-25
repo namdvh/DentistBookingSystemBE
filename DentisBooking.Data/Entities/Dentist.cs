@@ -9,7 +9,7 @@ namespace DentisBooking.Data.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
         public string Token { get; set; }
         public Status Status { get; set; }
         public Position Position { get; set; }

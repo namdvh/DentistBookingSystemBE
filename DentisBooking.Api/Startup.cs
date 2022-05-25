@@ -17,8 +17,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using DentistBooking.ViewModels.System.Users;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using FluentValidation;
 
 namespace DentisBooking.Api
 {
@@ -51,6 +53,8 @@ namespace DentisBooking.Api
             services.AddScoped<RoleManager<Role>, RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
+            services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
 
             services.AddCors(o =>
             {
