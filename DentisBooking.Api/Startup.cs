@@ -1,14 +1,18 @@
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
+using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
+using DentistBooking.ViewModels.Pagination;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace DentisBooking.Api
 {
@@ -24,15 +28,22 @@ namespace DentisBooking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //DBcontext
             services.AddDbContext<DentistDBContext>(options => options.
             UseSqlServer(Configuration.GetConnectionString("DefaultDb")));
+
+
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();
+
             //Delcare DI
-            
             services.AddTransient<UserManager<User>,UserManager<User>>();
             services.AddTransient<SignInManager<User>,SignInManager<User>>();
             services.AddTransient<RoleManager<Role>,RoleManager<Role>>();
             services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IDentistService, DentistService>();
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddSwaggerGen(c =>

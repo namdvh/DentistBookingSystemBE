@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DentisBooking.Data\DentisBooking.Data.csproj" />
     <ProjectReference Include="..\DentistBooking.ViewModels\DentistBooking.ViewModels.csproj" />
   </ItemGroup>
