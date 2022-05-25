@@ -46,20 +46,18 @@ namespace DentisBooking.Api
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();
 
             //Delcare DI
-            services.AddScoped<UserManager<User>,UserManager<User>>();
-            services.AddScoped<SignInManager<User>,SignInManager<User>>();
-            services.AddScoped<RoleManager<Role>,RoleManager<Role>>();
+            services.AddScoped<UserManager<User>, UserManager<User>>();
+            services.AddScoped<SignInManager<User>, SignInManager<User>>();
+            services.AddScoped<RoleManager<Role>, RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
-            
-            services.AddCors(options =>
+
+            services.AddCors(o =>
             {
-                options.AddPolicy(
-                    name: MyAllowSpecificOrigins
-                    , policy =>
-                {
-                    policy.WithOrigins("https://localhost:4000/").AllowAnyMethod().AllowAnyHeader();
-                });
+                o.AddPolicy("MyPolicy", builder =>
+            builder.WithOrigins("https://localhost:4000")
+                       .AllowAnyMethod()
+                       .AllowAnyHeader());
             });
             services.AddScoped<IClinicService, ClinicService>();
             services.AddControllers();
@@ -93,7 +91,7 @@ namespace DentisBooking.Api
                         },
                         new List<string>()
                       }
-                    }) ;
+                    });
             });
             string issuer = Configuration.GetValue<string>("Tokens:Issuer");
             string signingKey = Configuration.GetValue<string>("Tokens:Key");
@@ -133,10 +131,10 @@ namespace DentisBooking.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
 
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors("MyPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -25,10 +25,14 @@ namespace DentisBooking.Api.Controllers
                 return BadRequest(ModelState);
             }
             var token=await _userService.Authenticate(request);
-            if(token==null) {
-                return BadRequest("Username or Password is Incorrect");
+            if(token==null){
+                return Ok(new
+                {
+                    code = 400,
+                    Message = "Username or Password is Incorrect"
+                });
             }
-            return Ok(new { token =token});
+            return Ok(token);
         }
         [HttpPost("register")]
         [AllowAnonymous]
