@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BokkingDentist.Constant\BokkingDentist.Constant.csproj" />
     <ProjectReference Include="..\DentisBooking.Data\DentisBooking.Data.csproj" />
     <ProjectReference Include="..\DentistBooking.Application\DentistBooking.Application.csproj" />
   </ItemGroup>

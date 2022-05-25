@@ -24,11 +24,11 @@ namespace DentisBooking.Api.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
-            var rsToken=await _userService.Authenticate(request);
-            if(string.IsNullOrEmpty(rsToken)) {
+            var token=await _userService.Authenticate(request);
+            if(token==null) {
                 return BadRequest("Username or Password is Incorrect");
             }
-            return Ok(new { token =rsToken });
+            return Ok(new { token =token});
         }
         [HttpPost("register")]
         [AllowAnonymous]

@@ -1,3 +1,4 @@
+using BokkingDentist.Constant;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Dentists;
@@ -16,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace DentisBooking.Api
 {
@@ -36,7 +38,7 @@ namespace DentisBooking.Api
 
             //DBcontext
             services.AddDbContext<DentistDBContext>(options => options.
-            UseSqlServer(Configuration.GetConnectionString("DefaultDb")));
+            UseSqlServer(Configuration.GetConnectionString(SystemsConstant.MainConnectionString)));
 
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();

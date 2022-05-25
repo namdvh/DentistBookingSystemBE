@@ -1,4 +1,5 @@
-﻿using DentistBooking.ViewModels.System.Users;
+﻿using DentistBooking.Application.NewFolder;
+using DentistBooking.ViewModels.System.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DentistBooking.Application.System.Users
 {
     public interface IUserService
     {
-        Task<string> Authenticate(LoginRequest request);
+        Task<Token> Authenticate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
 
     }
