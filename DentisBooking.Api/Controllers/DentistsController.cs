@@ -4,7 +4,6 @@ using DentistBooking.ViewModels.System.Dentists;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Web.Http.Description;
 
 namespace DentisBooking.Api.Controllers
 {
@@ -20,7 +19,6 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpGet]
-        [ResponseType(typeof(DentistResponse))]
         public async Task<IActionResult> GetAllDentitst([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);

@@ -42,6 +42,7 @@ namespace DentistBooking.Application.System.Users
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Name,user.Email),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
             };
