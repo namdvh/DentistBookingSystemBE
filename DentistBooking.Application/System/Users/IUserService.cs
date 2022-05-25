@@ -1,4 +1,4 @@
-﻿using DentistBooking.Application.NewFolder;
+﻿using DentistBooking.Application.ClaimTokens;
 using DentistBooking.ViewModels.System.Users;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using DentisBooking.Data.Entities;
 using DentisBooking.Data.Enum;
-using DentistBooking.Application.NewFolder;
+using DentistBooking.Application.ClaimTokens;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
