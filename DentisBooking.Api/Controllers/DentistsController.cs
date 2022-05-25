@@ -2,7 +2,6 @@
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Dentists;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Web.Http.Description;
