@@ -8,12 +8,12 @@ namespace DentistBooking.Application.NewFolder
 {
     public class Token
     {
-        public string Tokens { get; set; }
-        public string AccessTokens { get; set; }
-        public Token(string tokens,string accessTokens)
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public Token(string accessToken, string refreshToken)
         {
-            Tokens = tokens;
-            AccessTokens = accessTokens;
+            AccessToken = accessToken;
+            RefreshToken = refreshToken;
         }
     }
 }

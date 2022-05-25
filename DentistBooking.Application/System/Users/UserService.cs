@@ -47,18 +47,18 @@ namespace DentistBooking.Application.System.Users
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: creds);
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddHours(4),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds);
-            var ReturnToken=new JwtSecurityTokenHandler().WriteToken(token);
-            var ReturnAccessToken=new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: creds);
+            var ReturnToken=new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            var ReturnAccessToken=new JwtSecurityTokenHandler().WriteToken(refreshtoken);
             return new Token(ReturnToken, ReturnAccessToken);
         }
 
