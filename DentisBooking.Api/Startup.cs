@@ -57,7 +57,8 @@ namespace DentisBooking.Api
                 o.AddPolicy("MyPolicy", builder =>
             builder.WithOrigins("https://localhost:4000")
                        .AllowAnyMethod()
-                       .AllowAnyHeader());
+                       .AllowAnyHeader()
+                       .AllowCredentials());
             });
             services.AddScoped<IClinicService, ClinicService>();
             services.AddControllers();
