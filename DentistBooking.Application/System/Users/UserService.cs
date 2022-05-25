@@ -51,6 +51,11 @@ namespace DentistBooking.Application.System.Users
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
+            var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddHours(4),
+                signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
