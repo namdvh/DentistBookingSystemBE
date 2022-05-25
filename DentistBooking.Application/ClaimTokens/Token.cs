@@ -13,7 +13,7 @@ namespace DentistBooking.Application.NewFolder
         public Token(string tokens,string accessTokens)
         {
             Tokens = tokens;
-
+            AccessTokens = accessTokens;
         }
     }
 }

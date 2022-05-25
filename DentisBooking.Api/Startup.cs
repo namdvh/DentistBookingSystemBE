@@ -1,3 +1,4 @@
+using BokkingDentist.Constant;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
@@ -17,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace DentisBooking.Api
 {
@@ -37,16 +39,16 @@ namespace DentisBooking.Api
 
             //DBcontext
             services.AddDbContext<DentistDBContext>(options => options.
-            UseSqlServer(Configuration.GetConnectionString("DefaultDb")));
+            UseSqlServer(Configuration.GetConnectionString(SystemsConstant.MainConnectionString)));
 
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();
 
             //Delcare DI
-            services.AddTransient<UserManager<User>,UserManager<User>>();
-            services.AddTransient<SignInManager<User>,SignInManager<User>>();
-            services.AddTransient<RoleManager<Role>,RoleManager<Role>>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddScoped<UserManager<User>,UserManager<User>>();
+            services.AddScoped<SignInManager<User>,SignInManager<User>>();
+            services.AddScoped<RoleManager<Role>,RoleManager<Role>>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddControllers();

@@ -20,15 +20,15 @@ namespace DentisBooking.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody]LoginRequest request)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            var rsToken=await _userService.Authenticate(request);
-            if(string.IsNullOrEmpty(rsToken)) {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var token=await _userService.Authenticate(request);
+            if(token==null) {
                 return BadRequest("Username or Password is Incorrect");
             }
-            return Ok(new { token =rsToken });
+            return Ok(new { token =token});
         }
         [HttpPost("register")]
         [AllowAnonymous]

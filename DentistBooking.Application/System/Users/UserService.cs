@@ -1,5 +1,6 @@
 ﻿using DentisBooking.Data.Entities;
 using DentisBooking.Data.Enum;
+using DentistBooking.Application.NewFolder;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -25,9 +26,9 @@ namespace DentistBooking.Application.System.Users
             _roleManager = roleManager;
             _config = config;
         }
-        public async Task<string> Authenticate(LoginRequest request)
+        public async Task<Token> Authenticate(LoginRequest request)
         {
-            var user=await _userService.FindByNameAsync(request.UserName);
+            var user = await _userService.FindByNameAsync(request.UserName);
             if (user == null)
             {
                 return null;
@@ -37,7 +38,7 @@ namespace DentistBooking.Application.System.Users
             {
                 return null;
             }
-            var roles =await _userService.GetRolesAsync(user); 
+            var roles = await _userService.GetRolesAsync(user);
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
@@ -56,8 +57,11 @@ namespace DentistBooking.Application.System.Users
                 claims,
                 expires: DateTime.Now.AddHours(4),
                 signingCredentials: creds);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var ReturnToken=new JwtSecurityTokenHandler().WriteToken(token);
+            var ReturnAccessToken=new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            return new Token(ReturnToken, ReturnAccessToken);
         }
+
 
         public async Task<bool> Register(RegisterRequest request)
         {
