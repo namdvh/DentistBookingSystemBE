@@ -1,6 +1,7 @@
 using BokkingDentist.Constant;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
+using DentistBooking.Application.System.Clinics;
 using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
 using DentistBooking.ViewModels.Pagination;
@@ -49,6 +50,7 @@ namespace DentisBooking.Api
             services.AddScoped<RoleManager<Role>,RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
+            services.AddScoped<IClinicService, ClinicService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
