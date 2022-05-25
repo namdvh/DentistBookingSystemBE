@@ -24,6 +24,7 @@ namespace DentisBooking.Api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,6 +51,16 @@ namespace DentisBooking.Api
             services.AddScoped<RoleManager<Role>,RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: MyAllowSpecificOrigins
+                    , policy =>
+                {
+                    policy.WithOrigins("https://localhost:4000/").AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddScoped<IClinicService, ClinicService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -125,7 +136,7 @@ namespace DentisBooking.Api
             app.UseAuthentication();
 
             app.UseRouting();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

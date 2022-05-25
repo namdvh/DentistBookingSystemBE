@@ -1,6 +1,7 @@
 ﻿using DentistBooking.Application.System.Dentists;
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Dentists;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace DentisBooking.Api.Controllers
 {
     [Route("api/dentists")]
     [ApiController]
+    [Authorize]
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
