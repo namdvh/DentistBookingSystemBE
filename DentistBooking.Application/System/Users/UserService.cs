@@ -68,13 +68,12 @@ namespace DentistBooking.Application.System.Users
         public async Task<RegisterResponse> Register(RegisterRequest request)
         {
             RegisterResponse response = new RegisterResponse();
-
+            response.Messages = new();
             RegisterRequestValidator validator = new RegisterRequestValidator();
             ValidationResult results = validator.Validate(request);
-
             if (!results.IsValid)
             {
-                response.Messages = new();
+                
                 response.Content = null;
                 response.Code = "200";
                 foreach (var failure in results.Errors)
