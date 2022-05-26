@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace DentistBooking.Application.System.Dentists
 {
@@ -28,8 +29,18 @@ namespace DentistBooking.Application.System.Dentists
             DentistResponse response = new();
             PaginationDTO paginationDTO = new();
 
+            var sortBy = filter.SortBy;
+            string sort = null;
+
+            if(sortBy ==1 )
+            {
+                sort = "descending";
+            }else if (sortBy == -1)
+            {
+                sort = "ascending";
+            }
             var pagedData = await _context.Dentists
-                    .OrderBy(x=>x.Created_at)
+                    .OrderBy(filter.OrderBy +" "+ sort)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();

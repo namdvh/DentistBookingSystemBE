@@ -1,5 +1,6 @@
 ﻿using DentisBooking.Data.Entities;
 using DentisBooking.Data.Enum;
+using DentistBooking.Application.ClaimTokens;
 using DentistBooking.Application.NewFolder;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
@@ -64,64 +65,79 @@ namespace DentistBooking.Application.System.Users
             return new Token(ReturnToken, ReturnAccessToken);
         }
 
-        public async Task<Token> RefreshToken(Token token)
+        public async Task<RefreshTokenResponse> RefreshToken(Token token)
         {
+            RefreshTokenResponse response = new RefreshTokenResponse();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            if (token == null)
+            string refreshToken = token.RefreshToken;
+            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
+
+            if (token is null)
             {
                 //return
+                response.Code = "403";
+                response.Message = "Invalid token";
             }
-            string? accessToken = token.AccessToken;
-            string? refreshToken = token.RefreshToken;
-
-            var principal = GetPrincipalFromExpiredToken(accessToken);
-
-            //False information from token
-            if (principal == null)
+            if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
             {
-                //
+                response.Code = "403";
+                response.Message = "Expired token";
             }
-
-            string username = principal.Identity.Name;
-
-            var user = await _userService.FindByNameAsync(username);
-
-            if (user == null)
+            else
             {
-                //also need to validate with refresh token from cookie and accesstoken
-            }
-            var roles = await _userService.GetRolesAsync(user);
-            var claims = new[]
-            {
+
+                var principal = GetPrincipalFromExpiredToken(refreshToken);
+
+                //False information from token
+                //if (principal == null)
+                //{
+                //    //
+                //}
+
+                string username = principal.Identity.Name;
+
+                var user = await _userService.FindByNameAsync(username);
+
+                if (user == null)
+                {
+                    //also need to validate with refresh token from cookie and accesstoken
+                }
+                var roles = await _userService.GetRolesAsync(user);
+                var claims = new[]
+                {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
-            var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds);
+                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddHours(1),
+                    signingCredentials: creds);
 
-            var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddDays(7),
-                signingCredentials: creds);
+                //var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                //    _config["Tokens:Issuer"],
+                //    claims,
+                //    expires: DateTime.Now.AddDays(7),
+                //    signingCredentials: creds);
 
-            var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            var ReturnAccessToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
-
-            return new Token(ReturnToken, ReturnAccessToken);
+                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+                response.Token = newAccessToken;
+                response.Code = "200";
+                response.Message = "Generate new token successfully";
+            }
+            return response;
 
         }
 
-        private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
 
         {
             string issuer = _config.GetValue<string>("Tokens:Issuer");
@@ -143,7 +159,7 @@ namespace DentistBooking.Application.System.Users
                 ValidAudience = issuer,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ClockSkew =TimeSpan.Zero,
+                ClockSkew = TimeSpan.Zero,
                 IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
             };
 

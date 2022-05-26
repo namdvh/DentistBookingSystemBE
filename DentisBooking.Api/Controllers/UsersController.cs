@@ -51,8 +51,8 @@ namespace DentisBooking.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("refresh")]
+        [HttpPost("refresh")]
+        [AllowAnonymous]
         public async Task<IActionResult> RefreshToken([FromBody] Token tokenModel)
         {
             var rs = await _userService.RefreshToken(tokenModel);
