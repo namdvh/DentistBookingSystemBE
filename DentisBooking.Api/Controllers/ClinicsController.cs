@@ -19,7 +19,7 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize,filter.OrderBy,filter.SortBy);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter.OrderBy, filter.SortBy);
             ClinicResponse result = await _clinicService.GetClinicList(validFilter);
             return Ok(result);
         }
