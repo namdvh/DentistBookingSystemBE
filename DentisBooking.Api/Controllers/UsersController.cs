@@ -1,4 +1,5 @@
-﻿using DentistBooking.Application.System.Users;
+﻿using DentistBooking.Application.NewFolder;
+using DentistBooking.Application.System.Users;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +49,15 @@ namespace DentisBooking.Api.Controllers
                 return BadRequest("Register unsuccessfull");
             }
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] Token tokenModel)
+        {
+            var rs = await _userService.RefreshToken(tokenModel);
+
+            return Ok(rs);
         }
     }
 }

@@ -12,6 +12,6 @@ namespace DentistBooking.Application.System.Users
     {
         Task<Token> Authenticate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
-
+        Task<Token> RefreshToken(Token token);
     }
 }
