@@ -11,7 +11,7 @@ namespace DentistBooking.Application.System.Users
     public interface IUserService
     {
         Task<Token> Authenticate(LoginRequest request);
-        Task<bool> Register(RegisterRequest request);
+        Task<RegisterResponse> Register(RegisterRequest request);
 
     }
 }

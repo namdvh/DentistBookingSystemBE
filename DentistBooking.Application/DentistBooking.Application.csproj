@@ -1,20 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Catalog\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Catalog\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DentisBooking.Data\DentisBooking.Data.csproj" />
-    <ProjectReference Include="..\DentistBooking.ViewModels\DentistBooking.ViewModels.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DentisBooking.Data\DentisBooking.Data.csproj" />
+		<ProjectReference Include="..\DentistBooking.ViewModels\DentistBooking.ViewModels.csproj" />
+	</ItemGroup>
 
 </Project>

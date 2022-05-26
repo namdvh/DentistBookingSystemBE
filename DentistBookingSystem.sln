@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DentistBooking.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DentistBooking.ViewModels", "DentistBooking.ViewModels\DentistBooking.ViewModels.csproj", "{CC3D1570-3E33-465B-93A8-369294976E33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BokkingDentist.Constant", "BokkingDentist.Constant\BokkingDentist.Constant.csproj", "{61209CBC-4E3F-42D1-BC1F-530A5E91D291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BokkingDentist.Constant", "BokkingDentist.Constant\BokkingDentist.Constant.csproj", "{61209CBC-4E3F-42D1-BC1F-530A5E91D291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,20 +19,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D1E783-01E4-4ECC-8480-9BC9D7CE5BB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68FD562E-EA77-4842-9982-42C9DFE5532F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0F4302D-0E75-427D-9B71-425AC1DB4D99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC3D1570-3E33-465B-93A8-369294976E33}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{CC3D1570-3E33-465B-93A8-369294976E33}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{CC3D1570-3E33-465B-93A8-369294976E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3D1570-3E33-465B-93A8-369294976E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC3D1570-3E33-465B-93A8-369294976E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC3D1570-3E33-465B-93A8-369294976E33}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61209CBC-4E3F-42D1-BC1F-530A5E91D291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

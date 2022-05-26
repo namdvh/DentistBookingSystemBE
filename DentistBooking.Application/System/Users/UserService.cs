@@ -9,6 +9,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using FluentValidation.Results;
 using System.Threading.Tasks;
 
 namespace DentistBooking.Application.System.Users
@@ -64,25 +65,54 @@ namespace DentistBooking.Application.System.Users
         }
 
 
-        public async Task<bool> Register(RegisterRequest request)
+        public async Task<RegisterResponse> Register(RegisterRequest request)
         {
-            var user = new User()
+            RegisterResponse response = new RegisterResponse();
+
+            RegisterRequestValidator validator = new RegisterRequestValidator();
+            ValidationResult results = validator.Validate(request);
+
+            if (!results.IsValid)
             {
-                DOB=request.DOB,
-                Email=request.Email,
-                FirstName=request.FirstName,
-                LastName=request.LastName,
-                UserName=request.UserName,
-                PhoneNumber=request.PhoneNumber,
-                Status=Status.ACTIVE,
-                Gender=request.Gender,
-            };
-            var rs=await _userService.CreateAsync(user,request.Password);
-            if (rs.Succeeded)
-            {
-                return true;
+                response.Messages = new();
+                response.Content = null;
+                response.Code = "200";
+                foreach (var failure in results.Errors)
+                {
+                    response.Messages.Add(failure.ErrorMessage.ToString());
+                }
+                return response;
             }
-            return false;
+            else
+            {
+                var user = new User()
+                {
+                    DOB = request.DOB,
+                    Email = request.Email,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    UserName = request.UserName,
+                    PhoneNumber = request.PhoneNumber,
+                    Status = Status.ACTIVE,
+                    Gender = request.Gender,
+                };
+
+                var rs = await _userService.CreateAsync(user, request.Password);
+                if (rs.Succeeded)
+                {
+                    response.Content = user;
+                    response.Code = "200";
+                    response.Messages.Add("Regist successfully");
+
+                    return response;
+                }
+                response.Content = null;
+                response.Code = "200";
+                response.Messages.Add("Regist failed");
+
+                return response;
+            }
+
         }
     }
 }
