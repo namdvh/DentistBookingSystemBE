@@ -21,7 +21,7 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDentitst([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize,filter.OrderBy,filter.SortBy);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize,filter._order,filter._by);
             DentistResponse result = await _dentistService.GetDentistList(validFilter);
             return Ok(result);
         }

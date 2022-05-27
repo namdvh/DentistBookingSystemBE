@@ -29,17 +29,17 @@ namespace DentistBooking.Application.System.Dentists
             DentistResponse response = new();
             PaginationDTO paginationDTO = new();
 
-            string sortBy = filter.SortBy.ToString();
+            string sortBy = filter._by.ToString();
 
-            if(sortBy == "1" )
+            if(sortBy.Equals("1") )
             {
                 sortBy = "descending";
-            }else if (sortBy == "-1")
+            }else if (sortBy.Equals("-1"))
             {
                 sortBy = "ascending";
             }
             var pagedData = await _context.Dentists
-                    .OrderBy(filter.OrderBy +" "+ sortBy)
+                    .OrderBy(filter._order + " "+ sortBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
