@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace DentistBooking.Application.System.Dentists
 {
@@ -28,8 +29,18 @@ namespace DentistBooking.Application.System.Dentists
             DentistResponse response = new();
             PaginationDTO paginationDTO = new();
 
+            string orderBy = filter._order.ToString();
+
+            if (orderBy.Equals("1"))
+            {
+                orderBy = "descending";
+            }
+            else if (orderBy.Equals("-1"))
+            {
+                orderBy = "ascending";
+            }
             var pagedData = await _context.Dentists
-                    .OrderBy(x=>x.Created_at)
+                    .OrderBy(filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
@@ -40,7 +51,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 response.Content = null;
                 response.Code = "200";
-                response.Message = "There aren't any dentist in DB";
+                response.Message = "There aren't any dentists in DB";
             }
             else
             {

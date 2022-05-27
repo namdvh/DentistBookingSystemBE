@@ -43,10 +43,11 @@ namespace DentistBooking.Application.System.Users
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name,user.Email),
+                new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
@@ -59,10 +60,116 @@ namespace DentistBooking.Application.System.Users
                 claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds);
-            var ReturnToken=new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            var ReturnAccessToken=new JwtSecurityTokenHandler().WriteToken(refreshtoken);
+            var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            var ReturnAccessToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
             return new Token(ReturnToken, ReturnAccessToken);
         }
+
+        public async Task<RefreshTokenResponse> RefreshToken(Token token)
+        {
+            RefreshTokenResponse response = new RefreshTokenResponse();
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            string refreshToken = token.RefreshToken;
+            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
+
+            if (token is null)
+            {
+                //return
+                response.Code = "403";
+                response.Message = "Invalid token";
+            }
+            if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            {
+                response.Code = "403";
+                response.Message = "Expired token";
+            }
+            else
+            {
+
+                var principal = GetPrincipalFromExpiredToken(refreshToken);
+
+                //False information from token
+                //if (principal == null)
+                //{
+                //    //
+                //}
+
+                string username = principal.Identity.Name;
+
+                var user = await _userService.FindByNameAsync(username);
+
+                if (user == null)
+                {
+                    //also need to validate with refresh token from cookie and accesstoken
+                }
+                var roles = await _userService.GetRolesAsync(user);
+                var claims = new[]
+                {
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Name,user.UserName),
+                new Claim(ClaimTypes.Name,user.FirstName),
+                new Claim(ClaimTypes.Role,string.Join(";",roles))
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+
+                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddHours(1),
+                    signingCredentials: creds);
+
+                //var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                //    _config["Tokens:Issuer"],
+                //    claims,
+                //    expires: DateTime.Now.AddDays(7),
+                //    signingCredentials: creds);
+
+                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+                response.Token = newAccessToken;
+                response.Code = "200";
+                response.Message = "Generate new token successfully";
+            }
+            return response;
+
+        }
+
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+
+        {
+            string issuer = _config.GetValue<string>("Tokens:Issuer");
+            string signingKey = _config.GetValue<string>("Tokens:Key");
+            byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            //TokenValidationParameters validationParameters = new TokenValidationParameters();
+            //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+
+
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = issuer,
+                ValidateAudience = true,
+                ValidAudience = issuer,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero,
+                IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
+            };
+
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+
+
+            return principal;
+
+        }
+
 
 
         public async Task<RegisterResponse> Register(RegisterRequest request)
@@ -111,7 +218,6 @@ namespace DentistBooking.Application.System.Users
 
                 return response;
             }
-
-        }
+         }
     }
 }

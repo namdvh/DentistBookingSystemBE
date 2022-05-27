@@ -1,6 +1,7 @@
 ﻿using DentistBooking.Application.System.Clinics;
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Clinics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
             ClinicResponse result = await _clinicService.GetClinicList(validFilter);
             return Ok(result);
         }
