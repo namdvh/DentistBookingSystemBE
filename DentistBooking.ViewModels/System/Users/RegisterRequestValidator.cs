@@ -19,7 +19,7 @@ namespace DentistBooking.ViewModels.System.Users
             RuleFor(x => x.FirstName).NotNull().NotEmpty().WithMessage("First name is required!");
             RuleFor(x => x.LastName).NotNull().NotEmpty().WithMessage("First name is required!");
             RuleFor(x => x.DOB).NotNull().NotEmpty().WithMessage("Date of birth is required!").GreaterThan(DateTime.MinValue).WithMessage("Date of birth must greater than min value!");
-            RuleFor(x => x.Gender).NotNull().NotEmpty().WithMessage("Gender is required!").IsInEnum().WithMessage("Gender must be MALE or FEMALE!");
+            RuleFor(x => x.Gender).IsInEnum<RegisterRequest,Gender>().WithMessage("Gender is required!").IsInEnum().WithMessage("Gender must be MALE or FEMALE!");
 
         }
     }
