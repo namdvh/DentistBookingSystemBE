@@ -1,4 +1,5 @@
-﻿using DentistBooking.Application.ClaimTokens;
+﻿using DentisBooking.Data.Entities;
+using DentistBooking.Application.ClaimTokens;
 using DentistBooking.ViewModels.System.Users;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace DentistBooking.Application.System.Users
     {
         Task<Token> Authenticate(LoginRequest request);
         Task<RefreshTokenResponse> RefreshToken(Token token);
+        Task<PrivateRouteResponse> GetProfile(Token token);
         Task<RegisterResponse> Register(RegisterRequest request);
     }
 }

@@ -1,4 +1,4 @@
-﻿using DentistBooking.Application.NewFolder;
+﻿using DentistBooking.Application.ClaimTokens;
 using DentistBooking.Application.System.Users;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -52,6 +52,15 @@ namespace DentisBooking.Api.Controllers
         public async Task<IActionResult> RefreshToken([FromBody] Token tokenModel)
         {
             var rs = await _userService.RefreshToken(tokenModel);
+
+            return Ok(rs);
+        }
+        
+        [HttpPost("private-route")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetProfile([FromBody] Token tokenModel)
+        {
+            var rs = await _userService.GetProfile(tokenModel);
 
             return Ok(rs);
         }

@@ -219,5 +219,51 @@ namespace DentistBooking.Application.System.Users
                 return response;
             }
          }
+
+        public async Task<PrivateRouteResponse> GetProfile(Token token)
+        {
+            PrivateRouteResponse response = new PrivateRouteResponse();
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            string refreshToken = token.RefreshToken;
+            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
+
+            if (token is null)
+            {
+                //return
+                response.User = null;
+                response.Role = "unknown";
+                response.Code = "403";
+                response.Message = "Invalid token";
+            }
+            if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            {
+                response.User = null;
+                response.Role = "unknown";
+                response.Code = "403";
+                response.Message = "Expired token";
+            }
+            else
+            {
+
+                var principal = GetPrincipalFromExpiredToken(refreshToken);
+
+                string username = principal.Identity.Name;
+
+                response.User = await _userService.FindByNameAsync(username);
+
+                if (response.User == null)
+                {
+                    //also need to validate with refresh token from cookie and accesstoken
+                }
+                var roles = await _userService.GetRolesAsync(response.User);
+                response.Role = string.Join(";", roles);
+               
+                response.Code = "200";
+                response.Message = "Generate new token successfully";
+            }
+            return response;
+
+        }
     }
 }
