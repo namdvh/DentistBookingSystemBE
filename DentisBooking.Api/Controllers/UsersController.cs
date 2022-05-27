@@ -1,8 +1,7 @@
-﻿using DentistBooking.Application.NewFolder;
+﻿using DentistBooking.Application.ClaimTokens;
 using DentistBooking.Application.System.Users;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

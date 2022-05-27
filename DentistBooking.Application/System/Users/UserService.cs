@@ -75,7 +75,6 @@ namespace DentistBooking.Application.System.Users
 
             if (token is null)
             {
-                //return
                 response.Code = "403";
                 response.Message = "Invalid token";
             }
