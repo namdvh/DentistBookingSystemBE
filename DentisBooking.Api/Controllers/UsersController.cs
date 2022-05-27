@@ -43,12 +43,8 @@ namespace DentisBooking.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var rs = await _userService.Register(request);
-            if (!rs)
-            {
-                return BadRequest("Register unsuccessfull");
-            }
-            return Ok();
+            RegisterResponse rs = await _userService.Register(request);
+            return Ok(rs);
         }
 
         [HttpPost("refresh")]

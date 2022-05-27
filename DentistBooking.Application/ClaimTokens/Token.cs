@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DentistBooking.Application.NewFolder
+namespace DentistBooking.Application.ClaimTokens
 {
     public class Token
     {
