@@ -29,17 +29,18 @@ namespace DentistBooking.Application.System.Dentists
             DentistResponse response = new();
             PaginationDTO paginationDTO = new();
 
-            string sortBy = filter._by.ToString();
+            string orderBy = filter._order.ToString();
 
-            if(sortBy.Equals("1") )
+            if (orderBy.Equals("1"))
             {
-                sortBy = "descending";
-            }else if (sortBy.Equals("-1"))
+                orderBy = "descending";
+            }
+            else if (orderBy.Equals("-1"))
             {
-                sortBy = "ascending";
+                orderBy = "ascending";
             }
             var pagedData = await _context.Dentists
-                    .OrderBy(filter._order + " "+ sortBy)
+                    .OrderBy(filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
@@ -50,7 +51,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 response.Content = null;
                 response.Code = "200";
-                response.Message = "There aren't any dentist in DB";
+                response.Message = "There aren't any dentists in DB";
             }
             else
             {

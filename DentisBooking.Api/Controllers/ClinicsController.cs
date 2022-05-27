@@ -9,7 +9,6 @@ namespace DentisBooking.Api.Controllers
 {
     [Route("api/clinics")]
     [ApiController]
-    [Authorize]
     public class ClinicsController : ControllerBase
     {
         private readonly IClinicService _clinicService;
@@ -21,7 +20,7 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._order, filter._by);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
             ClinicResponse result = await _clinicService.GetClinicList(validFilter);
             return Ok(result);
         }

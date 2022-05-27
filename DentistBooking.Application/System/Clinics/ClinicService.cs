@@ -30,18 +30,18 @@ namespace DentistBooking.Application.System.Clinics
             ClinicResponse response = new();
             PaginationDTO paginationDTO = new();
 
-            string sortBy = filter._by.ToString();
+            string orderBy = filter._order.ToString();
 
-            if (sortBy.Equals("1"))
+            if (orderBy.Equals("1"))
             {
-                sortBy = "descending";
+                orderBy = "descending";
             }
-            else if (sortBy.Equals("-1"))
+            else if (orderBy.Equals("-1"))
             {
-                sortBy = "ascending";
+                orderBy = "ascending";
             }
             var pagedData = await _context.Clinics
-                    .OrderBy(filter._order + " " + sortBy)
+                    .OrderBy(filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
