@@ -15,5 +15,9 @@ namespace DentistBooking.Application.ClaimTokens
             AccessToken = accessToken;
             RefreshToken = refreshToken;
         }
+        public Token()
+        {
+
+        }
     }
 }
