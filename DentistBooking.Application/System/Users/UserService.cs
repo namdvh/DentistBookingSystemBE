@@ -53,12 +53,12 @@ namespace DentistBooking.Application.System.Users
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddSeconds(1),
+                expires: DateTime.Now.AddSeconds(5),
                 signingCredentials: creds);
             var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddSeconds(5),
+                expires: DateTime.Now.AddSeconds(10),
                 signingCredentials: creds);
             var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
             var ReturnRFToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
@@ -169,6 +169,8 @@ namespace DentistBooking.Application.System.Users
             catch (SecurityTokenExpiredException ex)
             {
                 Console.WriteLine(ex.Message);
+            }catch(SecurityTokenInvalidSignatureException e){
+                Console.WriteLine(e.Message);
             }
             return principal;
 
