@@ -6,6 +6,7 @@ using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
 using DentistBooking.ViewModels.System.Users;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,12 @@ namespace DentisBooking.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Users/authenticate/";
+                    options.AccessDeniedPath = "/Users/Forbidden/";
+                });
             //Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

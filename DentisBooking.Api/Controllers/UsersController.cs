@@ -53,27 +53,20 @@ namespace DentisBooking.Api.Controllers
             DentistResponse response = new DentistResponse();
             try
             {
-            var userPrincipalac = this.ValidateToken(token.AccessToken);
-
+                var userPrincipalac = this.ValidateToken(token.AccessToken);
+                var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddSeconds(5),
+                    IsPersistent = true,
+                    AllowRefresh = true,
+                };
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalac, authProperties);
             }
             catch (Exception)
             {
-
                 response.Code = "400";
                 return Ok(response);
             }
-
-
-
-            var userPrincipalrf = this.ValidateToken(token.RefreshToken);
-            var authProperties = new AuthenticationProperties
-            {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddSeconds(5),
-                IsPersistent = true,
-                AllowRefresh = true,
-            };
-            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalac, authProperties);
-            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalrf, authProperties);
             return Ok(token);
         }
         [HttpPost("register")]
@@ -100,8 +93,6 @@ namespace DentisBooking.Api.Controllers
         {
             IdentityModelEventSource.ShowPII = true;
 
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0aGluaEBmcHQuZWR1LnZuIiwiaHR0cDovL3NjaGVtasMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6WyJ0aGluaCIsIlRIaW5oIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IiIsImV4cCI6MTY1MzczMzkyOSwiaXNzIjoiaHR0cHM6Ly9EZW50aXN0Qm9va2luZy5jb20udm4iLCJhdWQiOiJodHRwczovL0RlbnRpc3RCb29raW5nLmNvbS52biJ9.p-LVcOzybm4kplJdVYFt77_KXyiXrDgoFfqDqOOhQM0";
-
             SecurityToken validatedToken;
             TokenValidationParameters validationParameters = new TokenValidationParameters();
 
@@ -111,7 +102,7 @@ namespace DentisBooking.Api.Controllers
             validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
             validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             ClaimsPrincipal principal;
-               principal = new JwtSecurityTokenHandler().ValidateToken(token, validationParameters, out validatedToken);
+               principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
 
             return principal;
         }

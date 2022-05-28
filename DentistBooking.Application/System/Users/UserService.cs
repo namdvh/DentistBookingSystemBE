@@ -53,7 +53,7 @@ namespace DentistBooking.Application.System.Users
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddSeconds(30),
                 signingCredentials: creds);
             var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
@@ -61,9 +61,14 @@ namespace DentistBooking.Application.System.Users
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds);
             var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            var ReturnAccessToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
-            return new Token(ReturnToken, ReturnAccessToken);
+            var ReturnRFToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
+            //save rf token to db
+            user.Token = ReturnRFToken;
+            user.RefreshTokenExpiryTime = refreshtoken.ValidTo;
+            await _userService.UpdateAsync(user);
+            return new Token(ReturnToken, ReturnRFToken);
         }
+
 
         public async Task<RefreshTokenResponse> RefreshToken(Token token)
         {
@@ -78,62 +83,56 @@ namespace DentistBooking.Application.System.Users
                 response.Code = "403";
                 response.Message = "Invalid token";
             }
-            if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            //{
+            //    response.Code = "403";
+            //    response.Message = "Expired token";
+            //}
+            var principal = GetPrincipalFromExpiredToken(refreshToken);
+            string username = principal.Identity.Name;
+            var user = await _userService.FindByNameAsync(username);
+
+            if (user == null || user.Token != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
             {
-                response.Code = "403";
-                response.Message = "Expired token";
+                response.Code = "401";
+                response.Message = "Expired Token";
+                response.AccessToken = "";
+                response.RefreshToken = "";
+                return response;
             }
-            else
+            var roles = await _userService.GetRolesAsync(user);
+            var claims = new[]
             {
-
-                var principal = GetPrincipalFromExpiredToken(refreshToken);
-
-                //False information from token
-                //if (principal == null)
-                //{
-                //    //
-                //}
-
-                string username = principal.Identity.Name;
-
-                var user = await _userService.FindByNameAsync(username);
-
-                if (user == null)
-                {
-                    //also need to validate with refresh token from cookie and accesstoken
-                }
-                var roles = await _userService.GetRolesAsync(user);
-                var claims = new[]
-                {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
                 };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
-                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                    _config["Tokens:Issuer"],
-                    claims,
-                    expires: DateTime.Now.AddHours(1),
-                    signingCredentials: creds);
-
-                //var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                //    _config["Tokens:Issuer"],
-                //    claims,
-                //    expires: DateTime.Now.AddDays(7),
-                //    signingCredentials: creds);
-
-                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-                response.Token = newAccessToken;
-                response.Code = "200";
-                response.Message = "Generate new token successfully";
-            }
+            var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(1),
+                signingCredentials: creds);
+            var rftoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddHours(7),
+                signingCredentials: creds);
+            var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            var newRefreshToken = new JwtSecurityTokenHandler().WriteToken(rftoken);
+            user.Token = newRefreshToken;
+            user.RefreshTokenExpiryTime = rftoken.ValidTo;
+            await _userService.UpdateAsync(user);
+            response.AccessToken = newAccessToken;
+            response.RefreshToken = newRefreshToken;
+            response.Code = "200";
+            response.Message = "Generate new token successfully";
             return response;
-
         }
 
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
@@ -179,7 +178,7 @@ namespace DentistBooking.Application.System.Users
             ValidationResult results = validator.Validate(request);
             if (!results.IsValid)
             {
-                
+
                 response.Content = null;
                 response.Code = "200";
                 foreach (var failure in results.Errors)
@@ -217,6 +216,6 @@ namespace DentistBooking.Application.System.Users
 
                 return response;
             }
-         }
+        }
     }
 }

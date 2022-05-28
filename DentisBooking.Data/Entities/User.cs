@@ -10,8 +10,8 @@ namespace DentisBooking.Data.Entities
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
-        public string Token { get; set; }
-
+        public string? Token { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
 
         public DateTime Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
