@@ -1,6 +1,7 @@
 ﻿using BokkingDentist.Constant;
 using DentistBooking.Application.ClaimTokens;
 using DentistBooking.Application.System.Users;
+using DentistBooking.ViewModels.System.Dentists;
 using DentistBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +12,8 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,7 +49,22 @@ namespace DentisBooking.Api.Controllers
                     Message = "Username or Password is Incorrect"
                 });
             }
-            var userPrincipalac = this.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJob2FpbmFtQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiQWRtaW5AMTIzIiwiTmFtIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IiIsImV4cCI6MTY1MzczMjY0MSwiaXNzIjoiaHR0cHM6Ly9EZW50aXN0Qm9va2luZy5jb20udm4iLCJhdWQiOiJodHRwczovL0RlbnRpc3RCc29raW5nLmNvbS52biJ9.6BeNN0WsnvFsc7Gy80CIzRU4Vg7w4DymEnwf9lINmd0");
+
+            DentistResponse response = new DentistResponse();
+            try
+            {
+            var userPrincipalac = this.ValidateToken(token.AccessToken);
+
+            }
+            catch (Exception)
+            {
+
+                response.Code = "400";
+                return Ok(response);
+            }
+
+
+
             var userPrincipalrf = this.ValidateToken(token.RefreshToken);
             var authProperties = new AuthenticationProperties
             {
@@ -54,8 +72,8 @@ namespace DentisBooking.Api.Controllers
                 IsPersistent = true,
                 AllowRefresh = true,
             };
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalac, authProperties);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalrf, authProperties);
+            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalac, authProperties);
+            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipalrf, authProperties);
             return Ok(token);
         }
         [HttpPost("register")]
@@ -82,6 +100,8 @@ namespace DentisBooking.Api.Controllers
         {
             IdentityModelEventSource.ShowPII = true;
 
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0aGluaEBmcHQuZWR1LnZuIiwiaHR0cDovL3NjaGVtasMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6WyJ0aGluaCIsIlRIaW5oIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IiIsImV4cCI6MTY1MzczMzkyOSwiaXNzIjoiaHR0cHM6Ly9EZW50aXN0Qm9va2luZy5jb20udm4iLCJhdWQiOiJodHRwczovL0RlbnRpc3RCb29raW5nLmNvbS52biJ9.p-LVcOzybm4kplJdVYFt77_KXyiXrDgoFfqDqOOhQM0";
+
             SecurityToken validatedToken;
             TokenValidationParameters validationParameters = new TokenValidationParameters();
 
@@ -91,14 +111,8 @@ namespace DentisBooking.Api.Controllers
             validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
             validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             ClaimsPrincipal principal;
-            try
-            {
-               principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
+               principal = new JwtSecurityTokenHandler().ValidateToken(token, validationParameters, out validatedToken);
 
-            }catch (JwtException ex)
-            {
-               throw new JwtException("400");
-            }
             return principal;
         }
     }

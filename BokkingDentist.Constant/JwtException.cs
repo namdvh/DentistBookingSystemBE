@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace BokkingDentist.Constant
 {
-    public class JwtException:Exception
+    public class JwtException: System.Exception
     {
         public string code { get; }
 
-        public JwtException() { }
+        public JwtException() {
+            Console.WriteLine("Test");
+        }
 
         public JwtException(string msg)
             : base(msg) { }
