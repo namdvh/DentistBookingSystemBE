@@ -53,12 +53,12 @@ namespace DentistBooking.Application.System.Users
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddSeconds(1),
                 signingCredentials: creds);
             var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddDays(7),
+                expires: DateTime.Now.AddSeconds(5),
                 signingCredentials: creds);
             var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
             var ReturnRFToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
@@ -89,10 +89,16 @@ namespace DentistBooking.Application.System.Users
             //    response.Message = "Expired token";
             //}
             var principal = GetPrincipalFromExpiredToken(refreshToken);
+            if (GetPrincipalFromExpiredToken(refreshToken) == null)
+            {
+                response.Code = "200";
+                response.Message = "Expired or Invalid Token";
+                return response;
+            }
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
 
-            if (user == null || user.Token != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            if (user == null || user.Token != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
                 response.Code = "401";
                 response.Message = "Expired Token";
@@ -124,12 +130,7 @@ namespace DentistBooking.Application.System.Users
                 expires: DateTime.Now.AddHours(7),
                 signingCredentials: creds);
             var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            var newRefreshToken = new JwtSecurityTokenHandler().WriteToken(rftoken);
-            user.Token = newRefreshToken;
-            user.RefreshTokenExpiryTime = rftoken.ValidTo;
-            await _userService.UpdateAsync(user);
             response.AccessToken = newAccessToken;
-            response.RefreshToken = newRefreshToken;
             response.Code = "200";
             response.Message = "Generate new token successfully";
             return response;
@@ -138,32 +139,37 @@ namespace DentistBooking.Application.System.Users
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
 
         {
-            string issuer = _config.GetValue<string>("Tokens:Issuer");
-            string signingKey = _config.GetValue<string>("Tokens:Key");
-            byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            //TokenValidationParameters validationParameters = new TokenValidationParameters();
-            //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-
-
-
-            var tokenValidationParameters = new TokenValidationParameters
+            var principal = (dynamic)null;
+            try
             {
-                ValidateIssuer = true,
-                ValidIssuer = issuer,
-                ValidateAudience = true,
-                ValidAudience = issuer,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ClockSkew = TimeSpan.Zero,
-                IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
-            };
+                string issuer = _config.GetValue<string>("Tokens:Issuer");
+                string signingKey = _config.GetValue<string>("Tokens:Key");
+                byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
 
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                //TokenValidationParameters validationParameters = new TokenValidationParameters();
+                //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
 
 
+
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = issuer,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
+                };
+                principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return principal;
 
         }

@@ -39,7 +39,7 @@ namespace DentisBooking.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Users/authenticate/";
+                    options.LoginPath = "/Users/refresh/";
                     options.AccessDeniedPath = "/Users/Forbidden/";
                 });
             //Add AutoMapper
