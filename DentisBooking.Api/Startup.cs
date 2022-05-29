@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace DentisBooking.Api
 {
@@ -40,11 +41,10 @@ namespace DentisBooking.Api
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Users/refresh/";
-                    options.AccessDeniedPath = "/Users/Forbidden/";
+                    options.AccessDeniedPath = "/Users/refresh/";
                 });
             //Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             //DBcontext
             services.AddDbContext<DentistDBContext>(options => options.
             UseSqlServer(Configuration.GetConnectionString(SystemsConstant.MainConnectionString)));
@@ -138,7 +138,14 @@ namespace DentisBooking.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DentisBooking.Api v1"));
             }
+            app.UseStatusCodePages(async context =>
+            {
+                var response = context.HttpContext.Response;
 
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                        response.StatusCode == (int)HttpStatusCode.Forbidden)
+                    response.Redirect("api/Users/refresh");
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();

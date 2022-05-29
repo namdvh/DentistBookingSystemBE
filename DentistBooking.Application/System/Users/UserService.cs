@@ -150,9 +150,6 @@ namespace DentistBooking.Application.System.Users
 
                 //TokenValidationParameters validationParameters = new TokenValidationParameters();
                 //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-
-
-
                 var tokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
