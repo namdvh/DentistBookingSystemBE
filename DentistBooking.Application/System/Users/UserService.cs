@@ -74,6 +74,9 @@ namespace DentistBooking.Application.System.Users
         {
             RefreshTokenResponse response = new RefreshTokenResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
 
             string refreshToken = token.RefreshToken;
             var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
@@ -83,60 +86,105 @@ namespace DentistBooking.Application.System.Users
                 response.Code = "403";
                 response.Message = "Invalid token";
             }
+
+
             //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
             //{
             //    response.Code = "403";
             //    response.Message = "Expired token";
             //}
-            var principal = GetPrincipalFromExpiredToken(refreshToken);
-            if (GetPrincipalFromExpiredToken(refreshToken) == null)
+
+
+
+            var principal = GetPrincipalFromToken(refreshToken);
+
+            if (GetPrincipalFromToken(refreshToken) == null)
             {
-                response.Code = "200";
+                response.Code = "903";
                 response.Message = "Expired or Invalid Token";
                 return response;
             }
+
+
+
+
+
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
 
-            if (user == null || user.Token != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            if (user == null || user.Token != refreshToken)
             {
-                response.Code = "401";
+                response.Code = "903";
                 response.Message = "Expired Token";
                 response.AccessToken = "";
                 response.RefreshToken = "";
                 return response;
             }
-            var roles = await _userService.GetRolesAsync(user);
-            var claims = new[]
+            else if (user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
+                //Both field refresh and access
+                var roles = await _userService.GetRolesAsync(user);
+                var claims = new[]
+                {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
                 };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddMinutes(1),
+                    signingCredentials: creds);
+
+                var rftoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddHours(7),
+                    signingCredentials: creds);
+
+                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+                var newRefreshToken = new JwtSecurityTokenHandler().WriteToken(rftoken);
+                response.AccessToken = newAccessToken;
+                response.RefreshToken = newRefreshToken;
+                response.Code = "902";
+                response.Message = "Generate both token successfully";
+            }
+            else
+            {
+                var roles = await _userService.GetRolesAsync(user);
+                var claims = new[]
+                {
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Name,user.UserName),
+                new Claim(ClaimTypes.Name,user.FirstName),
+                new Claim(ClaimTypes.Role,string.Join(";",roles))
+                };
 
 
-            var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddMinutes(1),
-                signingCredentials: creds);
-            var rftoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(7),
-                signingCredentials: creds);
-            var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            response.AccessToken = newAccessToken;
-            response.Code = "200";
-            response.Message = "Generate new token successfully";
+                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddMinutes(1),
+                    signingCredentials: creds);
+
+                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+                response.AccessToken = newAccessToken;
+                response.Code = "900";
+                response.Message = "Generate new access token successfully";
+
+
+            }
+
+
+
+
             return response;
         }
 
-        private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+        private ClaimsPrincipal GetPrincipalFromToken(string? token)
 
         {
             var principal = (dynamic)null;
@@ -169,9 +217,12 @@ namespace DentistBooking.Application.System.Users
             catch (SecurityTokenExpiredException ex)
             {
                 Console.WriteLine(ex.Message);
-            }catch(SecurityTokenInvalidSignatureException e){
+            }
+            catch (SecurityTokenInvalidSignatureException e)
+            {
                 Console.WriteLine(e.Message);
-            }catch(ArgumentException ex)
+            }
+            catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
             }
