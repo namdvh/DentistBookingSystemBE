@@ -73,20 +73,15 @@ namespace DentistBooking.Application.System.Users
         public async Task<RefreshTokenResponse> RefreshToken(Token token)
         {
             RefreshTokenResponse response = new RefreshTokenResponse();
-            var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-
             string refreshToken = token.RefreshToken;
-            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
 
             if (token is null)
             {
                 response.Code = "403";
                 response.Message = "Invalid token";
             }
-
 
             //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
             //{
@@ -98,16 +93,12 @@ namespace DentistBooking.Application.System.Users
 
             var principal = GetPrincipalFromToken(refreshToken);
 
-            if (GetPrincipalFromToken(refreshToken) == null)
+            if (principal == null)
             {
                 response.Code = "903";
                 response.Message = "Expired or Invalid Token";
                 return response;
             }
-
-
-
-
 
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
@@ -115,7 +106,7 @@ namespace DentistBooking.Application.System.Users
             if (user == null || user.Token != refreshToken)
             {
                 response.Code = "903";
-                response.Message = "Expired Token";
+                response.Message = "Invalid Token";
                 response.AccessToken = "";
                 response.RefreshToken = "";
                 return response;
@@ -174,13 +165,7 @@ namespace DentistBooking.Application.System.Users
                 response.AccessToken = newAccessToken;
                 response.Code = "900";
                 response.Message = "Generate new access token successfully";
-
-
             }
-
-
-
-
             return response;
         }
 
