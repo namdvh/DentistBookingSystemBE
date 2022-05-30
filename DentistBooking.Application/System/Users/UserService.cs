@@ -29,6 +29,7 @@ namespace DentistBooking.Application.System.Users
         }
         public async Task<Token> Authenticate(LoginRequest request)
         {
+            
             var user = await _userService.FindByNameAsync(request.UserName);
             if (user == null)
             {
@@ -220,9 +221,9 @@ namespace DentistBooking.Application.System.Users
             }
          }
 
-        public async Task<PrivateRouteResponse> GetProfile(Token token)
+        public async Task<ProfileResponse> GetProfile(Token token)
         {
-            PrivateRouteResponse response = new PrivateRouteResponse();
+            ProfileResponse response = new ProfileResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
 
             string refreshToken = token.RefreshToken;
@@ -256,11 +257,11 @@ namespace DentistBooking.Application.System.Users
                 {
                     //also need to validate with refresh token from cookie and accesstoken
                 }
-                var roles = await _userService.GetRolesAsync(response.User);
-                response.Role = string.Join(";", roles);
+                //var roles = await _userService.GetRolesAsync(response.User);
+                response.Role = "USER"; //string.Join(";", roles);
                
                 response.Code = "200";
-                response.Message = "Generate new token successfully";
+                response.Message = "msg";
             }
             return response;
 

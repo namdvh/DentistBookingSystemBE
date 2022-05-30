@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DentistBooking.ViewModels.System.Users
 {
-    public class PrivateRouteResponse
+    public class ProfileResponse
     {
         public User User { get; set; }
 

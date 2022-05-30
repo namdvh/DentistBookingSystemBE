@@ -17,6 +17,28 @@ namespace DentisBooking.Data.Extensions
             
             var hasher = new PasswordHasher<User>();
 
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26AA"),
+                Email = "khoa@gmail.com",
+                UserName = "khoa",
+                PasswordHash = hasher.HashPassword(null, "Kho@123456789"),
+                SecurityStamp = string.Empty,
+                FirstName = "Huynh",
+                LastName = "Anh Khoa",
+                DOB = new DateTime(2021, 07, 12),
+                PhoneNumber = "0868644651",
+                Gender = Enum.Gender.MALE,
+                Token = "xxx",
+                Status = Enum.Status.ACTIVE,
+                Created_at = DateTime.UtcNow,
+                Updated_at = DateTime.UtcNow,
+                Deleted_at = DateTime.UtcNow,
+                Created_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26AA"),
+                Updated_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26AA"),
+                Deleted_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26AA")
+            });
+
             //discount
             for (int i = 1; i <= 5; i++)
             {
@@ -177,6 +199,7 @@ namespace DentisBooking.Data.Extensions
                 Id = Guid.Parse("20EFD516-F16C-41B3-B11D-BC908CD2056B"),
                 Description = "User"
             });
+            
 
             for (int i = 20; i < 51; i++)
             {

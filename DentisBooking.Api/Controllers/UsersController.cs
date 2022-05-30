@@ -56,7 +56,7 @@ namespace DentisBooking.Api.Controllers
             return Ok(rs);
         }
         
-        [HttpPost("private-route")]
+        [HttpPost("getProfile")]
         [AllowAnonymous]
         public async Task<IActionResult> GetProfile([FromBody] Token tokenModel)
         {
