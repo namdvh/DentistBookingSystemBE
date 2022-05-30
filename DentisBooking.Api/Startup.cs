@@ -1,4 +1,5 @@
 using BokkingDentist.Constant;
+using DentisBooking.Api.MiddleWare;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
@@ -8,8 +9,10 @@ using DentistBooking.ViewModels.System.Users;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -60,6 +63,7 @@ namespace DentisBooking.Api
             services.AddScoped<IDentistService, DentistService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
+            //services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizeMiddleWare>();
 
             services.AddCors(o =>
             {
@@ -138,21 +142,12 @@ namespace DentisBooking.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DentisBooking.Api v1"));
             }
-            app.UseStatusCodePages(async context =>
-            {
-                var response = context.HttpContext.Response;
-
-                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
-                        response.StatusCode == (int)HttpStatusCode.Forbidden)
-                    response.Redirect("api/Users/refresh");
-            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
