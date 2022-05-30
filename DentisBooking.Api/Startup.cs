@@ -1,5 +1,4 @@
 using BokkingDentist.Constant;
-using DentisBooking.Api.MiddleWare;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
@@ -9,12 +8,10 @@ using DentistBooking.ViewModels.System.Users;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +20,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace DentisBooking.Api
 {
@@ -143,8 +138,6 @@ namespace DentisBooking.Api
                         if (context.AuthenticateFailure != null)
                         {
                             context.Response.StatusCode = 200;
-
-                            // we can write our own custom response content here
                             await context.HttpContext.Response.WriteAsync("Token Validation Has Failed. Request Access Denied");
                         }
                     },

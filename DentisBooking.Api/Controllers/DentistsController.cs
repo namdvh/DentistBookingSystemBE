@@ -1,5 +1,4 @@
-﻿using DentisBooking.Api.MiddleWare;
-using DentistBooking.Application.System.Dentists;
+﻿using DentistBooking.Application.System.Dentists;
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Dentists;
 using Microsoft.AspNetCore.Authorization;
