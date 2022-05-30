@@ -213,7 +213,7 @@ namespace DentistBooking.Application.System.Users
             RegisterRequestValidator validator = new RegisterRequestValidator();
             ValidationResult results = validator.Validate(request);
 
-            var defaultrole = _roleManager.FindByIdAsync("20efd516-f16c-41b3-b11d-bc908cd2056b").Result;
+            var defaultRole = _roleManager.FindByIdAsync("20efd516-f16c-41b3-b11d-bc908cd2056b").Result;
 
             if (!results.IsValid)
             {
@@ -226,37 +226,35 @@ namespace DentistBooking.Application.System.Users
 
                 return response;
             }
-            else
+
+            var user = new User()
             {
-                var user = new User()
-                {
-                    DOB = request.DOB,
-                    Email = request.Email,
-                    FirstName = request.FirstName,
-                    LastName = request.LastName,
-                    UserName = request.UserName,
-                    PhoneNumber = request.PhoneNumber,
-                    Status = Status.ACTIVE,
-                    Gender = request.Gender,
-                };
+                DOB = request.DOB,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber,
+                Status = Status.ACTIVE,
+                Gender = request.Gender,
+            };
 
-                var rs = await _userService.CreateAsync(user, request.Password);
-                if (rs.Succeeded)
-                {
-                    await _userService.AddToRoleAsync(user, defaultrole.Name);
-                    response.Content = user;
-                    response.Code = "200";
-                    response.Messages.Add("Regist successfully");
-
-                    return response;
-                }
-
-                response.Content = null;
+            var rs = await _userService.CreateAsync(user, request.Password);
+            if (rs.Succeeded)
+            {
+                await _userService.AddToRoleAsync(user, defaultRole.Name);
+                response.Content = user;
                 response.Code = "200";
-                response.Messages.Add("Regist failed");
+                response.Messages.Add("Register successfully");
 
                 return response;
             }
+
+            response.Content = null;
+            response.Code = "200";
+            response.Messages.Add("Register failed");
+
+            return response;
         }
 
         private UserDTO MapToDto(User user, string roleName)
