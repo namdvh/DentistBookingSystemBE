@@ -4,6 +4,7 @@ using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
 using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
+using DentistBooking.ViewModels.System.Dentists;
 using DentistBooking.ViewModels.System.Users;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -18,8 +19,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace DentisBooking.Api
 {
@@ -137,16 +140,39 @@ namespace DentisBooking.Api
 
                         if (context.AuthenticateFailure != null)
                         {
-                            context.Response.StatusCode = 200;
-                            await context.HttpContext.Response.WriteAsync("Token Validation Has Failed. Request Access Denied");
+                            DentistResponse response = new();
+                            response.Message = "Token Validation Has Failed. Request Access Denied";
+                            response.Code = "900";
+                            if (!context.Response.HasStarted)
+                            {
+                                string result;
+                                context.Response.StatusCode = StatusCodes.Status200OK;
+                                result = JsonConvert.SerializeObject(new { code = "900", message = "Token Validation Has Failed. Request Access Denied" });
+                                context.Response.ContentType = "application/json";
+                                await context.HttpContext.Response.WriteAsync(result);
+                            }
+
                         }
                     },
                     OnAuthenticationFailed = async (context) =>
                      {
                          if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                          {
-                             context.Response.StatusCode = 200;
-                             await context.HttpContext.Response.WriteAsync("Token has expired");
+                             //context.Response.StatusCode = 200;
+                             DentistResponse response = new();
+                             string result;
+                             response.Message = "Token has expired";
+                             response.Code = "901";
+                             if (!context.Response.HasStarted)
+                             {                  
+                                 context.Response.StatusCode = StatusCodes.Status200OK;
+                                 result = JsonConvert.SerializeObject(new { code = "901", message = "Token has expired" });
+                                 context.Response.ContentType = "application/json";
+                                 await context.HttpContext.Response.WriteAsync(result);
+                             }
+
+
+
                          }
                      }
                 };

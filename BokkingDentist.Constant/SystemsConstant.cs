@@ -8,6 +8,6 @@ namespace BokkingDentist.Constant
 {
     public class SystemsConstant
     {
-        public const string MainConnectionString = "LocalDbNam";
+        public const string MainConnectionString = "LocalDb";
     }
 }
