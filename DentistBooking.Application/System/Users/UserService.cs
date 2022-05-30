@@ -236,7 +236,6 @@ namespace DentistBooking.Application.System.Users
                 LastName = user.LastName,
                 Gender = user.Gender,
                 Phone = user.PhoneNumber,
-                Token = user.Token,
                 Status = user.Status,
                 Created_at = user.Created_at,
                 role = roleName
