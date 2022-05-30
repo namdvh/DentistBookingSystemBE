@@ -27,22 +27,23 @@ namespace DentistBooking.Application.System.Dentists
         public async Task<DentistResponse> GetDentistList(PaginationFilter filter)
         {
             DentistResponse response = new();
-            PaginationDTO paginationDTO = new();
+            PaginationDTO paginationDto = new(); 
 
-            string orderBy = filter._order.ToString();
+            var orderBy = filter._order.ToString();
 
-            if (orderBy.Equals("1"))
+            orderBy = orderBy switch
             {
-                orderBy = "descending";
-            }
-            else if (orderBy.Equals("-1"))
-            {
-                orderBy = "ascending";
-            }
+                "1" => "descending",
+                "-1" => "ascending",
+                _ => orderBy
+            };
+            
+            
             var pagedData = await _context.Dentists
                     .OrderBy(filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
+                    .Where(x => x.Deleted_by != null)
                     .ToListAsync();
 
             var totalRecords = await _context.Dentists.CountAsync();
@@ -55,25 +56,21 @@ namespace DentistBooking.Application.System.Dentists
             }
             else
             {
-                List<DentistDTO> result = new List<DentistDTO>();
-                foreach (Dentist x in pagedData)
-                {
-                    result.Add(MapToDTO(x));
-                }
+                var result = pagedData.Select(MapToDto).ToList();
                 response.Content = result;
                 response.Message = "SUCCESS";
                 response.Code = "200";
 
             }
             var totalPages = ((double)totalRecords / (double)filter.PageSize);
-            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
-            paginationDTO.CurrentPage = filter.PageNumber;
-            paginationDTO.PageSize = filter.PageSize;
-            paginationDTO.TotalPages = roundedTotalPages;
-            paginationDTO.TotalRecords = totalRecords;
+            paginationDto.CurrentPage = filter.PageNumber;
+            paginationDto.PageSize = filter.PageSize;
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
 
-            response.Pagination = paginationDTO;
+            response.Pagination = paginationDto;
 
 
 
@@ -82,9 +79,9 @@ namespace DentistBooking.Application.System.Dentists
         }
 
 
-        public DentistDTO MapToDTO(Dentist dentist)
+        private DentistDTO MapToDto(Dentist dentist)
         {
-            DentistDTO dentistDTO = new DentistDTO()
+            var dentistDto = new DentistDTO()
             {
                 Id = dentist.Id,
                 Email = dentist.Email,
@@ -104,7 +101,7 @@ namespace DentistBooking.Application.System.Dentists
                 Updated_by = (Guid)dentist.Updated_by,
 
             };
-            return dentistDTO;
+            return dentistDto;
         }
 
 
