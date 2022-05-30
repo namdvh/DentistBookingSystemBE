@@ -70,17 +70,16 @@ namespace DentistBooking.Application.System.Users
         }
 
 
-        public async Task<RefreshTokenResponse> RefreshToken(Token token)
+        public async Task<RefreshTokenResponse> RefreshToken(string refreshToken)
         {
             RefreshTokenResponse response = new RefreshTokenResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            string refreshToken = token.RefreshToken;
             var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
 
-            if (token is null)
+            if (refreshToken is null)
             {
-                response.Code = "403";
+                response.Code = "900";
                 response.Message = "Invalid token";
             }
             //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
@@ -88,10 +87,10 @@ namespace DentistBooking.Application.System.Users
             //    response.Code = "403";
             //    response.Message = "Expired token";
             //}
-            var principal = GetPrincipalFromExpiredToken(refreshToken);
-            if (GetPrincipalFromExpiredToken(refreshToken) == null)
+            var principal = GetPrincipalFromToken(refreshToken);
+            if (GetPrincipalFromToken(refreshToken) == null)
             {
-                response.Code = "200";
+                response.Code = "901";
                 response.Message = "Expired or Invalid Token";
                 return response;
             }
@@ -124,11 +123,6 @@ namespace DentistBooking.Application.System.Users
                 claims,
                 expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: creds);
-            var rftoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(7),
-                signingCredentials: creds);
             var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
             response.AccessToken = newAccessToken;
             response.Code = "200";
@@ -136,7 +130,7 @@ namespace DentistBooking.Application.System.Users
             return response;
         }
 
-        private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+        private ClaimsPrincipal GetPrincipalFromToken(string? token)
 
         {
             var principal = (dynamic)null;
