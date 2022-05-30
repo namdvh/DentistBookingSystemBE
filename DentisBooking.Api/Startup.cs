@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace DentisBooking.Api
 {
@@ -130,6 +132,32 @@ namespace DentisBooking.Api
                     ClockSkew = System.TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = async (context) =>
+                    {
+                        Console.WriteLine("Printing in the delegate OnChallenge");
+
+                        context.HandleResponse();
+
+                        if (context.AuthenticateFailure != null)
+                        {
+                            context.Response.StatusCode = 200;
+
+                            // we can write our own custom response content here
+                            await context.HttpContext.Response.WriteAsync("Token Validation Has Failed. Request Access Denied");
+                        }
+                    },
+                    OnAuthenticationFailed = async (context) =>
+                     {
+                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                         {
+                             context.Response.StatusCode = 200;
+                             await context.HttpContext.Response.WriteAsync("Token has expired");
+                         }
+                     }
+                };
+
             });
         }
 
