@@ -13,5 +13,6 @@ namespace DentistBooking.Application.System.Users
         Task<Token> Authenticate(LoginRequest request);
         Task<RefreshTokenResponse> RefreshToken(RefreshToken refreshToken);
         Task<RegisterResponse> Register(RegisterRequest request);
+        Task<ProfileResponse> GetProfile(RefreshToken refreshToken);
     }
 }

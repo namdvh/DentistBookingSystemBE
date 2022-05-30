@@ -43,12 +43,12 @@ namespace DentistBooking.Application.System.Users
             {
                 return null;
             }
-            
+
             var roleName = (from usr in _context.Users
-                join userRole in _context.UserRoles on user.Id equals userRole.UserId
-                join role in _context.Roles on userRole.RoleId equals role.Id
-                select role.Name).FirstOrDefault();
-            
+                            join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                            join role in _context.Roles on userRole.RoleId equals role.Id
+                            select role.Name).FirstOrDefault();
+
             var roles = await _userService.GetRolesAsync(user);
             var claims = new[]
             {
@@ -76,11 +76,11 @@ namespace DentistBooking.Application.System.Users
             user.Token = ReturnRFToken;
             user.RefreshTokenExpiryTime = refreshtoken.ValidTo;
             await _userService.UpdateAsync(user);
-            
+
             var userDto = MapToDto(user, roleName);
 
             var token = new Token(ReturnToken, ReturnRFToken, userDto);
-            
+
             return token;
         }
 
@@ -92,7 +92,7 @@ namespace DentistBooking.Application.System.Users
 
 
             var principal = GetPrincipalFromToken(refreshToken.refreshToken);
-            
+
             if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
                 response.Code = "900";
@@ -165,9 +165,12 @@ namespace DentistBooking.Application.System.Users
             catch (SecurityTokenExpiredException ex)
             {
                 Console.WriteLine(ex.Message);
-            }catch(SecurityTokenInvalidSignatureException e){
+            }
+            catch (SecurityTokenInvalidSignatureException e)
+            {
                 Console.WriteLine(e.Message);
-            }catch(ArgumentException ex)
+            }
+            catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -179,9 +182,9 @@ namespace DentistBooking.Application.System.Users
             response.Messages = new();
             RegisterRequestValidator validator = new RegisterRequestValidator();
             ValidationResult results = validator.Validate(request);
-            
+
             var defaultRole = _roleManager.FindByIdAsync("20efd516-f16c-41b3-b11d-bc908cd2056b").Result;
-            
+
             if (!results.IsValid)
             {
 
@@ -210,7 +213,7 @@ namespace DentistBooking.Application.System.Users
                 var rs = await _userService.CreateAsync(user, request.Password);
                 if (rs.Succeeded)
                 {
-                    
+
                     await _userService.AddToRoleAsync(user, defaultRole.Name);
                     response.Content = user;
                     response.Code = "200";
@@ -225,7 +228,7 @@ namespace DentistBooking.Application.System.Users
                 return response;
             }
         }
-        
+
         private UserDTO MapToDto(User user, string roleName)
         {
             var userDto = new UserDTO()
@@ -242,6 +245,40 @@ namespace DentistBooking.Application.System.Users
             };
             return userDto;
         }
-        
+
+        public async Task<ProfileResponse> GetProfile(RefreshToken refreshToken)
+        {
+            ProfileResponse response = new ProfileResponse();
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+
+            var principal = GetPrincipalFromToken(refreshToken.refreshToken);
+
+            if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
+            {
+                response.Code = "900";
+                response.Message = "Expired or Invalid Token";
+                return response;
+            }
+            string username = principal.Identity.Name;
+            var user = await _userService.FindByNameAsync(username);
+
+            if (user == null || user.Token != refreshToken.refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                response.Code = "901";
+                response.Message = "Expired Token";
+                return response;
+            }
+
+            var role = await _userService.GetRolesAsync(user);
+            response.User = user;
+            response.Role = role[0];
+            response.Code = "200";
+            response.Message = "msg";
+            return response;
+        }
+
     }
+
 }
+
