@@ -220,7 +220,7 @@ namespace DentistBooking.Application.System.Users
                 }
                 response.Content = null;
                 response.Code = "200";
-                response.Messages.Add("Regist failed");
+                response.Messages.Add("Username already exists ");
 
                 return response;
             }
