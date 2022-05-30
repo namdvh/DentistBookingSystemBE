@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BokkingDentist.Constant
+namespace DentistBooking.Application.ClaimTokens
 {
-    public class SystemsConstant
+    public class RefreshToken
     {
-        public const string MainConnectionString = "LocalDb";
+        public string  refreshToken { get; set; }
     }
 }

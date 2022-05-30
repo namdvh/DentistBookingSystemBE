@@ -53,124 +53,121 @@ namespace DentistBooking.Application.System.Users
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddSeconds(5),
                 signingCredentials: creds);
             var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddDays(7),
+                expires: DateTime.Now.AddMinutes(2),
                 signingCredentials: creds);
             var ReturnToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-            var ReturnAccessToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
-            return new Token(ReturnToken, ReturnAccessToken);
+            var ReturnRFToken = new JwtSecurityTokenHandler().WriteToken(refreshtoken);
+            //save rf token to db
+            user.Token = ReturnRFToken;
+            user.RefreshTokenExpiryTime = refreshtoken.ValidTo;
+            await _userService.UpdateAsync(user);
+            return new Token(ReturnToken, ReturnRFToken);
         }
 
-        public async Task<RefreshTokenResponse> RefreshToken(Token token)
+
+        public async Task<RefreshTokenResponse> RefreshToken(RefreshToken refreshToken)
         {
             RefreshTokenResponse response = new RefreshTokenResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            string refreshToken = token.RefreshToken;
-            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
+            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken.refreshToken);
 
-            if (token is null)
+            if (refreshToken is null)
             {
-                response.Code = "403";
+                response.Code = "900";
                 response.Message = "Invalid token";
             }
-            if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
+            //{
+            //    response.Code = "403";
+            //    response.Message = "Expired token";
+            //}
+            var principal = GetPrincipalFromToken(refreshToken.refreshToken);
+            if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
-                response.Code = "403";
-                response.Message = "Expired token";
+                response.Code = "901";
+                response.Message = "Expired or Invalid Token";
+                return response;
             }
-            else
+            string username = principal.Identity.Name;
+            var user = await _userService.FindByNameAsync(username);
+
+            if (user == null || user.Token != refreshToken.refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-
-                var principal = GetPrincipalFromExpiredToken(refreshToken);
-
-                //False information from token
-                //if (principal == null)
-                //{
-                //    //
-                //}
-
-                string username = principal.Identity.Name;
-
-                var user = await _userService.FindByNameAsync(username);
-
-                if (user == null)
-                {
-                    //also need to validate with refresh token from cookie and accesstoken
-                }
-                var roles = await _userService.GetRolesAsync(user);
-                var claims = new[]
-                {
+                response.Code = "401";
+                response.Message = "Expired Token";
+                response.AccessToken = "";
+                response.RefreshToken = "";
+                return response;
+            }
+            var roles = await _userService.GetRolesAsync(user);
+            var claims = new[]
+            {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Name,user.FirstName),
                 new Claim(ClaimTypes.Role,string.Join(";",roles))
                 };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
-                var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                    _config["Tokens:Issuer"],
-                    claims,
-                    expires: DateTime.Now.AddHours(1),
-                    signingCredentials: creds);
-
-                //var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
-                //    _config["Tokens:Issuer"],
-                //    claims,
-                //    expires: DateTime.Now.AddDays(7),
-                //    signingCredentials: creds);
-
-                var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
-                response.Token = newAccessToken;
-                response.Code = "200";
-                response.Message = "Generate new token successfully";
-            }
+            var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(1),
+                signingCredentials: creds);
+            var newAccessToken = new JwtSecurityTokenHandler().WriteToken(accesstoken);
+            response.AccessToken = newAccessToken;
+            response.Code = "200";
+            response.Message = "Generate new token successfully";
             return response;
-
         }
 
-        private ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+        private ClaimsPrincipal GetPrincipalFromToken(string? token)
 
         {
-            string issuer = _config.GetValue<string>("Tokens:Issuer");
-            string signingKey = _config.GetValue<string>("Tokens:Key");
-            byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            //TokenValidationParameters validationParameters = new TokenValidationParameters();
-            //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-
-
-
-            var tokenValidationParameters = new TokenValidationParameters
+            var principal = (dynamic)null;
+            try
             {
-                ValidateIssuer = true,
-                ValidIssuer = issuer,
-                ValidateAudience = true,
-                ValidAudience = issuer,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ClockSkew = TimeSpan.Zero,
-                IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
-            };
+                string issuer = _config.GetValue<string>("Tokens:Issuer");
+                string signingKey = _config.GetValue<string>("Tokens:Key");
+                byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
 
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+                var tokenHandler = new JwtSecurityTokenHandler();
 
-
+                //TokenValidationParameters validationParameters = new TokenValidationParameters();
+                //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = issuer,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
+                };
+                principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }catch(SecurityTokenInvalidSignatureException e){
+                Console.WriteLine(e.Message);
+            }catch(ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return principal;
-
         }
-
-
-
         public async Task<RegisterResponse> Register(RegisterRequest request)
         {
             RegisterResponse response = new RegisterResponse();
@@ -179,7 +176,7 @@ namespace DentistBooking.Application.System.Users
             ValidationResult results = validator.Validate(request);
             if (!results.IsValid)
             {
-                
+
                 response.Content = null;
                 response.Code = "200";
                 foreach (var failure in results.Errors)
@@ -217,6 +214,6 @@ namespace DentistBooking.Application.System.Users
 
                 return response;
             }
-         }
+        }
     }
 }

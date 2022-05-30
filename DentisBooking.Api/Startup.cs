@@ -4,7 +4,10 @@ using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
 using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
-using DentistBooking.ViewModels.Pagination;
+using DentistBooking.ViewModels.System.Dentists;
+using DentistBooking.ViewModels.System.Users;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,11 +19,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System;
-using DentistBooking.ViewModels.System.Users;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
-using FluentValidation;
+using System.Net;
 
 namespace DentisBooking.Api
 {
@@ -37,9 +39,15 @@ namespace DentisBooking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Users/refresh/";
+                    options.AccessDeniedPath = "/Users/refresh/";
+                });
             //Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             //DBcontext
             services.AddDbContext<DentistDBContext>(options => options.
             UseSqlServer(Configuration.GetConnectionString(SystemsConstant.MainConnectionString)));
@@ -55,6 +63,7 @@ namespace DentisBooking.Api
             services.AddScoped<IDentistService, DentistService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
+            //services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizeMiddleWare>();
 
             services.AddCors(o =>
             {
@@ -121,6 +130,53 @@ namespace DentisBooking.Api
                     ClockSkew = System.TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = async (context) =>
+                    {
+                        Console.WriteLine("Printing in the delegate OnChallenge");
+
+                        context.HandleResponse();
+
+                        if (context.AuthenticateFailure != null)
+                        {
+                            DentistResponse response = new();
+                            response.Message = "Token Validation Has Failed. Request Access Denied";
+                            response.Code = "900";
+                            if (!context.Response.HasStarted)
+                            {
+                                string result;
+                                context.Response.StatusCode = StatusCodes.Status200OK;
+                                result = JsonConvert.SerializeObject(new { code = "900", message = "Token Validation Has Failed. Request Access Denied" });
+                                context.Response.ContentType = "application/json";
+                                await context.HttpContext.Response.WriteAsync(result);
+                            }
+
+                        }
+                    },
+                    OnAuthenticationFailed = async (context) =>
+                     {
+                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                         {
+                             //context.Response.StatusCode = 200;
+                             DentistResponse response = new();
+                             string result;
+                             response.Message = "Token has expired";
+                             response.Code = "901";
+                             if (!context.Response.HasStarted)
+                             {                  
+                                 context.Response.StatusCode = StatusCodes.Status200OK;
+                                 result = JsonConvert.SerializeObject(new { code = "901", message = "Token has expired" });
+                                 context.Response.ContentType = "application/json";
+                                 await context.HttpContext.Response.WriteAsync(result);
+                             }
+
+
+
+                         }
+                     }
+                };
+
             });
         }
 
@@ -133,14 +189,12 @@ namespace DentisBooking.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DentisBooking.Api v1"));
             }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("MyPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
