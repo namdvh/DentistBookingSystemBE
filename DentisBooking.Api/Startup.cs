@@ -4,11 +4,12 @@ using DentisBooking.Data.Entities;
 using DentistBooking.Application.System.Clinics;
 using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
-using DentistBooking.ViewModels.Pagination;
+using DentistBooking.ViewModels.System.Users;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,10 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using DentistBooking.ViewModels.System.Users;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
-using FluentValidation;
 
 namespace DentisBooking.Api
 {
@@ -37,6 +35,13 @@ namespace DentisBooking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Users/refresh/";
+                    options.AccessDeniedPath = "/Users/Forbidden/";
+                });
             //Add AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

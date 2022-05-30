@@ -9,7 +9,6 @@ namespace DentistBooking.Application.ClaimTokens
 {
     public class Token
     {
-
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
         
@@ -19,6 +18,10 @@ namespace DentistBooking.Application.ClaimTokens
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
+        }
+        public Token()
+        {
+
         }
         public Token(string accessToken, string refreshToken, UserDTO user)
         {
