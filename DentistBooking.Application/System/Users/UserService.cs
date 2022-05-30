@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using FluentValidation.Results;
 using System.Threading.Tasks;
+using DentisBooking.Data.DataContext;
 
 namespace DentistBooking.Application.System.Users
 {
@@ -20,12 +22,14 @@ namespace DentistBooking.Application.System.Users
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _config;
-        public UserService(UserManager<User> userService, SignInManager<User> signInService, RoleManager<Role> roleManager, IConfiguration config)
+        private readonly DentistDBContext _context;
+        public UserService(UserManager<User> userService, SignInManager<User> signInService, RoleManager<Role> roleManager, IConfiguration config, DentistDBContext context)
         {
             _userService = userService;
             _signInManager = signInService;
             _roleManager = roleManager;
             _config = config;
+            _context = context;
         }
         public async Task<Token> Authenticate(LoginRequest request)
         {
@@ -39,6 +43,12 @@ namespace DentistBooking.Application.System.Users
             {
                 return null;
             }
+            
+            var roleName = (from usr in _context.Users
+                join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                join role in _context.Roles on userRole.RoleId equals role.Id
+                select role.Name).FirstOrDefault();
+            
             var roles = await _userService.GetRolesAsync(user);
             var claims = new[]
             {
@@ -66,7 +76,12 @@ namespace DentistBooking.Application.System.Users
             user.Token = ReturnRFToken;
             user.RefreshTokenExpiryTime = refreshtoken.ValidTo;
             await _userService.UpdateAsync(user);
-            return new Token(ReturnToken, ReturnRFToken);
+            
+            var userDto = MapToDto(user, roleName);
+
+            var token = new Token(ReturnToken, ReturnRFToken, userDto);
+            
+            return token;
         }
 
 
@@ -75,22 +90,12 @@ namespace DentistBooking.Application.System.Users
             RefreshTokenResponse response = new RefreshTokenResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken.refreshToken);
 
-            if (refreshToken is null)
-            {
-                response.Code = "900";
-                response.Message = "Invalid token";
-            }
-            //if ((encodedJWT.ValidFrom > DateTime.UtcNow) || (encodedJWT.ValidTo < DateTime.UtcNow))
-            //{
-            //    response.Code = "403";
-            //    response.Message = "Expired token";
-            //}
             var principal = GetPrincipalFromToken(refreshToken.refreshToken);
+            
             if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
-                response.Code = "901";
+                response.Code = "900";
                 response.Message = "Expired or Invalid Token";
                 return response;
             }
@@ -99,7 +104,7 @@ namespace DentistBooking.Application.System.Users
 
             if (user == null || user.Token != refreshToken.refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                response.Code = "401";
+                response.Code = "901";
                 response.Message = "Expired Token";
                 response.AccessToken = "";
                 response.RefreshToken = "";
@@ -174,6 +179,9 @@ namespace DentistBooking.Application.System.Users
             response.Messages = new();
             RegisterRequestValidator validator = new RegisterRequestValidator();
             ValidationResult results = validator.Validate(request);
+            
+            var defaultRole = _roleManager.FindByIdAsync("20efd516-f16c-41b3-b11d-bc908cd2056b").Result;
+            
             if (!results.IsValid)
             {
 
@@ -202,6 +210,8 @@ namespace DentistBooking.Application.System.Users
                 var rs = await _userService.CreateAsync(user, request.Password);
                 if (rs.Succeeded)
                 {
+                    
+                    await _userService.AddToRoleAsync(user, defaultRole.Name);
                     response.Content = user;
                     response.Code = "200";
                     response.Messages.Add("Regist successfully");
@@ -215,5 +225,24 @@ namespace DentistBooking.Application.System.Users
                 return response;
             }
         }
+        
+        private UserDTO MapToDto(User user, string roleName)
+        {
+            var userDto = new UserDTO()
+            {
+                Id = user.Id.ToString(),
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                Phone = user.PhoneNumber,
+                Token = user.Token,
+                Status = user.Status,
+                Created_at = user.Created_at,
+                role = roleName
+            };
+            return userDto;
+        }
+        
     }
 }
