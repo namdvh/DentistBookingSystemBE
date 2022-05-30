@@ -83,7 +83,7 @@ namespace DentisBooking.Api.Controllers
 
         [HttpPost("refresh")]
         [AllowAnonymous]
-        public async Task<IActionResult> RefreshToken([FromBody] string refreshToken)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshToken refreshToken)
         {
             var rs = await _userService.RefreshToken(refreshToken);
 

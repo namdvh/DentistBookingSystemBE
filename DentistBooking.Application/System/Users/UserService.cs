@@ -70,12 +70,12 @@ namespace DentistBooking.Application.System.Users
         }
 
 
-        public async Task<RefreshTokenResponse> RefreshToken(string refreshToken)
+        public async Task<RefreshTokenResponse> RefreshToken(RefreshToken refreshToken)
         {
             RefreshTokenResponse response = new RefreshTokenResponse();
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken);
+            var encodedJWT = tokenHandler.ReadJwtToken(refreshToken.refreshToken);
 
             if (refreshToken is null)
             {
@@ -87,8 +87,8 @@ namespace DentistBooking.Application.System.Users
             //    response.Code = "403";
             //    response.Message = "Expired token";
             //}
-            var principal = GetPrincipalFromToken(refreshToken);
-            if (GetPrincipalFromToken(refreshToken) == null)
+            var principal = GetPrincipalFromToken(refreshToken.refreshToken);
+            if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
                 response.Code = "901";
                 response.Message = "Expired or Invalid Token";
@@ -97,7 +97,7 @@ namespace DentistBooking.Application.System.Users
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
 
-            if (user == null || user.Token != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            if (user == null || user.Token != refreshToken.refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
                 response.Code = "401";
                 response.Message = "Expired Token";
