@@ -10,24 +10,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Identity;
 
 namespace DentistBooking.Application.System.Dentists
 {
     public class DentistService : IDentistService
     {
         private readonly DentistDBContext _context;
-        private readonly IMapper _mapper;
+        private readonly UserManager<User> _dentistService;
 
-        public DentistService(DentistDBContext context, IMapper mapper)
+        public DentistService(DentistDBContext context, UserManager<User> dentistService)
         {
             _context = context;
-            _mapper = mapper;
+            _dentistService = dentistService;
         }
 
         public async Task<DentistResponse> GetDentistList(PaginationFilter filter)
         {
             DentistResponse response = new();
-            PaginationDTO paginationDto = new(); 
+            PaginationDTO paginationDto = new();
 
             var orderBy = filter._order.ToString();
 
@@ -37,14 +39,14 @@ namespace DentistBooking.Application.System.Dentists
                 "-1" => "ascending",
                 _ => orderBy
             };
-            
-            
+
+
             var pagedData = await _context.Dentists
-                    .OrderBy(filter._by + " " + orderBy)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize)
-                    .Where(x => x.Deleted_by != null)
-                    .ToListAsync();
+                .OrderBy(filter._by + " " + orderBy)
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .Where(x => x.Deleted_by != null)
+                .ToListAsync();
 
             var totalRecords = await _context.Dentists.CountAsync();
 
@@ -52,16 +54,16 @@ namespace DentistBooking.Application.System.Dentists
             {
                 response.Content = null;
                 response.Code = "200";
-                response.Message = "There aren't any dentists in DB";
+                response.Message="There aren't any dentists in DB"; 
             }
             else
             {
                 var result = pagedData.Select(MapToDto).ToList();
                 response.Content = result;
-                response.Message = "SUCCESS";
+                response.Message="SUCCESS"; 
                 response.Code = "200";
-
             }
+
             var totalPages = ((double)totalRecords / (double)filter.PageSize);
             var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
@@ -73,9 +75,93 @@ namespace DentistBooking.Application.System.Dentists
             response.Pagination = paginationDto;
 
 
+            return response;
+        }
+
+        public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
+        {
+            var response = new DentistResponse();
+            var validator = new AddDentistRequestValidator();
+            response.Errors = new();
+            var results = await validator.ValidateAsync(request);
+            
+            if (!results.IsValid)
+            {
+
+                response.Content = null;
+                response.Code = "200";
+                foreach (var failure in results.Errors)
+                {
+                    response.Errors.Add(failure.ErrorMessage.ToString());
+                }
+                return response;
+            }
+            var newDentist = new Dentist()
+            {
+                ClinicId = request.ClinicId,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber,
+                Status = request.Status,
+                Gender = request.Gender,
+                Description = request.Description,
+                Position = request.Position,
+                
+                
+            };
+            
+            //var rs = await _dentistService.CreateAsync(newDentist, request.Password);
+            // if (rs.Succeeded)
+            // {
+            //         
+            //     response.Code = "200";
+            //     response.Message= "Register successfully";
+            //
+            //     return response;
+            // }
+            response.Content = null;
+            response.Code = "200";
+            response.Message= "Register failed";
 
             return response;
+        }
 
+        public async Task<DentistResponse> UpdateDentist(Dentist updatedDentist)
+        {
+            var response = new DentistResponse();
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == updatedDentist.Id);
+            if (dentist != null)
+            {
+                _context.Entry((object)dentist).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            //response.Message = "Updated successfully";
+
+            return response;
+        }
+
+        public async Task<DentistResponse> DeleteDentist(Guid dentistId, Guid deletedBy)
+        {
+            var response = new DentistResponse();
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == dentistId);
+
+            if (dentist == null)
+            {
+                return response;
+            }
+
+            dentist.Deleted_by = deletedBy;
+            _context.Dentists.Update(dentist);
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            //response.Message = "Delete successfully";
+
+
+            return response;
         }
 
 
@@ -89,7 +175,6 @@ namespace DentistBooking.Application.System.Dentists
                 LastName = dentist.LastName,
                 Gender = dentist.Gender,
                 Phone = dentist.PhoneNumber,
-                Token = dentist.Token,
                 Status = dentist.Status,
                 Position = dentist.Position,
                 Description = dentist.Description,
@@ -99,11 +184,8 @@ namespace DentistBooking.Application.System.Dentists
                 Created_by = (Guid)dentist.Created_by,
                 Deleted_by = (Guid)dentist.Deleted_by,
                 Updated_by = (Guid)dentist.Updated_by,
-
             };
             return dentistDto;
         }
-
-
     }
 }

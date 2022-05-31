@@ -4,13 +4,14 @@ using DentistBooking.ViewModels.System.Dentists;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using DentisBooking.Data.Entities;
 
 namespace DentisBooking.Api.Controllers
 {
     [Route("api/dentists")]
     [ApiController]
     //[TypeFilter(typeof(AuthorizeMiddleWare))]
-    // [Authorize]
+     [Authorize]
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
@@ -20,10 +21,17 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllDentitst([FromQuery] PaginationFilter filter)
+        public async Task<IActionResult> GetAllDentist([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize,filter._by,filter._order);
-            DentistResponse result = await _dentistService.GetDentistList(validFilter);
+            var result = await _dentistService.GetDentistList(validFilter);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewDentist([FromBody] AddDentistRequest newDentist)
+        {
+            var result = await _dentistService.CreateDentist(newDentist);
             return Ok(result);
         }
     }
