@@ -42,15 +42,11 @@ namespace DentisBooking.Data.Migrations
                     b.Property<Guid?>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("KeyTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("Updated_at")
                         .HasColumnType("datetime2");
@@ -63,10 +59,687 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(4925),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(3852),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(5693),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(5453),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8625),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8623),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8627),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8626),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8130),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8129),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8132),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8131),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7845),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7844),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7847),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7846),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6550),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6548),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6551),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6550),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(8304),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(8301),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(8306),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(8305),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(1146),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(1144),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(1148),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(1147),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7554),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7552),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7556),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7555),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7939),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7938),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7941),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7940),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6181),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6180),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6183),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6182),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4835),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4833),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4836),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4835),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(3042),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(3041),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(3043),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(3043),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(611),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(610),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(612),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(611),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632")
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9404),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9403),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9406),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9405),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633")
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7504),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7503),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7506),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7505),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634")
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5834),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5833),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5836),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5835),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635")
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5297),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5295),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5298),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5297),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636")
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5794),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5792),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5796),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5795),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637")
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6555),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6553),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6557),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6556),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638")
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7337),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7336),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7340),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7338),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639")
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9577),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9576),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9579),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9577),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640")
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3524),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3522),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3526),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3525),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641")
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2138),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2137),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2139),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2138),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642")
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1630),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1628),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1631),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1630),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643")
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(336),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(335),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(338),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(337),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644")
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8879),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8878),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8881),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8880),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645")
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9198),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9196),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9199),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9198),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646")
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7772),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7771),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7773),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7773),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647")
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8492),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8490),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8494),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8493),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648")
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7754),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7752),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7756),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7755),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649")
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6303),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6302),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6304),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            Status = 0,
+                            Total = 100m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6303),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650")
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7947),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7946),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7949),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7948),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351")
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6590),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6589),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6591),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6591),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352")
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5133),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5132),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5135),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5134),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353")
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3600),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3597),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3602),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3601),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354")
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3278),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3277),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3280),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3279),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355")
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(4347),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(4344),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(4349),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(4348),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356")
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(4001),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(4000),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(4003),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(4002),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357")
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(9049),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(9047),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(9052),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(9051),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358")
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 883, DateTimeKind.Utc).AddTicks(76),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 883, DateTimeKind.Utc).AddTicks(73),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 883, DateTimeKind.Utc).AddTicks(78),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 883, DateTimeKind.Utc).AddTicks(77),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359")
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1691),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1689),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1694),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1692),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360")
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1818),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1815),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1819),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1818),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361")
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(567),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(566),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(569),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(568),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362")
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9305),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9304),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9307),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9306),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363")
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(1152),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(1148),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(1154),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(1153),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364")
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(334),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(332),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(335),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(335),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365")
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(202),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(200),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(203),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(202),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366")
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9702),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9701),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9703),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9702),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367")
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9919),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9918),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9920),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9920),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368")
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1367),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1365),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1369),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1368),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369")
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1581),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1580),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1582),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1581),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370")
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(3036),
+                            Date = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(3034),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(3037),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            Status = 0,
+                            Total = 200m,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(3036),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.BookingDetail", b =>
@@ -93,6 +766,9 @@ namespace DentisBooking.Data.Migrations
                     b.Property<Guid?>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("KeyTime")
+                        .HasColumnType("int");
+
                     b.Property<string>("Note")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -116,6 +792,2303 @@ namespace DentisBooking.Data.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Booking_Details");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookingId = 1,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(5197),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(5755),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(5460),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookingId = 1,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7036),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7039),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7038),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookingId = 1,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7182),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7184),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7183),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3310")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookingId = 2,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7198),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7199),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7198),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BookingId = 2,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7211),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7213),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7212),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BookingId = 2,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7303),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7305),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7304),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3311")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BookingId = 3,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7321),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7322),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7321),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BookingId = 3,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7334),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7335),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7335),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BookingId = 3,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7347),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7349),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7348),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3312")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BookingId = 4,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7362),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7363),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7363),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BookingId = 4,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7376),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7377),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7376),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BookingId = 4,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7440),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7441),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7440),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3313")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BookingId = 5,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7453),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7454),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7454),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314")
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BookingId = 5,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7466),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7467),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7467),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314")
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BookingId = 5,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7479),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7480),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7479),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3314")
+                        },
+                        new
+                        {
+                            Id = 16,
+                            BookingId = 6,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7492),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7493),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7492),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315")
+                        },
+                        new
+                        {
+                            Id = 17,
+                            BookingId = 6,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7504),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7506),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7505),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315")
+                        },
+                        new
+                        {
+                            Id = 18,
+                            BookingId = 6,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7519),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7520),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7519),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3315")
+                        },
+                        new
+                        {
+                            Id = 19,
+                            BookingId = 7,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7532),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7534),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7533),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316")
+                        },
+                        new
+                        {
+                            Id = 20,
+                            BookingId = 7,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7545),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7546),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7546),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316")
+                        },
+                        new
+                        {
+                            Id = 21,
+                            BookingId = 7,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7591),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7592),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7591),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3316")
+                        },
+                        new
+                        {
+                            Id = 22,
+                            BookingId = 8,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7604),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7605),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7605),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317")
+                        },
+                        new
+                        {
+                            Id = 23,
+                            BookingId = 8,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7618),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7619),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7619),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317")
+                        },
+                        new
+                        {
+                            Id = 24,
+                            BookingId = 8,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7633),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7635),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7634),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3317")
+                        },
+                        new
+                        {
+                            Id = 25,
+                            BookingId = 9,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7649),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7650),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7650),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318")
+                        },
+                        new
+                        {
+                            Id = 26,
+                            BookingId = 9,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7664),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7666),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7665),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318")
+                        },
+                        new
+                        {
+                            Id = 27,
+                            BookingId = 9,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7679),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7680),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7679),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3318")
+                        },
+                        new
+                        {
+                            Id = 28,
+                            BookingId = 10,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7692),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7693),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7692),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319")
+                        },
+                        new
+                        {
+                            Id = 29,
+                            BookingId = 10,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7704),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7705),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7705),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319")
+                        },
+                        new
+                        {
+                            Id = 30,
+                            BookingId = 10,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7782),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7783),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7782),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3319")
+                        },
+                        new
+                        {
+                            Id = 31,
+                            BookingId = 11,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7795),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7796),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7795),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320")
+                        },
+                        new
+                        {
+                            Id = 32,
+                            BookingId = 11,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7808),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7809),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7808),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320")
+                        },
+                        new
+                        {
+                            Id = 33,
+                            BookingId = 11,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7821),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7822),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7821),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3320")
+                        },
+                        new
+                        {
+                            Id = 34,
+                            BookingId = 12,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7835),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7836),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7836),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321")
+                        },
+                        new
+                        {
+                            Id = 35,
+                            BookingId = 12,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7848),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7849),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7849),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321")
+                        },
+                        new
+                        {
+                            Id = 36,
+                            BookingId = 12,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7860),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7862),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7861),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3321")
+                        },
+                        new
+                        {
+                            Id = 37,
+                            BookingId = 13,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7873),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7874),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7874),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322")
+                        },
+                        new
+                        {
+                            Id = 38,
+                            BookingId = 13,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7945),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7946),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7946),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322")
+                        },
+                        new
+                        {
+                            Id = 39,
+                            BookingId = 13,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7960),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7961),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7960),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3322")
+                        },
+                        new
+                        {
+                            Id = 40,
+                            BookingId = 14,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7972),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7974),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7973),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323")
+                        },
+                        new
+                        {
+                            Id = 41,
+                            BookingId = 14,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7986),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7987),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7986),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323")
+                        },
+                        new
+                        {
+                            Id = 42,
+                            BookingId = 14,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7999),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8000),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(7999),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3323")
+                        },
+                        new
+                        {
+                            Id = 43,
+                            BookingId = 15,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8012),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8014),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8013),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324")
+                        },
+                        new
+                        {
+                            Id = 44,
+                            BookingId = 15,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8025),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8026),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8025),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324")
+                        },
+                        new
+                        {
+                            Id = 45,
+                            BookingId = 15,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8038),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8039),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8038),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3324")
+                        },
+                        new
+                        {
+                            Id = 46,
+                            BookingId = 16,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8050),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8051),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8051),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325")
+                        },
+                        new
+                        {
+                            Id = 47,
+                            BookingId = 16,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8095),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8096),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8095),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325")
+                        },
+                        new
+                        {
+                            Id = 48,
+                            BookingId = 16,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8111),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8112),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8112),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3325")
+                        },
+                        new
+                        {
+                            Id = 49,
+                            BookingId = 17,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8124),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8126),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8125),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326")
+                        },
+                        new
+                        {
+                            Id = 50,
+                            BookingId = 17,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8137),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8139),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8138),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326")
+                        },
+                        new
+                        {
+                            Id = 51,
+                            BookingId = 17,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8150),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8151),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8151),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3326")
+                        },
+                        new
+                        {
+                            Id = 52,
+                            BookingId = 18,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8163),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8164),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8163),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327")
+                        },
+                        new
+                        {
+                            Id = 53,
+                            BookingId = 18,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8175),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8177),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8176),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327")
+                        },
+                        new
+                        {
+                            Id = 54,
+                            BookingId = 18,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8188),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8189),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8189),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3327")
+                        },
+                        new
+                        {
+                            Id = 55,
+                            BookingId = 19,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8201),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8202),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8202),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328")
+                        },
+                        new
+                        {
+                            Id = 56,
+                            BookingId = 19,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8244),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8246),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8245),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328")
+                        },
+                        new
+                        {
+                            Id = 57,
+                            BookingId = 19,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8259),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8261),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8260),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3328")
+                        },
+                        new
+                        {
+                            Id = 58,
+                            BookingId = 20,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8272),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8273),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8273),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329")
+                        },
+                        new
+                        {
+                            Id = 59,
+                            BookingId = 20,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8285),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8287),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8286),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329")
+                        },
+                        new
+                        {
+                            Id = 60,
+                            BookingId = 20,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8298),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8300),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8299),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3329")
+                        },
+                        new
+                        {
+                            Id = 61,
+                            BookingId = 21,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8311),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8312),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8312),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330")
+                        },
+                        new
+                        {
+                            Id = 62,
+                            BookingId = 21,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8323),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8325),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8324),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330")
+                        },
+                        new
+                        {
+                            Id = 63,
+                            BookingId = 21,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8336),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8337),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8337),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3330")
+                        },
+                        new
+                        {
+                            Id = 64,
+                            BookingId = 22,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8349),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8350),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8349),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331")
+                        },
+                        new
+                        {
+                            Id = 65,
+                            BookingId = 22,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8361),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8363),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8362),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331")
+                        },
+                        new
+                        {
+                            Id = 66,
+                            BookingId = 22,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8424),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8426),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8425),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3331")
+                        },
+                        new
+                        {
+                            Id = 67,
+                            BookingId = 23,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8438),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8439),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8439),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332")
+                        },
+                        new
+                        {
+                            Id = 68,
+                            BookingId = 23,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8451),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8452),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8452),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332")
+                        },
+                        new
+                        {
+                            Id = 69,
+                            BookingId = 23,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8464),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8465),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8464),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3332")
+                        },
+                        new
+                        {
+                            Id = 70,
+                            BookingId = 24,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8477),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8478),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8477),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333")
+                        },
+                        new
+                        {
+                            Id = 71,
+                            BookingId = 24,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8489),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8491),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8490),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333")
+                        },
+                        new
+                        {
+                            Id = 72,
+                            BookingId = 24,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8502),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8503),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8503),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3333")
+                        },
+                        new
+                        {
+                            Id = 73,
+                            BookingId = 25,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8589),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8590),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8589),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334")
+                        },
+                        new
+                        {
+                            Id = 74,
+                            BookingId = 25,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8604),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8606),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8605),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334")
+                        },
+                        new
+                        {
+                            Id = 75,
+                            BookingId = 25,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8617),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8619),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8618),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3334")
+                        },
+                        new
+                        {
+                            Id = 76,
+                            BookingId = 26,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8630),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8632),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8631),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335")
+                        },
+                        new
+                        {
+                            Id = 77,
+                            BookingId = 26,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8643),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8644),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8643),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335")
+                        },
+                        new
+                        {
+                            Id = 78,
+                            BookingId = 26,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8656),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8657),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8656),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3335")
+                        },
+                        new
+                        {
+                            Id = 79,
+                            BookingId = 27,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8668),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8670),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8669),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336")
+                        },
+                        new
+                        {
+                            Id = 80,
+                            BookingId = 27,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8681),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8682),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8681),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336")
+                        },
+                        new
+                        {
+                            Id = 81,
+                            BookingId = 27,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8693),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8695),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8694),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3336")
+                        },
+                        new
+                        {
+                            Id = 82,
+                            BookingId = 28,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8706),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8707),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8707),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337")
+                        },
+                        new
+                        {
+                            Id = 83,
+                            BookingId = 28,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8757),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8758),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8758),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337")
+                        },
+                        new
+                        {
+                            Id = 84,
+                            BookingId = 28,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8770),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8771),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8771),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3337")
+                        },
+                        new
+                        {
+                            Id = 85,
+                            BookingId = 29,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8783),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8784),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8783),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338")
+                        },
+                        new
+                        {
+                            Id = 86,
+                            BookingId = 29,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8795),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8797),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8796),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338")
+                        },
+                        new
+                        {
+                            Id = 87,
+                            BookingId = 29,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8808),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8809),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8809),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3338")
+                        },
+                        new
+                        {
+                            Id = 88,
+                            BookingId = 30,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8821),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8822),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8822),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339")
+                        },
+                        new
+                        {
+                            Id = 89,
+                            BookingId = 30,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8833),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8835),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8834),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339")
+                        },
+                        new
+                        {
+                            Id = 90,
+                            BookingId = 30,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8846),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8847),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8847),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3339")
+                        },
+                        new
+                        {
+                            Id = 91,
+                            BookingId = 31,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8858),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8860),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8859),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340")
+                        },
+                        new
+                        {
+                            Id = 92,
+                            BookingId = 31,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8917),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8918),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8917),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340")
+                        },
+                        new
+                        {
+                            Id = 93,
+                            BookingId = 31,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8929),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8931),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8930),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3340")
+                        },
+                        new
+                        {
+                            Id = 94,
+                            BookingId = 32,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8942),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8944),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8943),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341")
+                        },
+                        new
+                        {
+                            Id = 95,
+                            BookingId = 32,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8955),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8956),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8956),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341")
+                        },
+                        new
+                        {
+                            Id = 96,
+                            BookingId = 32,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8968),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8969),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8968),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3341")
+                        },
+                        new
+                        {
+                            Id = 97,
+                            BookingId = 33,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8981),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8982),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8981),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342")
+                        },
+                        new
+                        {
+                            Id = 98,
+                            BookingId = 33,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8993),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8994),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(8994),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342")
+                        },
+                        new
+                        {
+                            Id = 99,
+                            BookingId = 33,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9006),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9007),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9006),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3342")
+                        },
+                        new
+                        {
+                            Id = 100,
+                            BookingId = 34,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9018),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9019),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9019),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343")
+                        },
+                        new
+                        {
+                            Id = 101,
+                            BookingId = 34,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9075),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9076),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9075),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343")
+                        },
+                        new
+                        {
+                            Id = 102,
+                            BookingId = 34,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9088),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9089),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9088),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3343")
+                        },
+                        new
+                        {
+                            Id = 103,
+                            BookingId = 35,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9101),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9102),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9101),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344")
+                        },
+                        new
+                        {
+                            Id = 104,
+                            BookingId = 35,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9114),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9115),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9114),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344")
+                        },
+                        new
+                        {
+                            Id = 105,
+                            BookingId = 35,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9126),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9128),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9127),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3344")
+                        },
+                        new
+                        {
+                            Id = 106,
+                            BookingId = 36,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9139),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9141),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9140),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345")
+                        },
+                        new
+                        {
+                            Id = 107,
+                            BookingId = 36,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9152),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9153),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9152),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345")
+                        },
+                        new
+                        {
+                            Id = 108,
+                            BookingId = 36,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9165),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9166),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9165),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3345")
+                        },
+                        new
+                        {
+                            Id = 109,
+                            BookingId = 37,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9177),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9179),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9178),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346")
+                        },
+                        new
+                        {
+                            Id = 110,
+                            BookingId = 37,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9246),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9248),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9247),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346")
+                        },
+                        new
+                        {
+                            Id = 111,
+                            BookingId = 37,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9260),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9261),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9260),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3346")
+                        },
+                        new
+                        {
+                            Id = 112,
+                            BookingId = 38,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9273),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9274),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9273),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347")
+                        },
+                        new
+                        {
+                            Id = 113,
+                            BookingId = 38,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9286),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9287),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9286),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347")
+                        },
+                        new
+                        {
+                            Id = 114,
+                            BookingId = 38,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9299),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9300),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9300),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3347")
+                        },
+                        new
+                        {
+                            Id = 115,
+                            BookingId = 39,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9312),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9313),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9312),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348")
+                        },
+                        new
+                        {
+                            Id = 116,
+                            BookingId = 39,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9324),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9326),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9325),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348")
+                        },
+                        new
+                        {
+                            Id = 117,
+                            BookingId = 39,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9338),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9339),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9339),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3348")
+                        },
+                        new
+                        {
+                            Id = 118,
+                            BookingId = 40,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9351),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9352),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9351),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349")
+                        },
+                        new
+                        {
+                            Id = 119,
+                            BookingId = 40,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9408),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9410),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9409),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349")
+                        },
+                        new
+                        {
+                            Id = 120,
+                            BookingId = 40,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9422),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9423),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9423),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3349")
+                        },
+                        new
+                        {
+                            Id = 121,
+                            BookingId = 41,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9435),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9436),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9436),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350")
+                        },
+                        new
+                        {
+                            Id = 122,
+                            BookingId = 41,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9448),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9449),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9449),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350")
+                        },
+                        new
+                        {
+                            Id = 123,
+                            BookingId = 41,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9461),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9462),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9462),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3350")
+                        },
+                        new
+                        {
+                            Id = 124,
+                            BookingId = 42,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9474),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9475),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9474),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351")
+                        },
+                        new
+                        {
+                            Id = 125,
+                            BookingId = 42,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9486),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9488),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9487),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351")
+                        },
+                        new
+                        {
+                            Id = 126,
+                            BookingId = 42,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9499),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9500),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9499),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351")
+                        },
+                        new
+                        {
+                            Id = 127,
+                            BookingId = 43,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9511),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9513),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9512),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352")
+                        },
+                        new
+                        {
+                            Id = 128,
+                            BookingId = 43,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9555),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9556),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9555),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352")
+                        },
+                        new
+                        {
+                            Id = 129,
+                            BookingId = 43,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9568),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9570),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9569),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352")
+                        },
+                        new
+                        {
+                            Id = 130,
+                            BookingId = 44,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9583),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9584),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9584),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353")
+                        },
+                        new
+                        {
+                            Id = 131,
+                            BookingId = 44,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9596),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9598),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9597),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353")
+                        },
+                        new
+                        {
+                            Id = 132,
+                            BookingId = 44,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9609),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9610),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9609),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353")
+                        },
+                        new
+                        {
+                            Id = 133,
+                            BookingId = 45,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9622),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9623),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9622),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354")
+                        },
+                        new
+                        {
+                            Id = 134,
+                            BookingId = 45,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9634),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9659),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9635),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354")
+                        },
+                        new
+                        {
+                            Id = 135,
+                            BookingId = 45,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9720),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9721),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9720),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354")
+                        },
+                        new
+                        {
+                            Id = 136,
+                            BookingId = 46,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9733),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9734),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9734),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355")
+                        },
+                        new
+                        {
+                            Id = 137,
+                            BookingId = 46,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9746),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9747),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9747),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355")
+                        },
+                        new
+                        {
+                            Id = 138,
+                            BookingId = 46,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9759),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9760),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9760),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355")
+                        },
+                        new
+                        {
+                            Id = 139,
+                            BookingId = 47,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9772),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9773),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9772),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356")
+                        },
+                        new
+                        {
+                            Id = 140,
+                            BookingId = 47,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9785),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9786),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9785),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356")
+                        },
+                        new
+                        {
+                            Id = 141,
+                            BookingId = 47,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9797),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9799),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9798),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356")
+                        },
+                        new
+                        {
+                            Id = 142,
+                            BookingId = 48,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9810),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9812),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9811),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357")
+                        },
+                        new
+                        {
+                            Id = 143,
+                            BookingId = 48,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9823),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9824),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9824),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357")
+                        },
+                        new
+                        {
+                            Id = 144,
+                            BookingId = 48,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9906),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9907),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9906),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357")
+                        },
+                        new
+                        {
+                            Id = 145,
+                            BookingId = 49,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9919),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9921),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9920),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358")
+                        },
+                        new
+                        {
+                            Id = 146,
+                            BookingId = 49,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9932),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9934),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9933),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358")
+                        },
+                        new
+                        {
+                            Id = 147,
+                            BookingId = 49,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9945),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9947),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9946),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358")
+                        },
+                        new
+                        {
+                            Id = 148,
+                            BookingId = 50,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9958),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9959),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9958),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359")
+                        },
+                        new
+                        {
+                            Id = 149,
+                            BookingId = 50,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9970),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9972),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9971),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359")
+                        },
+                        new
+                        {
+                            Id = 150,
+                            BookingId = 50,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9982),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9984),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9983),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359")
+                        },
+                        new
+                        {
+                            Id = 151,
+                            BookingId = 51,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9995),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9997),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 1,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(9996),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360")
+                        },
+                        new
+                        {
+                            Id = 152,
+                            BookingId = 51,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(7),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(9),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 2,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(8),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360")
+                        },
+                        new
+                        {
+                            Id = 153,
+                            BookingId = 51,
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(64),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(66),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            KeyTime = 0,
+                            Note = "nhe nhang thoi nha bac si",
+                            ServiceId = 3,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 956, DateTimeKind.Utc).AddTicks(65),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Clinic", b =>
@@ -170,6 +3143,83 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clinics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "TestAddress1",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(3626),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(4134),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Description = "TestDescirption1",
+                            Name = "TestClinic1",
+                            Phone = 868644651,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(3865),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "TestAddress2",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5372),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5377),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Description = "TestDescirption2",
+                            Name = "TestClinic2",
+                            Phone = 868644651,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5375),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "TestAddress3",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5407),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5409),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Description = "TestDescirption3",
+                            Name = "TestClinic3",
+                            Phone = 868644651,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5408),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "TestAddress4",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5429),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5431),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Description = "TestDescirption4",
+                            Name = "TestClinic4",
+                            Phone = 868644651,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5430),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "TestAddress5",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5450),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5452),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Description = "TestDescirption5",
+                            Name = "TestClinic5",
+                            Phone = 868644651,
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(5451),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Dentist", b =>
@@ -281,6 +3331,1385 @@ namespace DentisBooking.Data.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("Dentists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e20"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "50b443a8-81fe-4960-97ed-bd2d057bb39c",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(8620),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e20"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(9106),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e20"),
+                            Description = "TestDescirption20",
+                            Email = "testDentist@gmail.com20",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(8855),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e20")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e21"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "0b7d262d-6f1c-40e1-8620-9a0182bf0766",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(526),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e21"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(531),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e21"),
+                            Description = "TestDescirption21",
+                            Email = "testDentist@gmail.com21",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(530),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e21")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e22"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "1e268628-cef2-47ab-96b4-5d5dea2178a9",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(634),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e22"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(636),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e22"),
+                            Description = "TestDescirption22",
+                            Email = "testDentist@gmail.com22",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(635),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e22")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e23"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "0cf4f16f-1b9c-4ec2-a677-f6bc0f3c3cf7",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(666),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e23"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(668),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e23"),
+                            Description = "TestDescirption23",
+                            Email = "testDentist@gmail.com23",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(667),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e23")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e24"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "195f5523-be73-405c-8254-3c716b5b38f0",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(691),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e24"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(693),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e24"),
+                            Description = "TestDescirption24",
+                            Email = "testDentist@gmail.com24",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(692),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e24")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e25"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "5d087d37-639e-4820-b589-48c13b23f873",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(717),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e25"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(719),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e25"),
+                            Description = "TestDescirption25",
+                            Email = "testDentist@gmail.com25",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(719),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e25")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e26"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "d8fb8334-374a-4084-ac53-45e5fb75d6cd",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(751),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e26"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(753),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e26"),
+                            Description = "TestDescirption26",
+                            Email = "testDentist@gmail.com26",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(752),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e26")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e27"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "101df5b0-23e7-4000-afe0-b3a33bf3d521",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(774),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e27"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(776),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e27"),
+                            Description = "TestDescirption27",
+                            Email = "testDentist@gmail.com27",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(775),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e27")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e28"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "a01450c5-59e2-4a61-99aa-6eb3601e22a8",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(878),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e28"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(880),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e28"),
+                            Description = "TestDescirption28",
+                            Email = "testDentist@gmail.com28",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(879),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e28")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e29"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "09dfee4e-f90f-4b86-8f95-bef4f37b84ff",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(907),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e29"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(909),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e29"),
+                            Description = "TestDescirption29",
+                            Email = "testDentist@gmail.com29",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(908),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e29")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e30"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "45d140e1-0557-4ed1-9f64-3cfb1ed87dbf",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(930),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e30"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(931),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e30"),
+                            Description = "TestDescirption30",
+                            Email = "testDentist@gmail.com30",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(931),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e30")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e31"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "44aa1837-9cfc-46d1-884f-73c7f1c9ea57",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(952),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e31"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(953),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e31"),
+                            Description = "TestDescirption31",
+                            Email = "testDentist@gmail.com31",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(953),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e31")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e32"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "ef02342e-fc7f-4920-bd54-7149354e41c8",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(974),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e32"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(976),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e32"),
+                            Description = "TestDescirption32",
+                            Email = "testDentist@gmail.com32",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(975),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e32")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e33"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "2288065b-cacc-49a2-890b-6c0da433c2bb",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(996),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e33"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(998),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e33"),
+                            Description = "TestDescirption33",
+                            Email = "testDentist@gmail.com33",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(997),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e33")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e34"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "2a546a6b-d17c-4929-8cd2-90b77c0caadf",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1071),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e34"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1073),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e34"),
+                            Description = "TestDescirption34",
+                            Email = "testDentist@gmail.com34",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1072),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e34")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e35"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "001350a5-bf62-41fc-ba28-3e6248a0e9e6",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1095),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e35"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1096),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e35"),
+                            Description = "TestDescirption35",
+                            Email = "testDentist@gmail.com35",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1096),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e35")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e36"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "74552aba-59e9-4506-96a8-a11d05a69296",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1117),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e36"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1119),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e36"),
+                            Description = "TestDescirption36",
+                            Email = "testDentist@gmail.com36",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1118),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e36")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e37"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "e2489ee3-c1f7-4d8e-9d8d-0e05a0cc0e62",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1141),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e37"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1143),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e37"),
+                            Description = "TestDescirption37",
+                            Email = "testDentist@gmail.com37",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1142),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e37")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e38"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "a9f8d71d-51cd-40f9-9ae6-311a30b116cd",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1164),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e38"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1166),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e38"),
+                            Description = "TestDescirption38",
+                            Email = "testDentist@gmail.com38",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1165),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e38")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e39"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "c9bc4f4e-f2e4-4e31-b45c-0c49da8b40a8",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1227),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e39"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1229),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e39"),
+                            Description = "TestDescirption39",
+                            Email = "testDentist@gmail.com39",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1228),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e39")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e40"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "8039e0b2-78c8-421f-b2ad-5c21c68b59e2",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1252),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e40"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1254),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e40"),
+                            Description = "TestDescirption40",
+                            Email = "testDentist@gmail.com40",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1253),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e40")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e41"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "a0fe42c4-d061-4823-895b-6655eb3348a5",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1274),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e41"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1276),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e41"),
+                            Description = "TestDescirption41",
+                            Email = "testDentist@gmail.com41",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1275),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e41")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e42"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "5285b277-bbcf-4f79-b0dc-334308328552",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1299),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e42"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1301),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e42"),
+                            Description = "TestDescirption42",
+                            Email = "testDentist@gmail.com42",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1300),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e42")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e43"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "8115bc99-ee27-414c-bfa0-ffdd6351f20c",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1322),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e43"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1324),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e43"),
+                            Description = "TestDescirption43",
+                            Email = "testDentist@gmail.com43",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1323),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e43")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e44"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "0ae699fa-f54d-4bb2-83fc-bbc78e32e9b6",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1344),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e44"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1346),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e44"),
+                            Description = "TestDescirption44",
+                            Email = "testDentist@gmail.com44",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1345),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e44")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e45"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "95c7f7eb-4d5a-4072-9b06-089d70cf2255",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1411),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e45"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1413),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e45"),
+                            Description = "TestDescirption45",
+                            Email = "testDentist@gmail.com45",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1412),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e45")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e46"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "8e127582-3342-4faa-b98d-f8a653c31b3b",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1434),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e46"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1435),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e46"),
+                            Description = "TestDescirption46",
+                            Email = "testDentist@gmail.com46",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1434),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e46")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e47"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "275c2ea2-052a-492a-a684-5becf0354450",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1456),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e47"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1458),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e47"),
+                            Description = "TestDescirption47",
+                            Email = "testDentist@gmail.com47",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1457),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e47")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e48"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "d1aaf433-cded-4d5d-a83f-5d6e3ee07834",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1478),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e48"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1479),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e48"),
+                            Description = "TestDescirption48",
+                            Email = "testDentist@gmail.com48",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1479),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e48")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e49"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "894ed5b7-46d9-410e-b178-e95180c1668b",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1499),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e49"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1501),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e49"),
+                            Description = "TestDescirption49",
+                            Email = "testDentist@gmail.com49",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1500),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e49")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e50"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "3d7b0428-1250-444b-9900-c8423ffddf49",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1564),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e50"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1566),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e50"),
+                            Description = "TestDescirption50",
+                            Email = "testDentist@gmail.com50",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1565),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e50")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "e2cb2fb8-bbe8-4423-97fa-0039e3fe638d",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1590),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1592),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Description = "TestDescirption51",
+                            Email = "testDentist@gmail.com51",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1591),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "d09ec6d9-eeea-463f-b7c4-f0a39ccbc023",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1613),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1615),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Description = "TestDescirption52",
+                            Email = "testDentist@gmail.com52",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1614),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "1386fadd-ffd5-4473-a061-4ed5e43360b9",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1637),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1638),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Description = "TestDescirption53",
+                            Email = "testDentist@gmail.com53",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1637),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "2a8ce8cd-5936-459d-8e57-4f13f5344999",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1659),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1660),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Description = "TestDescirption54",
+                            Email = "testDentist@gmail.com54",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1659),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "1d977187-dc2e-4a19-aa30-47a68f2d2df3",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1680),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1682),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Description = "TestDescirption55",
+                            Email = "testDentist@gmail.com55",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1681),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e56"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "092eca1d-3b6c-4af3-a66c-d42e9f0c6f33",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1750),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e56"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1751),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e56"),
+                            Description = "TestDescirption56",
+                            Email = "testDentist@gmail.com56",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1751),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e56")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e57"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "ca232f3c-71f9-4a45-871d-520cd9d5adcf",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1772),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e57"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1774),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e57"),
+                            Description = "TestDescirption57",
+                            Email = "testDentist@gmail.com57",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1773),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e57")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e58"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "328f4f6e-e745-46ba-9110-98ef9bb0f239",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1797),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e58"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1799),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e58"),
+                            Description = "TestDescirption58",
+                            Email = "testDentist@gmail.com58",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1798),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e58")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e59"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "5616f0ee-2223-46c3-ad22-b5a7aa6cc0f5",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1820),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e59"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1821),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e59"),
+                            Description = "TestDescirption59",
+                            Email = "testDentist@gmail.com59",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1821),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e59")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e60"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "3932ed6c-0f56-45a1-a993-d0e50ae831f9",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1841),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e60"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1843),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e60"),
+                            Description = "TestDescirption60",
+                            Email = "testDentist@gmail.com60",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1842),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e60")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e61"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "1d6b7979-8f74-4c94-90c9-f2a87e9b70ff",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1892),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e61"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1894),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e61"),
+                            Description = "TestDescirption61",
+                            Email = "testDentist@gmail.com61",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1893),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e61")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e62"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "c964613a-d480-4a2e-8eab-9b625a0d3352",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1916),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e62"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1918),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e62"),
+                            Description = "TestDescirption62",
+                            Email = "testDentist@gmail.com62",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1917),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e62")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e63"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "40eceaa8-a6ed-4e80-a124-ddacd0753474",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1938),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e63"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1940),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e63"),
+                            Description = "TestDescirption63",
+                            Email = "testDentist@gmail.com63",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1939),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e63")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e64"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "ecf706d5-dec2-413b-9371-534aa47018a0",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1960),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e64"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1962),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e64"),
+                            Description = "TestDescirption64",
+                            Email = "testDentist@gmail.com64",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1961),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e64")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e65"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "5cb6f624-e7b9-408f-8495-64c7b9b732c2",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1981),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e65"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1983),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e65"),
+                            Description = "TestDescirption65",
+                            Email = "testDentist@gmail.com65",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(1982),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e65")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e66"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "de1663e9-46b0-48eb-ad46-55d87fb04d2f",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2006),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e66"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2007),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e66"),
+                            Description = "TestDescirption66",
+                            Email = "testDentist@gmail.com66",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2007),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e66")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e67"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "2adcf0dd-bcbd-4290-9282-9a0e9543713d",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2057),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e67"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2059),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e67"),
+                            Description = "TestDescirption67",
+                            Email = "testDentist@gmail.com67",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2058),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e67")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e68"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "dd59740c-b82b-41d4-8452-c6fae461b9f9",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2082),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e68"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2083),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e68"),
+                            Description = "TestDescirption68",
+                            Email = "testDentist@gmail.com68",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2082),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e68")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e69"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "56cc3c67-5fd1-49bf-8b53-5f6af35747a5",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2103),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e69"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2105),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e69"),
+                            Description = "TestDescirption69",
+                            Email = "testDentist@gmail.com69",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2104),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e69")
+                        },
+                        new
+                        {
+                            Id = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e70"),
+                            AccessFailedCount = 0,
+                            ClinicId = 1,
+                            ConcurrencyStamp = "46ba3478-b68a-4e27-8d47-7b022b575d43",
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2125),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e70"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2127),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e70"),
+                            Description = "TestDescirption70",
+                            Email = "testDentist@gmail.com70",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 0,
+                            LastName = "Anh Thinh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumber = "113",
+                            PhoneNumberConfirmed = false,
+                            Position = 0,
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(2126),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e70")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Discount", b =>
@@ -341,6 +4770,98 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Discounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 10m,
+                            ApplyForAll = true,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 631, DateTimeKind.Local).AddTicks(2142),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 631, DateTimeKind.Local).AddTicks(2872),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            Description = "TestDescirption1",
+                            EndDate = new DateTime(2022, 5, 31, 9, 56, 4, 631, DateTimeKind.Local).AddTicks(163),
+                            Percent = 5f,
+                            StartDate = new DateTime(2022, 5, 31, 9, 56, 4, 630, DateTimeKind.Local).AddTicks(5172),
+                            Title = "TestTitle1",
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 631, DateTimeKind.Local).AddTicks(2376),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51"),
+                            status = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 10m,
+                            ApplyForAll = true,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(1987),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(1989),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            Description = "TestDescirption2",
+                            EndDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(1984),
+                            Percent = 5f,
+                            StartDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(1978),
+                            Title = "TestTitle2",
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(1988),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52"),
+                            status = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 10m,
+                            ApplyForAll = true,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2087),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2089),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            Description = "TestDescirption3",
+                            EndDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2085),
+                            Percent = 5f,
+                            StartDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2084),
+                            Title = "TestTitle3",
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2088),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53"),
+                            status = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 10m,
+                            ApplyForAll = true,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2110),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2112),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            Description = "TestDescirption4",
+                            EndDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2109),
+                            Percent = 5f,
+                            StartDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2108),
+                            Title = "TestTitle4",
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2111),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54"),
+                            status = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = 10m,
+                            ApplyForAll = true,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2131),
+                            Created_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2132),
+                            Deleted_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            Description = "TestDescirption5",
+                            EndDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2129),
+                            Percent = 5f,
+                            StartDate = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2128),
+                            Title = "TestTitle5",
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 632, DateTimeKind.Local).AddTicks(2131),
+                            Updated_by = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55"),
+                            status = 0
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Role", b =>
@@ -366,6 +4887,24 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c"),
+                            ConcurrencyStamp = "eeb74a9e-e2c2-43ac-98a1-22f49b454c88",
+                            Description = "Admin",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b"),
+                            ConcurrencyStamp = "e5ec2dd9-71d9-4801-bbdd-659c9ee26f85",
+                            Description = "User",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Service", b =>
@@ -419,6 +4958,83 @@ namespace DentisBooking.Data.Migrations
                     b.HasIndex("DiscountId");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(3648),
+                            Created_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a1"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(4115),
+                            Deleted_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a1"),
+                            DiscountId = 1,
+                            Name = "testService@gmail.com1",
+                            Price = 1m,
+                            Procedure = "testProcedure1",
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(3876),
+                            Updated_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a1")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5414),
+                            Created_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a2"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5420),
+                            Deleted_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a2"),
+                            DiscountId = 2,
+                            Name = "testService@gmail.com2",
+                            Price = 2m,
+                            Procedure = "testProcedure2",
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5418),
+                            Updated_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a2")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5451),
+                            Created_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a3"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5453),
+                            Deleted_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a3"),
+                            DiscountId = 3,
+                            Name = "testService@gmail.com3",
+                            Price = 3m,
+                            Procedure = "testProcedure3",
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5452),
+                            Updated_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a3")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5541),
+                            Created_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a4"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5543),
+                            Deleted_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a4"),
+                            DiscountId = 4,
+                            Name = "testService@gmail.com4",
+                            Price = 4m,
+                            Procedure = "testProcedure4",
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5542),
+                            Updated_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a4")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Created_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5561),
+                            Created_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a5"),
+                            Deleted_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5563),
+                            Deleted_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a5"),
+                            DiscountId = 5,
+                            Name = "testService@gmail.com5",
+                            Price = 5m,
+                            Procedure = "testProcedure5",
+                            Status = 0,
+                            Updated_at = new DateTime(2022, 5, 31, 9, 56, 4, 633, DateTimeKind.Local).AddTicks(5562),
+                            Updated_by = new Guid("74965f04-3baa-44ef-878a-50862a6fe9a5")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.ServiceDentist", b =>
@@ -434,6 +5050,263 @@ namespace DentisBooking.Data.Migrations
                     b.HasIndex("DentistId");
 
                     b.ToTable("ServiceDentists");
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e20")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e21")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e22")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e23")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e24")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e25")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e26")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e27")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e28")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e29")
+                        },
+                        new
+                        {
+                            ServiceId = 1,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e30")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e31")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e32")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e33")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e34")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e35")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e36")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e37")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e38")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e39")
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e40")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e41")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e42")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e43")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e44")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e45")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e46")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e47")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e48")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e49")
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e50")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e51")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e52")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e53")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e54")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e55")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e56")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e57")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e58")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e59")
+                        },
+                        new
+                        {
+                            ServiceId = 4,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e60")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e61")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e62")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e63")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e64")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e65")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e66")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e67")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e68")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e69")
+                        },
+                        new
+                        {
+                            ServiceId = 5,
+                            DentistId = new Guid("4bc632aa-7765-4040-9fbf-f2bb408d8e70")
+                        });
                 });
 
             modelBuilder.Entity("DentisBooking.Data.Entities.User", b =>
@@ -537,6 +5410,1412 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e8436d19-4899-48b2-8272-d5d6a6896a1c",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(583),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(1645),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEFLDtxgPlSpPOcY2GHV3lbjx7KKgL7d87RA0sC8jTyBDEDp1QrVLhTWGcuIx/9us4w==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 643, DateTimeKind.Utc).AddTicks(1157),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3a8fe2ec-09c0-4ade-a977-8131ee698f20",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8278),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8289),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIIyqXGG7/hjowROTQyubvh42C55eLhwxVB1GREd0ljqho5IW2sopDd9rX+/Qzk2TQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 651, DateTimeKind.Utc).AddTicks(8286),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1397c7eb-6cf7-4445-a612-d0e006a6f37b",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8073),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8077),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAELLW1vf4NF+XXsEn8DpKzI/wO9Od3/XymUimSHExQ53XYvOYjHWgwcSWk1y9BuMrCw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 657, DateTimeKind.Utc).AddTicks(8076),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9a04e72c-4c07-4369-9abb-304b19f75693",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7682),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7688),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEPSbMk/RRlxfS6tkzv/RzvyQ1P3tRqxY+yzYEnv1p0n5IJpzzUcy6DGveuSToyzsyw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 663, DateTimeKind.Utc).AddTicks(7686),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4ace1b2a-564d-43c1-a742-c212084b2317",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6484),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6486),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEMuRqIwa5PsPsAjsBd/bvlb4D4GcwWyEw/H7E8EoPO8P67eJo7HH2RJzibwo9KS6HA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 669, DateTimeKind.Utc).AddTicks(6485),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6e010959-606a-4173-a0e4-c0afd8d11c7e",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(7981),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(7994),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEP1K08XNPeIXWRpY2ysJI+PFBCAGtF6NOUwCn9BivjF7pPepKUwTRHef07S4mht0yw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 675, DateTimeKind.Utc).AddTicks(7992),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "18f63ca3-47a0-4dd0-8543-a76d8426b1c3",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(918),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(924),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDoxolrUErQnfQVkjuRmwUYzJBPDVQeI75FLpZzaqAiqRzOSe1fq05Lvv/rtJv/g/A==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 682, DateTimeKind.Utc).AddTicks(922),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0ddde1bd-a293-463b-bd15-25185a27b78d",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7366),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7369),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIrr8s8GiUzNKIyh8fVp/f42JEPWZDEMEf76CCVmxZth4OR/YKfHdNFGajYmIB/0qw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 688, DateTimeKind.Utc).AddTicks(7368),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fcf76c49-bec8-4670-83ff-e1c799529cce",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7739),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7745),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEMlY0TGEtYPP9Ns0Z1S0ZIYH2zIykj0AYMSCMmKjzK1OcqkbtGJB+H22QwuD0ry1Qw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 694, DateTimeKind.Utc).AddTicks(7744),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2f4b47ce-53a1-4b34-addd-c3008c44e8d5",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6137),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6139),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEFnfCoO/L9vX8HXCjNBUOdt1/hM2vdz4/iBSPH8xyWDSaIIgWPucXmIyLciA2s1vLQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 700, DateTimeKind.Utc).AddTicks(6138),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "00c0c924-f36b-46c8-b4d6-537153d7b4b4",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4747),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4750),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEE+UhVYl7ONcOR0jooDqMjRvNj6MoSJiS+6gERqiVPEEU5NicDzTN1pupw/OLEYk9w==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 706, DateTimeKind.Utc).AddTicks(4749),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7b051815-5f94-4f40-828c-071db4c8b55f",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(2987),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(2994),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENSApnbIYi0PKXAxFZGbuzkuKTlBpjY+newkw0klkdBN4zi8isAiDsq1tuYKeXfZMQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 712, DateTimeKind.Utc).AddTicks(2993),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1624e44e-6750-4e93-af5f-b7a69e74cac5",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(582),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(583),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEOjZ72BefLrY8aasyvGzO2V2B+BJyPV/w8FPHUjE3+dSlZrYEbkho4cEsEyIA1QCLg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 718, DateTimeKind.Utc).AddTicks(583),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e07a8921-fd8d-4310-97d0-f7227451d03a",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9256),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9261),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDYJAv+UURjs4s4SrC6r8urFo5HjLDEQEmHbTb81ss2Y/1llWMa2l7wdE//qLu4bYQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 723, DateTimeKind.Utc).AddTicks(9260),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d7a99519-5df9-43bf-a034-fdbf3498d22b",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7456),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7459),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEM3/GJlmQCKYopcLO71wnAI8AsuqS4j4sq372YXzBbZ87Kq1p+sL2l1mPpY4ZmbkoQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 729, DateTimeKind.Utc).AddTicks(7458),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8470e73a-5ee8-4a0a-9a48-e98820c5e9eb",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5732),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5734),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKnObRaSz9k5qexGfVEELZqcDSKKliD/ZC0OCZuidfWUOgqJAl7wSlig4Ca9Sweww==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 735, DateTimeKind.Utc).AddTicks(5733),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "27179aab-d304-4a48-ad3f-b8b6ad7db91e",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5156),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5164),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEG7mEGgGJrUmzT0AXebTjS8my/NJGaT1zopqwSTjuFmH9tcSHsanyjn9SXd6zuJ2HQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 741, DateTimeKind.Utc).AddTicks(5163),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3b09df27-126b-478b-beaf-da1aa6db0319",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5683),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5687),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIqvDyBvN95yyta3Z1C7wSxITDEEy9SoTJB5dQyOsCn4zJLceflfPrCcU8AIsbJobA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 747, DateTimeKind.Utc).AddTicks(5686),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "86a5be9d-5759-4172-b39a-e3f6ccd68ad7",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6260),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6269),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEAFjui2NcN16Mmj438A52ZBq2OTDPHjJiEsb/G+H6RwueXwtIU9W0Ws2nM4GOjWTLQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 753, DateTimeKind.Utc).AddTicks(6268),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "913422b9-a65e-4278-98a8-d8c1a716a0fd",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7292),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7295),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENcGO9BNCLaC8cWVZFIt2PeiQ+UigPmE5CiWp6sbTL6NJ5DYpABBxQdJl+2b1kbbAg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 759, DateTimeKind.Utc).AddTicks(7294),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0c57dc78-553f-4138-b0a5-8cfd0a3eefb7",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9540),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9542),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIwBnxzxqinbpH9tLAji7SajP3PoeOEr/q5u5K1RtcUmNMMtmCtgPqFJDDLpb/+AGA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 765, DateTimeKind.Utc).AddTicks(9541),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b876e130-d142-427d-8d7a-4ed10ca8d8c8",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3294),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3303),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEBzjyfnkr4i64JEs2+Fn+1nN6xxhqU0VMt6EXFWsmngVAfK/msKhcWcUTew2nYytAQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 772, DateTimeKind.Utc).AddTicks(3302),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9f39d226-8b43-4af8-9d3a-bf563e3c277d",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2104),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2106),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEMXZzteBnLqo49AgUDuJlDnRNwO1dH1RbLA4ZNSNajY6yv3OYXnq1n5+RrDJgmEpVQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 778, DateTimeKind.Utc).AddTicks(2105),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ad377735-0077-4433-ac5c-ccc376b8d282",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1443),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1447),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAECq3uiwili0z1b+3RR/DAqlV+/JXZv6MiGvl088NouAn3+wudakXelnP81v/13j+oA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 784, DateTimeKind.Utc).AddTicks(1446),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d6a93b44-80e8-47ee-9b41-aa9e27f5148d",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(284),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(286),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAED4mrWB98ANIfAoFP+umHFBnyYEqmJVH17O0oh23oGz0vddYVUD1OWgmAtpjD8812A==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 790, DateTimeKind.Utc).AddTicks(285),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "21126d86-6e67-4df5-802b-1b33073d1e4f",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8848),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8849),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAELvygelghZuenwjB+w3Gqp13lBREUFQ143HjklxXYCiOqFSqvOr4mYf/jyq9CWYc3A==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 795, DateTimeKind.Utc).AddTicks(8849),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ea62045f-84cf-45e4-bd37-eb571ac720db",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9081),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9085),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEFKW/hpUctoVkmMj01nJjwd2A69jW+WUMdp2fe0CKEgsMX2qUFfSYHM+cr0vAbRxsg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 801, DateTimeKind.Utc).AddTicks(9084),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "951d11f7-45cc-425f-b583-da0db8838390",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7735),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7737),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDZoBt8K9UMTkBOsoVxaaTVGf/A1lX23BY2vda1CDtcdwJe0Etf7LenG0uDAlnHxyw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 807, DateTimeKind.Utc).AddTicks(7736),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6a82144a-c486-4c88-ba24-4602d8508dbf",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8323),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8329),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAECYBt0eAvoSEzWtttWMm77wVk+mCBDWwLk3DrN6SwvP+Xq6kjRzjFP+mO4lfFSoLDQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 813, DateTimeKind.Utc).AddTicks(8327),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5d279771-32e0-4d99-9ad4-b1c1515df6cb",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7703),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7707),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKb0F3BCQfvRhCAhgNrzUBKT6HVG/hSVJVCkXGh3oYQqEtLkFEStki/N6YDv107ifw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 819, DateTimeKind.Utc).AddTicks(7706),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7bd6fce2-b6a1-41fb-94e4-2419254a67aa",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6273),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6275),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            Email = "anhkhoahuynh90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Huynh",
+                            Gender = 0,
+                            LastName = "Anh Khoa",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIj80S6K+0dWBNQMYJNyO/XMIX7L+LJ519OcjAQcwmBpn0bPcVV4hnse5QUdSfKUgQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 825, DateTimeKind.Utc).AddTicks(6274),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6e901bb5-c0c6-4bea-8f5d-95666d2dfb73",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7676),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7682),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEPOuZgFWPX2KE9uR/K6whWixXtpq/AJFhatKR4YoFzQka+WhfDwPv6jhLs1mxDrz9w==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 831, DateTimeKind.Utc).AddTicks(7681),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ff75511a-f649-4598-8ed5-98f0b29d0bbb",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6542),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6544),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEDNzsXz8ap9P4B0A3u15dtIqgRhR/nFkXYC+3lO32FQDCLqmcMUJyJi3ngWpM19QQw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 837, DateTimeKind.Utc).AddTicks(6544),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d25e2193-53be-4f9e-9ab2-148550a35e81",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5066),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5068),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAECRA1gAQYSrD7U/XAtx06mmpJRonz4jLHNhq2cWHdoJiC2oxwUHcrVy1g6zZSJu4mg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 843, DateTimeKind.Utc).AddTicks(5067),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cd76b55d-a5c7-4b2d-a728-b730fc18fdb7",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3248),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3262),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKCEfImwejBsV1EQSpolL3ixRjGYeBBbSJGrfSqKSHFDcXF/ACSic11MkWHtGH59Zg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 851, DateTimeKind.Utc).AddTicks(3260),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b327dda7-3399-4983-9dba-9b5a344040e8",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3202),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3207),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENv6PPM8/bZtsHkn4lxaAPLZbHhhFVMwQFm2VVEVwFXtVxA104b6/TMUY5EeuFtRbQ==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 857, DateTimeKind.Utc).AddTicks(3205),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "afac1de5-2e9b-44a1-9c0c-75c40b23703a",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(3971),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(3977),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEL0jtYoyWkkmM342lxoyHXCWLpmMLspR4d0LbXwcst0alVfUUS/ufgZS/3LwOBG2+A==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 863, DateTimeKind.Utc).AddTicks(3975),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2267d6ec-0954-42aa-be77-60cb8dbf7b42",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(3854),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(3859),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEBppjiQseQWYUEts2rzGzZsk2zNjWoC7rhhiB6nSqFOxTfi+IuY8dYukRumSzCtLgw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 869, DateTimeKind.Utc).AddTicks(3858),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "160b8cbf-41eb-4718-b351-02732b4596ed",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(8836),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(8849),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAENSvK5m1v0UVmkEVYFxNKYeRdr2Nl0iqAUR3h1PIX7eRNoynELx0du6wLhe0TEQ+1w==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 875, DateTimeKind.Utc).AddTicks(8848),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cd4abc6a-57bb-465d-94e6-5d92291e09d4",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 882, DateTimeKind.Utc).AddTicks(9636),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 882, DateTimeKind.Utc).AddTicks(9645),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEOGgphSFiEol0lgmtyYxmragBLxk28sHvSHEist84tJq5jSB92H+f1ESEwAgiGNewg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 882, DateTimeKind.Utc).AddTicks(9642),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ea62727e-805e-416d-8eb1-d3c5aa663510",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1558),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1562),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEPnyeF1skatlyv2rM5tnkDfFKzdgg+bwBUBus5dAHwkBi20ox/YjvV8EWu0wJGl6aA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 889, DateTimeKind.Utc).AddTicks(1561),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8159487a-e77a-4f94-aefb-48d295cf677c",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1511),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1517),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAELD0WOP+C9T7TuwL8CJ2qzlhLnNaoZQPK66pk18am+M/3roayedZLYBVNTalv/lBWA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 895, DateTimeKind.Utc).AddTicks(1516),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8068fc34-9397-41b0-a4ef-45d07b9e740b",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(524),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(526),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEGcH6gYq5aRAQyHenyT89mwsuTum+Q1WXXbek4XNXvB3jDy+Oep8MVhojC8A5BUUOw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 901, DateTimeKind.Utc).AddTicks(525),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "738ab924-d119-4cba-a184-4b9dbc9df9e4",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9263),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9265),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKJfcVKYAyauSByY4s0Ben8Aeb1JbTlZ1P60Bem1k8YaxVtPL+BL17CjZrqpFRFM1g==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 906, DateTimeKind.Utc).AddTicks(9264),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b79880af-b1c2-49cf-9871-56bab976da71",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(723),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(729),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEJR9ViBNaRJ8Qx/kBW6h7uZjtzhEt979zCg2k/MYL+IHUL+yp8s3J78epyIUY8VOWA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 913, DateTimeKind.Utc).AddTicks(728),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6bf25e36-729f-4d06-a141-b92e6a2912e9",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(297),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(300),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKug3crSI0Umz7l3E6pZ/vD0COgku5LWysKjRKRyq8TggaSWZ3ZRyY/DPRtpEqR37g==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 919, DateTimeKind.Utc).AddTicks(299),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d167d57e-c3a5-4649-961b-d1f0a97be894",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(103),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(108),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFgxha02Eb2uXQFALP/Sh+kh4fSXG791r1VYcSQYLa+r/z/VZ3z+G8FgzP4hbVb2g==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 925, DateTimeKind.Utc).AddTicks(107),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7456ff4a-85de-4651-b9d9-7bf51e08bf56",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9668),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9670),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEC4lzElDg5R3uXBoY1AE9li/aWEZBlLS+E7p/PQGZ6FADfiChmrw9bEp7kJLXKQV/w==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 930, DateTimeKind.Utc).AddTicks(9669),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "915ee0a6-ad9e-4c82-8429-a5d5993a800b",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9887),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9889),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKssCqtVgv6DLg5xj4NQDPpbsB5alG0OzWIsYPayWhvzuX+kAun8VnBUfp4q3BxarA==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 936, DateTimeKind.Utc).AddTicks(9888),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1ca80758-e317-46e7-b84e-ba93885b718f",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1243),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1250),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEBDGL70tIsocnhIVyR/xLg7TnmqvaK0pPdGZ+aGiT1tD/dhcAPajW1oJndDyKLtmdg==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 943, DateTimeKind.Utc).AddTicks(1248),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5b4728ee-72d4-42e4-9cf5-91aa8d7adb5d",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1547),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1550),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+UQkFZujMeyNhn9VSlEbTtGYAlO7ZF08cr/10A5KxT1JoVPtOa+8BG5Xc+MPEREw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 949, DateTimeKind.Utc).AddTicks(1548),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a657b9a1-fb2c-4d70-b5ac-e9484d55fdfa",
+                            Created_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(2952),
+                            Created_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            DOB = new DateTime(2021, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(2956),
+                            Deleted_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            Email = "ducsama90@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nguyen",
+                            Gender = 1,
+                            LastName = "Duong Minh Duc",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEBd+iQgAwZGITc0tVXHnvBr/QwcD7tADlGcU/mDTVUC5mlY9GgySgRasWkSVSpeplw==",
+                            PhoneNumber = "0868644651",
+                            PhoneNumberConfirmed = false,
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "",
+                            Status = 0,
+                            Token = "xxx",
+                            TwoFactorEnabled = false,
+                            Updated_at = new DateTime(2022, 5, 31, 2, 56, 4, 955, DateTimeKind.Utc).AddTicks(2955),
+                            Updated_by = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -612,6 +6891,268 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2620"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2621"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2622"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2623"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2624"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2625"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2626"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2627"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2628"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2629"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2630"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2631"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2632"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2633"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2634"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2635"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2636"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2637"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2638"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2639"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2640"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2641"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2642"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2643"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2644"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2645"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2646"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2647"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2648"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2649"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae2650"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056c")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3351"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3352"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3353"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3354"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3355"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3356"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3357"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3358"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3359"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3360"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3361"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3362"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3363"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3364"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3365"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3366"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3367"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3368"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3369"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3370"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d5a918c6-5ed4-43eb-bcdf-042594ae3371"),
+                            RoleId = new Guid("20efd516-f16c-41b3-b11d-bc908cd2056b")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -637,8 +7178,8 @@ namespace DentisBooking.Data.Migrations
             modelBuilder.Entity("DentisBooking.Data.Entities.Booking", b =>
                 {
                     b.HasOne("DentisBooking.Data.Entities.User", "Created_by")
-                        .WithOne("Booking")
-                        .HasForeignKey("DentisBooking.Data.Entities.Booking", "UserId")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -734,7 +7275,7 @@ namespace DentisBooking.Data.Migrations
 
             modelBuilder.Entity("DentisBooking.Data.Entities.User", b =>
                 {
-                    b.Navigation("Booking");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

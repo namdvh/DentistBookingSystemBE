@@ -33,7 +33,7 @@ namespace DentisBooking.Data.DataContext
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens").HasKey(x => x.UserId);
 
 
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
 
         }
 
