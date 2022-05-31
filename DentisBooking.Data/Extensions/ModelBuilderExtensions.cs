@@ -285,11 +285,12 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<BookingDetail>().HasData(new BookingDetail
                     {
                         Id = j,
+                        DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e20"),
                         KeyTime = Enum.KeyTime._7_730,
                         Note = "nhe nhang thoi nha bac si",
                         Status = Enum.Status.ACTIVE,
                         BookingId = i - 9,
-                        ServiceId = k,
+                        ServiceId = 1,
                         Created_at = DateTime.UtcNow,
                         Updated_at = DateTime.UtcNow,
                         Deleted_at = DateTime.UtcNow,
