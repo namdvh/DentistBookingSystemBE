@@ -19,9 +19,9 @@ namespace DentistBooking.Application.System.Dentists
     public class DentistService : IDentistService
     {
         private readonly DentistDBContext _context;
-        private readonly UserManager<User> _dentistService;
+        private readonly UserManager<Dentist> _dentistService;
 
-        public DentistService(DentistDBContext context, UserManager<User> dentistService)
+        public DentistService(DentistDBContext context, UserManager<Dentist> dentistService)
         {
             _context = context;
             _dentistService = dentistService;
@@ -86,6 +86,9 @@ namespace DentistBooking.Application.System.Dentists
             response.Errors = new();
             var results = await validator.ValidateAsync(request);
 
+            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
+
+        
             if (!results.IsValid)
             {
                 response.Content = null;
@@ -100,7 +103,7 @@ namespace DentistBooking.Application.System.Dentists
 
             var newDentist = new Dentist()
             {
-                ClinicId = request.ClinicId,
+                Clinic = clinic,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -112,15 +115,15 @@ namespace DentistBooking.Application.System.Dentists
                 Position = request.Position,
             };
 
-            //var rs = await _dentistService.CreateAsync(newDentist, request.Password);
-            // if (rs.Succeeded)
-            // {
-            //         
-            //     response.Code = "200";
-            //     response.Message= "Register successfully";
-            //
-            //     return response;
-            // }
+            var rs = await _dentistService.CreateAsync(newDentist, request.Password);
+             if (rs.Succeeded)
+             {
+                     
+                 response.Code = "200";
+                 response.Message= "Register successfully";
+            
+                 return response;
+             }
             response.Content = null;
             response.Code = "200";
             response.Message = "Register failed";

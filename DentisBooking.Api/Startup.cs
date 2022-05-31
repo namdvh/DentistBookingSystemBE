@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using DentisBooking.Data.Extensions;
 
 namespace DentisBooking.Api
 {
@@ -54,9 +55,11 @@ namespace DentisBooking.Api
 
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();
+            services.AddIdentityCore<Dentist>().AddEntityFrameworkStores<DentistDBContext>().AddDefaultTokenProviders();
 
             //Delcare DI
             services.AddScoped<UserManager<User>, UserManager<User>>();
+            // services.AddScoped<UserManager<Dentist>, UserManager<Dentist>>();
             services.AddScoped<SignInManager<User>, SignInManager<User>>();
             services.AddScoped<RoleManager<Role>, RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
