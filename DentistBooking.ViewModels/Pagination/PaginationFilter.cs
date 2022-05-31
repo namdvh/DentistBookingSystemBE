@@ -19,12 +19,12 @@ namespace DentistBooking.ViewModels.Pagination
             _by = "Created_at";
             _order = 1;
         }
-        public PaginationFilter(int pageNumber, int pageSize, string sortBy, int orderby)
+        public PaginationFilter(int pageNumber, int pageSize, string sortBy, int orderBy)
         {
             PageNumber = pageNumber < 1 ? 1 : pageNumber;
             PageSize = pageSize > 10 ? 10 : pageSize;
             _by = String.IsNullOrEmpty(sortBy) ? "Created_at" : sortBy;
-            _order = orderby > 0 ? 1 : orderby;
+            _order = orderBy > 0 ? 1 : orderBy;
         }
     }
 }

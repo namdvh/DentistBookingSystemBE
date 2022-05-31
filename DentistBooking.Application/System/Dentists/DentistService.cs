@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using DentisBooking.Data.Enum;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
@@ -54,13 +55,13 @@ namespace DentistBooking.Application.System.Dentists
             {
                 response.Content = null;
                 response.Code = "200";
-                response.Message="There aren't any dentists in DB"; 
+                response.Message = "There aren't any dentists in DB";
             }
             else
             {
                 var result = pagedData.Select(MapToDto).ToList();
                 response.Content = result;
-                response.Message="SUCCESS"; 
+                response.Message = "SUCCESS";
                 response.Code = "200";
             }
 
@@ -84,18 +85,19 @@ namespace DentistBooking.Application.System.Dentists
             var validator = new AddDentistRequestValidator();
             response.Errors = new();
             var results = await validator.ValidateAsync(request);
-            
+
             if (!results.IsValid)
             {
-
                 response.Content = null;
                 response.Code = "200";
                 foreach (var failure in results.Errors)
                 {
                     response.Errors.Add(failure.ErrorMessage.ToString());
                 }
+
                 return response;
             }
+
             var newDentist = new Dentist()
             {
                 ClinicId = request.ClinicId,
@@ -108,10 +110,8 @@ namespace DentistBooking.Application.System.Dentists
                 Gender = request.Gender,
                 Description = request.Description,
                 Position = request.Position,
-                
-                
             };
-            
+
             //var rs = await _dentistService.CreateAsync(newDentist, request.Password);
             // if (rs.Succeeded)
             // {
@@ -123,23 +123,34 @@ namespace DentistBooking.Application.System.Dentists
             // }
             response.Content = null;
             response.Code = "200";
-            response.Message= "Register failed";
+            response.Message = "Register failed";
 
             return response;
         }
 
-        public async Task<DentistResponse> UpdateDentist(Dentist updatedDentist)
+        public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
         {
             var response = new DentistResponse();
-            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == updatedDentist.Id);
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.Id);
+            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
             if (dentist != null)
             {
-                _context.Entry((object)dentist).State = EntityState.Modified;
+                if (clinic != null) dentist.Clinic = clinic;
+                dentist.UserName = request.UserName;
+                dentist.Email = request.Email;
+                dentist.PhoneNumber = request.PhoneNumber;
+                dentist.FirstName = request.FirstName;
+                dentist.LastName = request.LastName;
+                if (request.Gender != null) dentist.Gender = (Gender)request.Gender;
+                if (request.Status != null) dentist.Status = (Status)request.Status;
+                if (request.Position != null) dentist.Position = (Position)request.Position;
+                dentist.Updated_by = request.Updated_By;
+                dentist.Description = request.Description;
             }
 
             await _context.SaveChangesAsync();
             response.Code = "200";
-            //response.Message = "Updated successfully";
+            response.Message = "Updated successfully";
 
             return response;
         }

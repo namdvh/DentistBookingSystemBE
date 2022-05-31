@@ -11,7 +11,7 @@ namespace DentisBooking.Api.Controllers
     [Route("api/dentists")]
     [ApiController]
     //[TypeFilter(typeof(AuthorizeMiddleWare))]
-     [Authorize]
+     //[Authorize]
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
@@ -32,6 +32,13 @@ namespace DentisBooking.Api.Controllers
         public async Task<IActionResult> AddNewDentist([FromBody] AddDentistRequest newDentist)
         {
             var result = await _dentistService.CreateDentist(newDentist);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        public async Task<IActionResult> AddNewDentist([FromBody] UpdateDentistRequest newDentist)
+        {
+            var result = await _dentistService.UpdateDentist(newDentist);
             return Ok(result);
         }
     }

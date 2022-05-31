@@ -57,9 +57,6 @@ namespace DentisBooking.Api
 
             //Delcare DI
             services.AddScoped<UserManager<User>, UserManager<User>>();
-            services.AddScoped<UserManager<Dentist>, UserManager<Dentist>>();
-            services.AddScoped<SignInManager<Dentist>, SignInManager<Dentist>>();
-            services.AddScoped<RoleManager<Role>, RoleManager<Role>>();
             services.AddScoped<SignInManager<User>, SignInManager<User>>();
             services.AddScoped<RoleManager<Role>, RoleManager<Role>>();
             services.AddScoped<IUserService, UserService>();
