@@ -11,10 +11,9 @@ namespace DentisBooking.Data.Configurations
             builder.ToTable("Dentists");
 
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Id)
-                  .ValueGeneratedOnAdd();
-
+            
+            
+            builder.HasKey(x=> x.Id);
             builder.Property(x => x.Position).IsRequired();
             builder.Property(x => x.Description).IsRequired().HasMaxLength(1000);
             builder.HasOne(x => x.Clinic).WithMany(x => x.Dentists).HasForeignKey(x=>x.ClinicId);

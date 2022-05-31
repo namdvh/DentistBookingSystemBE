@@ -20,12 +20,11 @@ namespace DentistBooking.Application.System.Dentists
     public class DentistService : IDentistService
     {
         private readonly DentistDBContext _context;
-        private readonly UserManager<User> _userService;
+        // private readonly UserManager<Dentist> _dentistService;
 
-        public DentistService(DentistDBContext context, UserManager<User> userService)
+        public DentistService(DentistDBContext context)
         {
             _context = context;
-            _userService = userService;
         }
 
         public async Task<DentistResponse> GetDentistList(PaginationFilter filter)
@@ -41,6 +40,24 @@ namespace DentistBooking.Application.System.Dentists
                 "-1" => "ascending",
                 _ => orderBy
             };
+
+
+            // var pagedData = await _context.Users
+            //     .OrderBy(filter._by + " " + orderBy)
+            //     .Skip((filter.PageNumber - 1) * filter.PageSize)
+            //     .Take(filter.PageSize)
+            //     .Where(x => x.Deleted_by != null )
+            //     .Join(_context.Dentists,
+            //         user=>user.DentistId,
+            //         dentist=>dentist.Id ,
+            //         (user,dentist)=>new
+            //         {
+            //             UserDTO user = new UserDTO{
+            //             
+            //         }
+            //         })
+            //     .ToListAsync();
+            //         
 
 
             var data = await (from user in _context.Users
@@ -103,78 +120,9 @@ namespace DentistBooking.Application.System.Dentists
 
         public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
         {
-            var response = new DentistResponse();
-            var validator = new AddDentistRequestValidator();
-            response.Errors = new List<string>();
-            var results = await validator.ValidateAsync(request);
-
-            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
-
-
-            if (!results.IsValid)
-            {
-                response.Content = null;
-                response.Code = "200";
-                foreach (var failure in results.Errors)
-                {
-                    response.Errors.Add(failure.ErrorMessage.ToString());
-                }
-
-                return response;
-            }
-
-            var newDentist = new Dentist()
-            {
-                Clinic = clinic,
-                Description = request.Description,
-                Position = request.Position,
-            };
-
-            var rs = _context.Dentists.Add(newDentist);
-            await _context.SaveChangesAsync();
-
-            var newUser = new User()
-            {
-                DOB = request.DOB,
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
-                Status = Status.ACTIVE,
-                Gender = request.Gender,
-                Dentist = newDentist
-            };
-
-            var result = await _userService.CreateAsync(newUser, request.Password);
-
-            if (result.Succeeded)
-            {
-                var dentistService = new ServiceDentist();
-
-                if (request.ServiceId != null && request.ServiceId.Any())
-                {
-                    foreach (var x in request.ServiceId)
-                    {
-                        dentistService.DentistId = newDentist.Id;
-                        dentistService.ServiceId = x;
-
-                        _context.ServiceDentists.Add(dentistService);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-
-                response.Code = "200";
-                response.Message = "Register successfully";
-
-                return response;
-            }
-
-            response.Content = null;
-            response.Code = "200";
-            response.Message = "Register failed";
-
+            DentistResponse response = new();
             return response;
+
         }
 
         public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
