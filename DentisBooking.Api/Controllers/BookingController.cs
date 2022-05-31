@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DentisBooking.Api.Controllers
 {
-    [Route("api/[bookings]")]
+    [Route("api/bookings")]
     [ApiController]
     [Authorize]
     public class BookingController : ControllerBase

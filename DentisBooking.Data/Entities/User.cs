@@ -1,6 +1,7 @@
 ﻿using DentisBooking.Data.Enum;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace DentisBooking.Data.Entities
 {
@@ -28,7 +29,7 @@ namespace DentisBooking.Data.Entities
         //public Image Image { get; set; }
 
         //public int BookingId { get; set; }
-        public Booking Booking { get; set; }
+        public List<Booking> Bookings { get; set; }
 
     }
 }

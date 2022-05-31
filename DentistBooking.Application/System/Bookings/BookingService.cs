@@ -10,9 +10,15 @@ using System.Threading.Tasks;
 
 namespace DentistBooking.Application.System.Bookings
 {
-    public class BookingService
+    public class BookingService : IBookingService
     {
         private readonly DentistDBContext _context;
+
+        public BookingService(DentistDBContext context)
+        {
+            _context = context;
+        }
+
         public async Task<BookingResponse> CreateBooking(BookingRequest request)
         {
             BookingResponse response = new BookingResponse();
@@ -24,7 +30,7 @@ namespace DentistBooking.Application.System.Bookings
                     Date = DateTime.Now,
                     Total = request.Total,
                     UserId = request.UserId,
-                    Created_at = DateTime.Now,
+                    Created_at = DateTime.Now
                 };
 
                 _context.Bookings.Add(booking);
