@@ -21,14 +21,24 @@ namespace DentistBooking.Application.System.Bookings
 
         public async Task<BookingResponse> CreateBooking(BookingRequest request)
         {
-            for (int i = 0; i < request.DentistIds.Count; i++)
-            {
-                ////check keyTime
-                //var existedDetail = g in _context.BookingDetails on 
-            }
-            BookingResponse response = new BookingResponse();
+            BookingResponse response = new BookingResponse(); 
             try
             {
+                for (int i = 0; i < request.DentistIds.Count; i++)
+                {
+                    //check keyTime
+                    BookingDetail existedDetail = _context.BookingDetails
+                                                  .Where(g => g.DentistId == request.DentistIds[i]
+                                                  && g.ServiceId == request.ServiceIds[i]
+                                                  && g.Created_at == DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")))
+                                                  .SingleOrDefault();
+                    if (existedDetail.KeyTime == request.KeyTimes[i])
+                    {
+                        response.Code = "700";
+                        response.Message = "KeyTime is already chosen!";
+                        return response;
+                    }
+                }
                 Booking booking = new Booking()
                 {
                     Status = 0,
@@ -66,7 +76,7 @@ namespace DentistBooking.Application.System.Bookings
             catch (DbUpdateException)
             {
                 response.Code = "200";
-                response.Message = "Booking failed";
+                response.Message = "Booking failed, try it again!";
 
                 return response;
             }
