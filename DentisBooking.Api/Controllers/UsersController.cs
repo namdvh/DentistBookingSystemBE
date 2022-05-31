@@ -56,7 +56,7 @@ namespace DentisBooking.Api.Controllers
                 var userPrincipalac = this.ValidateToken(token.AccessToken);
                 var authProperties = new AuthenticationProperties
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddSeconds(5),
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
                     IsPersistent = true,
                     AllowRefresh = true,
                 };
@@ -105,15 +105,6 @@ namespace DentisBooking.Api.Controllers
                principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
 
             return principal;
-        }
-
-        [HttpPost("getProfile")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetProfile([FromBody] RefreshToken refreshToken)
-        {
-            var rs = await _userService.GetProfile(refreshToken);
-
-            return Ok(rs);
         }
     }
 }

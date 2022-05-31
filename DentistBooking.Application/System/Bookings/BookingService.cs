@@ -21,13 +21,18 @@ namespace DentistBooking.Application.System.Bookings
 
         public async Task<BookingResponse> CreateBooking(BookingRequest request)
         {
+            for (int i = 0; i < request.DentistIds.Count; i++)
+            {
+                ////check keyTime
+                //var existedDetail = g in _context.BookingDetails on 
+            }
             BookingResponse response = new BookingResponse();
             try
             {
                 Booking booking = new Booking()
                 {
                     Status = 0,
-                    Date = DateTime.Now,
+                    Date = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
                     Total = request.Total,
                     UserId = request.UserId,
                     Created_at = DateTime.Now
