@@ -51,6 +51,7 @@ namespace DentistBooking.Application.System.Dentists
                 .OrderByDescending(x => x.user.Created_at)
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize).ToListAsync();
+            
 
             List<DentistDTO> dentistList = new();
 
@@ -178,139 +179,83 @@ namespace DentistBooking.Application.System.Dentists
 
         public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
         {
-            DentistResponse response = new();
+            var response = new DentistResponse();
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.Id);
+            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
+            var dentistService = new ServiceDentist();
+            if (dentist != null)
+            {
+                if (clinic != null) dentist.Clinic = clinic;
+                dentist.Description = request.Description;
+                if (request.Position != null) dentist.Position = (Position)request.Position;
+
+                if (request.ServiceId.Any())
+                {
+                    foreach (var x in request.ServiceId)
+                    {
+                        dentistService.DentistId = dentist.Id;
+                        dentistService.ServiceId = x;
+
+                        _context.ServiceDentists.Add(dentistService);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                var user = _context.Users.FirstOrDefault(x => x.DentistId == dentist.Id);
+                if (user != null)
+                {
+                    if (request.Dob != null) user.DOB = (DateTime)request.Dob;
+                    user.Email = request.Email;
+                    user.FirstName = request.FirstName;
+                    user.LastName = request.LastName;
+                    user.UserName = request.UserName;
+                    user.PhoneNumber = request.PhoneNumber;
+                    if (request.Status != null) user.Status = (Status)request.Status;
+                    if (request.Gender != null) user.Gender = (Gender)request.Gender;
+                    user.Updated_by = request.UpdatedBy;
+                }
+
+                await _userService.UpdateAsync(user);
+            }
+
+
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            response.Message = "Updated successfully";
+
             return response;
         }
 
         public async Task<DentistResponse> DeleteDentist(DeleteDentistRequest request)
         {
-            DentistResponse response = new();
+            var response = new DentistResponse();
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
+             
+            if (dentist == null)
+            {
+                response.Code = "404";
+                response.Message = "Not found dentist";
+                return response;
+            }
+
+            var user = _context.Users.FirstOrDefault(x => x.DentistId == dentist.Id);
+
+            if (user == null)
+            {
+                response.Code = "404";
+                response.Message = "Error";
+                return response;
+            }
+            
+             
+            user.Deleted_by = request.DeletedBy;
+            await _userService.UpdateAsync(user);
+            response.Code = "200";
+            response.Message = "Delete successfully";
+             
+             
             return response;
         }
-
-        //      public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
-        //      {
-        //          var response = new DentistResponse();
-        //          var validator = new AddDentistRequestValidator();
-        //          response.Errors = new List<string>();
-        //          var results = await validator.ValidateAsync(request);
-        //     
-        //          var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
-        //     
-        //     
-        //          if (!results.IsValid)
-        //          {
-        //              response.Content = null;
-        //              response.Code = "200";
-        //              foreach (var failure in results.Errors)
-        //              {
-        //                  response.Errors.Add(failure.ErrorMessage.ToString());
-        //              }
-        //     
-        //              return response;
-        //          }
-        //     
-        //          var newDentist = new Dentist()
-        //          {
-        //              Clinic = clinic,
-        //              Email = request.Email,
-        //              FirstName = request.FirstName,
-        //              LastName = request.LastName,
-        //              UserName = request.UserName,
-        //              PhoneNumber = request.PhoneNumber,
-        //              Status = request.Status,
-        //              Gender = request.Gender,
-        //              Description = request.Description,
-        //              Position = request.Position,
-        //          };
-        //     
-        //          var rs = await _dentistService.CreateAsync(newDentist, request.Password);
-        //           if (rs.Succeeded)
-        //           {
-        //                   
-        //               response.Code = "200";
-        //               response.Message= "Register successfully";
-        //          
-        //               return response;
-        //           }
-        //          response.Content = null;
-        //          response.Code = "200";
-        //          response.Message = "Register failed";
-        //     
-        //          return response;
-        //      }
-        //
-        //      public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
-        //      {
-        //          var response = new DentistResponse();
-        //          var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.Id);
-        //          var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
-        //          if (dentist != null)
-        //          {
-        //              if (clinic != null) dentist.Clinic = clinic;
-        //              dentist.UserName = request.UserName;
-        //              dentist.Email = request.Email;
-        //              dentist.PhoneNumber = request.PhoneNumber;
-        //              dentist.FirstName = request.FirstName;
-        //              dentist.LastName = request.LastName;
-        //              if (request.Gender != null) dentist.Gender = (Gender)request.Gender;
-        //              if (request.Status != null) dentist.Status = (Status)request.Status;
-        //              if (request.Position != null) dentist.Position = (Position)request.Position;
-        //              dentist.Updated_by = request.Updated_By;
-        //              dentist.Description = request.Description;
-        //          }
-        //     
-        //          await _context.SaveChangesAsync();
-        //          response.Code = "200";
-        //          response.Message = "Updated successfully";
-        //     
-        //          return response;
-        //      }
-        //
-        //      public async Task<DentistResponse> DeleteDentist(DeleteDentistRequest request)
-        //      {
-        //          var response = new DentistResponse();
-        //          var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
-        //     
-        //          if (dentist == null)
-        //          {
-        //              response.Code = "404";
-        //              response.Message = "Not found dentist";
-        //              return response;
-        //          }
-        //     
-        //          dentist.Deleted_by = request.DeletedBy;
-        //          _context.Dentists.Update(dentist);
-        //          await _context.SaveChangesAsync();
-        //          response.Code = "200";
-        //          response.Message = "Delete successfully";
-        //     
-        //     
-        //          return response;
-        //      }
-        //
-        //
-        // private DentistDTO MapToDto(Dentist dentist)
-        // {
-        //     var dentistDto = new DentistDTO()
-        //     {
-        //         Id = dentist.Id,
-        //         Email = dentist.Email,
-        //         FirstName = dentist.FirstName,
-        //         LastName = dentist.LastName,
-        //         Gender = dentist.Gender,
-        //         Phone = dentist.PhoneNumber,
-        //         Status = dentist.Status,
-        //         Position = dentist.Position,
-        //         Description = dentist.Description,
-        //         Created_at = dentist.Created_at,
-        //         Updated_at = (DateTime)dentist.Updated_at,
-        //         Deleted_at = (DateTime)dentist.Deleted_at,
-        //         Created_by = (Guid)dentist.Created_by,
-        //         Deleted_by = (Guid)dentist.Deleted_by,
-        //         Updated_by = (Guid)dentist.Updated_by,
-        //     };
-        //     return dentistDto;
-        // }
+        
     }
 }

@@ -1,14 +1,17 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using DentisBooking.Data.Enum;
 
 namespace DentistBooking.ViewModels.System.Dentists
 {
     public class UpdateDentistRequest
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
+        
+        public DateTime? Dob { get; set; }
         //public string Password { get; set; }
        // public string ConfirmPassword { get; set; }
         
@@ -20,7 +23,8 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Position? Position { get; set; }
         public string? Description { get; set; }
         public int ClinicId { get; set; }
-        
-        public Guid Updated_By { get; set; }
+        public Guid UpdatedBy { get; set; }
+        public List<int> ServiceId { get; set; }
+
     }
 }
