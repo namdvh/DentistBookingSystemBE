@@ -1,6 +1,7 @@
 using BokkingDentist.Constant;
 using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
+using DentistBooking.Application.System.Bookings;
 using DentistBooking.Application.System.Clinics;
 using DentistBooking.Application.System.Dentists;
 using DentistBooking.Application.System.Users;
@@ -65,6 +66,7 @@ namespace DentisBooking.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDentistService, DentistService>();
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
             services.AddScoped<IValidator<AddDentistRequest>,AddDentistRequestValidator>();
             //services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizeMiddleWare>();

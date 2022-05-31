@@ -42,15 +42,11 @@ namespace DentisBooking.Data.Migrations
                     b.Property<Guid?>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("KeyTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("Updated_at")
                         .HasColumnType("datetime2");
@@ -63,8 +59,7 @@ namespace DentisBooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
 
@@ -823,6 +818,12 @@ namespace DentisBooking.Data.Migrations
                     b.Property<Guid?>("Deleted_by")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("DentistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("KeyTime")
+                        .HasColumnType("int");
+
                     b.Property<string>("Note")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -842,6 +843,8 @@ namespace DentisBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookingId");
+
+                    b.HasIndex("DentistId");
 
                     b.HasIndex("ServiceId");
 
@@ -7023,8 +7026,8 @@ namespace DentisBooking.Data.Migrations
             modelBuilder.Entity("DentisBooking.Data.Entities.Booking", b =>
                 {
                     b.HasOne("DentisBooking.Data.Entities.User", "Created_by")
-                        .WithOne("Booking")
-                        .HasForeignKey("DentisBooking.Data.Entities.Booking", "UserId")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -7039,6 +7042,12 @@ namespace DentisBooking.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DentisBooking.Data.Entities.Dentist", "Dentist")
+                        .WithMany("BookingDetails")
+                        .HasForeignKey("DentistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DentisBooking.Data.Entities.Service", "Service")
                         .WithMany("BookingDetails")
                         .HasForeignKey("ServiceId")
@@ -7046,6 +7055,8 @@ namespace DentisBooking.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Booking");
+
+                    b.Navigation("Dentist");
 
                     b.Navigation("Service");
                 });
@@ -7103,6 +7114,8 @@ namespace DentisBooking.Data.Migrations
 
             modelBuilder.Entity("DentisBooking.Data.Entities.Dentist", b =>
                 {
+                    b.Navigation("BookingDetails");
+
                     b.Navigation("ServiceDentists");
                 });
 
@@ -7120,7 +7133,7 @@ namespace DentisBooking.Data.Migrations
 
             modelBuilder.Entity("DentisBooking.Data.Entities.User", b =>
                 {
-                    b.Navigation("Booking");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

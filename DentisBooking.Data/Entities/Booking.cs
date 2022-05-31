@@ -8,8 +8,7 @@ namespace DentisBooking.Data.Entities
     {
         public int Id { get; set; } 
         public DateTime Date { get; set; }
-        public string KeyTime { get; set; }
-        public int Total { get; set; }
+        public Decimal Total { get; set; }
 
         public Status Status { get; set; } 
 

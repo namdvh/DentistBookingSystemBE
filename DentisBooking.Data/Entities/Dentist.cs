@@ -27,6 +27,8 @@ namespace DentisBooking.Data.Entities
 
         //public int ImageId { get; set; }
         //public Image Image { get; set; }
+
+        public ICollection<BookingDetail> BookingDetails { get; set; }
         public ICollection<ServiceDentist> ServiceDentists { get; set; }
         public int ClinicId { get; set; }
         public Clinic Clinic { get; set; }

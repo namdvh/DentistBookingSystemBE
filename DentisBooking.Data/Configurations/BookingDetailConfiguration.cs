@@ -23,6 +23,11 @@ namespace DentisBooking.Data.Configurations
                 .HasOne<Service>(x => x.Service)
                 .WithMany(x => x.BookingDetails)
                 .HasForeignKey(x => x.ServiceId);
+            
+            builder
+                .HasOne<Dentist>(x => x.Dentist)
+                .WithMany(x => x.BookingDetails)
+                .HasForeignKey(x => x.DentistId);
 
             builder.Property(x => x.Created_at).HasDefaultValueSql("getutcdate()");
 
