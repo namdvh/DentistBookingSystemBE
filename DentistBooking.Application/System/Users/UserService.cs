@@ -63,7 +63,7 @@ namespace DentistBooking.Application.System.Users
             var accesstoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds);
             var refreshtoken = new JwtSecurityToken(_config["Tokens:Issuer"],
                 _config["Tokens:Issuer"],
@@ -96,7 +96,7 @@ namespace DentistBooking.Application.System.Users
             if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
                 response.Code = "900";
-                response.Message = "Expired or Invalid Token";
+                response.Message = "Invalid Token";
                 return response;
             }
             string username = principal.Identity.Name;
@@ -254,18 +254,18 @@ namespace DentistBooking.Application.System.Users
 
             var principal = GetPrincipalFromToken(refreshToken.refreshToken);
 
-            //if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
-            //{
-            //    response.Code = "900";
-            //    response.Message = "Expired or Invalid Token";
-            //    return response;
-            //}
+            if (principal == null)
+            {
+               response.Code = "800";
+               response.Message = "Invalid Token";
+               return response;
+            }
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
 
             if (user == null || user.Token != refreshToken.refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                response.Code = "800";
+                response.Code = "801";
                 response.Message = "Expired Refresh Token in getProfile";
                 return response;
             }

@@ -24,6 +24,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using DentisBooking.Data.Extensions;
 
 namespace DentisBooking.Api
 {
@@ -65,6 +66,7 @@ namespace DentisBooking.Api
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
+            services.AddScoped<IValidator<AddDentistRequest>,AddDentistRequestValidator>();
             //services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizeMiddleWare>();
 
             services.AddCors(o =>

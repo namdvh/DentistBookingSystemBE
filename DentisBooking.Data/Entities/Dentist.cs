@@ -5,29 +5,23 @@ using System.Collections.Generic;
 
 namespace DentisBooking.Data.Entities
 {
-    public class Dentist: IdentityUser<Guid>
+    public class Dentist
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Gender Gender { get; set; }
-        public string Token { get; set; }
-        public Status Status { get; set; }
+        public int Id { get; set; }
         public Position Position { get; set; }
         public string Description { get; set; }
-
-        public DateTime Created_at { get; set; }
-        public DateTime? Updated_at { get; set; }
-        public DateTime? Deleted_at { get; set; }
-        public Guid? Created_by { get; set; }
-        public Guid? Deleted_by { get; set; }
-        public Guid? Updated_by { get; set; }
-
         //Relationship
 
         //public int ImageId { get; set; }
         //public Image Image { get; set; }
+<<<<<<< HEAD
 
         public ICollection<BookingDetail> BookingDetails { get; set; }
+=======
+        
+        public User User { get; set; }
+        
+>>>>>>> 8f9165f7cc2f2dc9a94d5480f07f5c64d4cd94fc
         public ICollection<ServiceDentist> ServiceDentists { get; set; }
         public int ClinicId { get; set; }
         public Clinic Clinic { get; set; }

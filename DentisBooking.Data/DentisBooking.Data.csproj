@@ -23,4 +23,9 @@
 		<Folder Include="Extensions\" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Compile Remove="Extensions\IdentityExtensions.cs" />
+	</ItemGroup>
+
 </Project>

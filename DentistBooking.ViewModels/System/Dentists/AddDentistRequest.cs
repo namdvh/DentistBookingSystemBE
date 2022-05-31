@@ -1,27 +1,28 @@
-﻿using DentisBooking.Data.Enum;
+#nullable enable
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DentisBooking.Data.Enum;
 
 namespace DentistBooking.ViewModels.System.Dentists
 {
-    public class DentistDTO
+    public class AddDentistRequest
     {
-        public Guid Id { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        
+        public DateTime DOB { get; set; }
+
+        public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }
-        public string Phone { get; set; }
-        public string Token { get; set; }
         public Status Status { get; set; }
         public Position Position { get; set; }
         public string Description { get; set; }
-        
-        public List<ServiceDto> Services { get; set; }
+        public int ClinicId { get; set; }
 
-
+        public List<int>? ServiceId { get; set; }
     }
 }
