@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using DentisBooking.Data.Enum;
-using DentistBooking.ViewModels.System;
 using DentistBooking.ViewModels.System.Users;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
@@ -52,7 +51,7 @@ namespace DentistBooking.Application.System.Dentists
                 .OrderByDescending(x => x.user.Created_at)
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize).ToListAsync();
-
+            
 
             List<DentistDTO> dentistList = new();
 
@@ -69,10 +68,6 @@ namespace DentistBooking.Application.System.Dentists
             {
                 foreach (var item in data)
                 {
-                    List<ServiceDto> services = new();
-
-                    ServiceDto serviceDto = new();
-
                     DentistDTO dto = new();
                     dto.Description = item.dentistAttribute?.Description;
                     dto.Email = item.user.Email;
@@ -83,8 +78,6 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Status = item.user.Status;
                     dto.FirstName = item.user.FirstName;
                     dto.LastName = item.user.LastName;
-
-                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
 
                     dentistList.Add(dto);
                 }
@@ -237,7 +230,7 @@ namespace DentistBooking.Application.System.Dentists
         {
             var response = new DentistResponse();
             var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
-
+             
             if (dentist == null)
             {
                 response.Code = "404";
@@ -253,37 +246,16 @@ namespace DentistBooking.Application.System.Dentists
                 response.Message = "Error";
                 return response;
             }
-
-
+            
+             
             user.Deleted_by = request.DeletedBy;
             await _userService.UpdateAsync(user);
             response.Code = "200";
             response.Message = "Delete successfully";
-
-
+             
+             
             return response;
         }
-
-
-        private async Task<List<ServiceDto>> GetServiceFromDentist(int dentistId)
-        {
-            var results =  await (from t1 in _context.ServiceDentists
-                join t2 in _context.Services
-                    on t1.ServiceId equals t2.Id
-                where t1.DentistId == dentistId
-                select t2).ToListAsync();
-
-            var final = new List<ServiceDto>();
-
-            foreach (var service in results)
-            {
-                ServiceDto dto = new();
-                dto.Id = service.Id;
-                dto.ServiceName = service.Name;
-                final.Add(dto);
-            }
-
-            return final;
-        }
+        
     }
 }

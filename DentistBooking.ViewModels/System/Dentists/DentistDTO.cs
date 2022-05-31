@@ -19,9 +19,7 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Status Status { get; set; }
         public Position Position { get; set; }
         public string Description { get; set; }
-        
-        public List<ServiceDto> Services { get; set; }
 
-
+       
     }
 }
