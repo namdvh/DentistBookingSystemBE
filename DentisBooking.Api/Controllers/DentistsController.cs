@@ -36,9 +36,16 @@ namespace DentisBooking.Api.Controllers
         }
         
         [HttpPut]
-        public async Task<IActionResult> AddNewDentist([FromBody] UpdateDentistRequest newDentist)
+        public async Task<IActionResult> UpdateDentist([FromBody] UpdateDentistRequest newDentist)
         {
             var result = await _dentistService.UpdateDentist(newDentist);
+            return Ok(result);
+        }
+        
+        [HttpDelete]
+        public async Task<IActionResult> RemoveDentist([FromBody] DeleteDentistRequest request)
+        {
+            var result = await _dentistService.DeleteDentist(request);
             return Ok(result);
         }
     }

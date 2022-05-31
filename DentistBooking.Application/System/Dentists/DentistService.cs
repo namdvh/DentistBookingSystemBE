@@ -155,21 +155,23 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistResponse> DeleteDentist(Guid dentistId, Guid deletedBy)
+        public async Task<DentistResponse> DeleteDentist(DeleteDentistRequest request)
         {
             var response = new DentistResponse();
-            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == dentistId);
+            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
 
             if (dentist == null)
             {
+                response.Code = "404";
+                response.Message = "Not found dentist";
                 return response;
             }
 
-            dentist.Deleted_by = deletedBy;
+            dentist.Deleted_by = request.DeletedBy;
             _context.Dentists.Update(dentist);
             await _context.SaveChangesAsync();
             response.Code = "200";
-            //response.Message = "Delete successfully";
+            response.Message = "Delete successfully";
 
 
             return response;

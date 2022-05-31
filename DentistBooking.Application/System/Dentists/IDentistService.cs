@@ -15,6 +15,6 @@ namespace DentistBooking.Application.System.Dentists
 
         Task<DentistResponse> CreateDentist(AddDentistRequest request);
         Task<DentistResponse> UpdateDentist(UpdateDentistRequest request);
-        Task<DentistResponse> DeleteDentist(Guid dentistId, Guid deletedBy);
+        Task<DentistResponse> DeleteDentist(DeleteDentistRequest request);
     }
 }
