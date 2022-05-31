@@ -192,7 +192,7 @@ namespace DentisBooking.Data.Extensions
                     {
                         Id = i-19,
                         Date = DateTime.UtcNow,
-                        KeyTime ="test",
+                        //KeyTime ="test",
                         Total = 100,
                         Status = Enum.Status.ACTIVE,
                         Created_at = DateTime.UtcNow,
@@ -240,7 +240,7 @@ namespace DentisBooking.Data.Extensions
                     {
                         Id = i - 19,
                         Date = DateTime.UtcNow,
-                        KeyTime = "test2",
+                        //KeyTime = "test2",
                         Total = 200,
                         Status = Enum.Status.ACTIVE,
                         Created_at = DateTime.UtcNow,

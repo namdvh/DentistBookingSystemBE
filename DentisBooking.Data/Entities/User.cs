@@ -29,14 +29,10 @@ namespace DentisBooking.Data.Entities
         //public Image Image { get; set; }
 
         //public int BookingId { get; set; }
-<<<<<<< HEAD
         public List<Booking> Bookings { get; set; }
-=======
         public Booking Booking { get; set; }
         
         public Dentist Dentist { get; set; }
         public int DentistId { get; set; }
->>>>>>> 8f9165f7cc2f2dc9a94d5480f07f5c64d4cd94fc
-
     }
 }
