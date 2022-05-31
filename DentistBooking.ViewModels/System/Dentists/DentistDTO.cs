@@ -19,12 +19,9 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Status Status { get; set; }
         public Position Position { get; set; }
         public string Description { get; set; }
+        
+        public List<ServiceDto> Services { get; set; }
 
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Deleted_at { get; set; }
-        public Guid Created_by { get; set; }
-        public Guid Deleted_by { get; set; }
-        public Guid Updated_by { get; set; }
+
     }
 }
