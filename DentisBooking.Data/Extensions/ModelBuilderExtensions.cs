@@ -63,28 +63,14 @@ namespace DentisBooking.Data.Extensions
                 }
 
                 //dentist
-                for (int i = 20; i < 71; i++)
+                for (int i = 20; i < 72; i++)
                 {
                         modelBuilder.Entity<Dentist>().HasData(
                         new Dentist()
                         {
-                            Id = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
-                            Email = "testDentist@gmail.com" + i,
-                            PasswordHash = "1",
-                            FirstName = "Nguyen",
-                            LastName = "Anh Thinh",
-                            Gender = Enum.Gender.MALE,
-                            PhoneNumber = "113",
-                            //Token = "xxx",
-                            Status = Enum.Status.ACTIVE,
+                            Id = i,
                             Position = Enum.Position.HEAD,
                             Description = "TestDescirption" + i,
-                            Created_at = DateTime.Now,
-                            Updated_at = DateTime.Now,
-                            Deleted_at = DateTime.Now,
-                            Created_by = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
-                            Updated_by = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
-                            Deleted_by = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
                             ClinicId = 1
                         });
                 }
@@ -118,7 +104,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<ServiceDentist>().HasData(
                         new ServiceDentist()
                         {
-                            DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
+                            DentistId = i,
                             ServiceId = 1
                         });
                 }
@@ -129,7 +115,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<ServiceDentist>().HasData(
                         new ServiceDentist()
                         {
-                            DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
+                            DentistId = i,
                             ServiceId = 2
                         });
                 }
@@ -140,7 +126,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<ServiceDentist>().HasData(
                         new ServiceDentist()
                         {
-                            DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
+                            DentistId = i,
                             ServiceId = 3
                         });
                 }
@@ -151,7 +137,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<ServiceDentist>().HasData(
                         new ServiceDentist()
                         {
-                            DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
+                            DentistId = i,
                             ServiceId = 4
                         });
                 }
@@ -162,7 +148,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<ServiceDentist>().HasData(
                         new ServiceDentist()
                         {
-                            DentistId = Guid.Parse("4bc632aa-7765-4040-9fbf-f2bb408d8e" + i),
+                            DentistId = i,
                             ServiceId = 5
                         });
                 }
@@ -198,7 +184,8 @@ namespace DentisBooking.Data.Extensions
                         Deleted_at = DateTime.UtcNow,
                         Created_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26" + i),
                         Updated_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26" + i),
-                        Deleted_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26" + i)
+                        Deleted_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE26" + i),
+                        DentistId = i
                     });
 
                     modelBuilder.Entity<Booking>().HasData(new Booking
@@ -245,7 +232,8 @@ namespace DentisBooking.Data.Extensions
                         Deleted_at = DateTime.UtcNow,
                         Created_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE33" + i),
                         Updated_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE33" + i),
-                        Deleted_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE33" + i)
+                        Deleted_by = Guid.Parse("D5A918C6-5ED4-43EB-BCDF-042594AE33" + i),
+                        DentistId = i
                     });
 
                     modelBuilder.Entity<Booking>().HasData(new Booking

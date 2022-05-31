@@ -4,7 +4,7 @@ namespace DentisBooking.Data.Entities
 {
     public class ServiceDentist
     {
-        public Guid DentistId { get; set; }
+        public int DentistId { get; set; }
 
         public Dentist Dentist { get; set; }
 
