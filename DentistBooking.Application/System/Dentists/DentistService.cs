@@ -185,9 +185,9 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
+        public async Task<DentistCodeResponse> UpdateDentist(UpdateDentistRequest request)
         {
-            var response = new DentistResponse();
+            var response = new DentistCodeResponse();
             var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.Id);
             var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
             var dentistService = new ServiceDentist();
@@ -234,9 +234,9 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistResponse> DeleteDentist(DeleteDentistRequest request)
+        public async Task<DentistCodeResponse> DeleteDentist(DeleteDentistRequest request)
         {
-            var response = new DentistResponse();
+            var response = new DentistCodeResponse();
             var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
 
             if (dentist == null)
