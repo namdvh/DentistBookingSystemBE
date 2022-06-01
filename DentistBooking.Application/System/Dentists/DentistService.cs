@@ -59,10 +59,10 @@ namespace DentistBooking.Application.System.Dentists
 
             var totalRecords = await _context.Dentists.CountAsync();
 
-            if (data == null)
+            if (data == null)    
             {
                 response.Content = null;
-                response.Code = "200";
+                response.Code = "2000";
                 response.Message = "There aren't any dentists in DB";
             }
             else
