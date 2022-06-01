@@ -33,13 +33,13 @@ namespace DentisBooking.Api.Controllers
             return Ok(rs);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllBooking([FromQuery] PaginationFilter filter)
-        {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
-            ListBookingResponse result = await _bookingService.GetBookingList(validFilter);
-            return Ok(result);
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetAllBooking([FromQuery] PaginationFilter filter)
+        // {
+        //     var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+        //     ListBookingResponse result = await _bookingService.GetBookingList(validFilter);
+        //     return Ok(result);
+        // }
 
         [HttpPut]
         public async Task<IActionResult> UpdateBooking([FromBody] BookingRequest request)

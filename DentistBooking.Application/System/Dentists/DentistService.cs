@@ -44,9 +44,9 @@ namespace DentistBooking.Application.System.Dentists
                 _ => orderBy
             };
 
-            var data = (dynamic)null;
+            dynamic data;
 
-            if (true)
+            if (filter._all)
             {
                 data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
@@ -55,18 +55,27 @@ namespace DentistBooking.Application.System.Dentists
                         select new { user, dentistAttribute })
                     .Where(x => x.user.DentistId != null)
                     .OrderByDescending(x => x.user.Created_at)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize).ToListAsync();
+                    .ToListAsync();
             }
             else
             {
+                data = (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                        where user.Deleted_by != null
+                        select new { user, dentistAttribute })
+                    .Where(x => x.user.DentistId != null)
+                    .OrderByDescending(x => x.user.Created_at)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToList();
             }
 
 
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = await _context.Dentists.CountAsync();
+            var totalRecords = _context.Users.Count(x => x.DentistId != null);
 
             if (data == null)
             {
@@ -103,11 +112,24 @@ namespace DentistBooking.Application.System.Dentists
                 response.Code = "200";
             }
 
-            var totalPages = ((double)totalRecords / (double)filter.PageSize);
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
             var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             paginationDto.CurrentPage = filter.PageNumber;
-            paginationDto.PageSize = filter.PageSize;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
             paginationDto.TotalPages = roundedTotalPages;
             paginationDto.TotalRecords = totalRecords;
 
