@@ -44,15 +44,23 @@ namespace DentistBooking.Application.System.Dentists
                 _ => orderBy
             };
 
+            var data = (dynamic)null;
 
-            var data = await (from user in _context.Users
-                              join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                              from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                              where user.Deleted_by != null
-                              select new { user, dentistAttribute })
-                .OrderByDescending(x => x.user.Created_at)
-                .Skip((filter.PageNumber - 1) * filter.PageSize)
-                .Take(filter.PageSize).ToListAsync();
+            if (true)
+            {
+                data = await (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                        where user.Deleted_by != null
+                        select new { user, dentistAttribute })
+                    .Where(x => x.user.DentistId != null)
+                    .OrderByDescending(x => x.user.Created_at)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize).ToListAsync();
+            }
+            else
+            {
+            }
 
 
             List<DentistDTO> dentistList = new();
@@ -269,10 +277,10 @@ namespace DentistBooking.Application.System.Dentists
         private async Task<List<ServiceDto>> GetServiceFromDentist(int dentistId)
         {
             var results = await (from t1 in _context.ServiceDentists
-                                 join t2 in _context.Services
-                                     on t1.ServiceId equals t2.Id
-                                 where t1.DentistId == dentistId
-                                 select t2).ToListAsync();
+                join t2 in _context.Services
+                    on t1.ServiceId equals t2.Id
+                where t1.DentistId == dentistId
+                select t2).ToListAsync();
 
             var final = new List<ServiceDto>();
 
