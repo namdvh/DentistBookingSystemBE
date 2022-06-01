@@ -20,7 +20,7 @@ namespace DentisBooking.Api.Controllers
         }
         [HttpPost()]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateBooking([FromBody] BookingRequest request)
+        public async Task<IActionResult> CreateBooking([FromBody] CreateBookingRequest request)
         {
             if (!ModelState.IsValid)
             {
