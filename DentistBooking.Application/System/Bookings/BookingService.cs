@@ -88,7 +88,7 @@ namespace DentistBooking.Application.System.Bookings
 
         }
 
-        public async Task<BookingResponse> DeleteClinic(string bookingId, Guid userId)
+        public async Task<BookingResponse> DeleteBooking(string bookingId, Guid userId)
         {
             BookingResponse response = new BookingResponse();
 
@@ -125,11 +125,6 @@ namespace DentistBooking.Application.System.Bookings
 
                 return response;
             }
-        }
-
-        public Task<BookingDetailResponse> GetBookingDetail(string bookingId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<ListBookingResponse> GetBookingList(PaginationFilter filter)
@@ -223,5 +218,41 @@ namespace DentistBooking.Application.System.Bookings
                 return response;
             }
         }
+
+        public async Task<BookingDetailResponse> GetBookingDetail(string bookingId)
+        {
+            BookingDetailResponse response = new BookingDetailResponse();
+            try
+            {
+                List<BookingDetail> details = await _context.BookingDetails.Where(g => g.BookingId.Equals(bookingId)).ToListAsync();
+
+                if(details != null)
+                {
+                    response.Details = details;
+                    response.Code = "200";
+                    response.Message = "GetBookingDetail successfully";
+
+                    return response;
+                }
+                else
+                {
+                    response.Details = null;
+                    response.Code = "200";
+                    response.Message = "Can not find any booking detail of that booking";
+
+                    return response;
+                }
+            }
+            catch (DbUpdateException)
+            {
+                response.Details = null;
+                response.Code = "200";
+                response.Message = "GetBookingDetail failed";
+
+                return response;
+            }
+        }
+
+
     }
 }
