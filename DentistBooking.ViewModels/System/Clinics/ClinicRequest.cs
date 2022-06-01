@@ -9,7 +9,7 @@ namespace DentistBooking.ViewModels.System.Clinics
 {
     public class ClinicRequest
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public string Address { get; set; }

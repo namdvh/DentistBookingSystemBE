@@ -1,5 +1,4 @@
-﻿using DentisBooking.Data.Entities;
-using DentisBooking.Data.Enum;
+﻿using DentisBooking.Data.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,12 @@ namespace DentistBooking.ViewModels.System.Bookings
 {
     public class BookingRequest
     {
-        public List<int> DentistIds { get; set; }
-        public List<int> ServiceIds { get; set; }
-        public List<KeyTime> KeyTimes { get; set; }
-        public Guid UserId { get; set; }
+        public int? Id { get; set; }
+        public DateTime Date { get; set; }
         public decimal Total { get; set; }
-        public string? Note { get; set; }
+
+        public Status Status { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

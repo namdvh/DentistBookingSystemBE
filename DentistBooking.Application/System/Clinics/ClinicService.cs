@@ -144,7 +144,6 @@ namespace DentistBooking.Application.System.Clinics
                 Clinic obj = _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefault();
                 if (obj != null)
                 {
-                    obj.Id = request.Id;
                     obj.Name = request.Name;
                     obj.Address = request.Address;
                     obj.Phone = request.Phone;
