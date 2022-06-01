@@ -1,4 +1,5 @@
-﻿using DentistBooking.ViewModels.Pagination;
+﻿using DentisBooking.Data.Entities;
+using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Clinics;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace DentistBooking.Application.System.Clinics
 {
     public interface IClinicService
     {
-        Task<ClinicResponse> GetClinicList(PaginationFilter filter);
+        Task<ListClinicResponse> GetClinicList(PaginationFilter filter);
+        Task<ClinicResponse> CreateClinic(ClinicRequest request);
+        Task<ClinicResponse> UpdateClinic(ClinicRequest request);
+        Task<ClinicResponse> DeleteClinic(string clinicId, Guid userId);
+
     }
 }

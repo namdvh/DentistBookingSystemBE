@@ -13,7 +13,7 @@ namespace DentistBooking.ViewModels.Profiles
     {
         public ClinicResponseProfile()
         {
-            CreateMap<Clinic, ClinicResponse>();
+            CreateMap<Clinic, ListClinicResponse>();
         }
     }
 }

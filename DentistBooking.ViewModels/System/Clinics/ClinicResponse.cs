@@ -1,5 +1,4 @@
-﻿using DentistBooking.ViewModels.Pagination;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +8,7 @@ namespace DentistBooking.ViewModels.System.Clinics
 {
     public class ClinicResponse
     {
-        public IEnumerable<ClinicDTO> Content { get; set; }
-
         public string Code { get; set; }
-        
-        public string Message { get; set; }
-
-        public PaginationDTO Pagination { get; set; }
+        public string Message { get; set; } 
     }
 }

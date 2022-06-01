@@ -24,10 +24,9 @@ namespace DentistBooking.Application.System.Clinics
             _context = context;
             _mapper = mapper;
         }
-
-        public async Task<ClinicResponse> GetClinicList(PaginationFilter filter)
+        public async Task<ListClinicResponse> GetClinicList(PaginationFilter filter)
         {
-            ClinicResponse response = new();
+            ListClinicResponse response = new();
             PaginationDTO paginationDTO = new();
 
             string orderBy = filter._order.ToString();
@@ -89,8 +88,8 @@ namespace DentistBooking.Application.System.Clinics
             {
                 Id = clinic.Id,
                 Address = clinic.Address,
-                Description = clinic.Description,   
-                Name = clinic.Name, 
+                Description = clinic.Description,
+                Name = clinic.Name,
                 Phone = clinic.Phone,
                 Status = clinic.Status,
                 Created_at = clinic.Created_at,
@@ -103,5 +102,123 @@ namespace DentistBooking.Application.System.Clinics
             };
             return clinicDTO;
         }
+
+        public async Task<ClinicResponse> CreateClinic(ClinicRequest request)
+        {
+            ClinicResponse response = new ClinicResponse();
+            try
+            {
+                Clinic clinic = new Clinic()
+                {
+                    Name = request.Name,
+                    Address = request.Address,
+                    Phone = request.Phone,
+                    Description = request.Description,
+                    Created_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
+                    Created_by = request.UserId
+                };
+
+                _context.Clinics.Add(clinic);
+                await _context.SaveChangesAsync();
+
+                response.Code = "200";
+                response.Message = "Create clinic successfully";
+
+                return response;
+            }
+            catch (DbUpdateException)
+            {
+                response.Code = "200";
+                response.Message = "Create clinic failed";
+
+                return response;
+            }
+
+        }
+        public async Task<ClinicResponse> UpdateClinic(ClinicRequest request)
+        {
+            ClinicResponse response = new ClinicResponse();
+
+            try
+            {
+                Clinic obj = _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefault();
+                if (obj != null)
+                {
+                    obj.Id = request.Id;
+                    obj.Name = request.Name;
+                    obj.Address = request.Address;
+                    obj.Phone = request.Phone;
+                    obj.Description = request.Description;
+                    obj.Status = request.Status;
+                    obj.Updated_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                    obj.Updated_by = request.UserId;
+
+                    await _context.SaveChangesAsync();
+                    response.Code = "200";
+                    response.Message = "Update clinic successfully";
+
+                    return response;
+
+                }
+                else
+                {
+                    response.Code = "200";
+                    response.Message = "Can not find that clinic";
+
+                    return response;
+                }
+                
+            }
+            catch (DbUpdateException)
+            {
+
+                response.Code = "200";
+                response.Message = "Update clinic failed";
+
+                return response;
+            }
+
+        }
+
+        public async Task<ClinicResponse> DeleteClinic(string clinicId, Guid userId)
+        {
+            ClinicResponse response = new ClinicResponse();
+
+            try
+            {
+                Clinic obj = _context.Clinics.Find(clinicId);
+                if(obj != null)
+                {
+                    obj.Deleted_by = userId;
+                    obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                    obj.Status = DentisBooking.Data.Enum.Status.INACTIVE;
+
+                    await _context.SaveChangesAsync();
+
+                    response.Code = "200";
+                    response.Message = "Delete clinic successfully";
+
+                    return response;
+                }
+                else
+                {
+                    response.Code = "200";
+                    response.Message = "Can not find that clinic";
+
+                    return response;
+                }
+                
+            }
+            catch (DbUpdateException)
+            {
+
+                response.Code = "200";
+                response.Message = "Delete clinic failed";
+
+                return response; 
+            }
+        }
+
+
     }
 }
