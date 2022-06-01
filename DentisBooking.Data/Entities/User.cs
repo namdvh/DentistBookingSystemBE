@@ -30,9 +30,8 @@ namespace DentisBooking.Data.Entities
 
         //public int BookingId { get; set; }
         public List<Booking> Bookings { get; set; }
-        public Booking Booking { get; set; }
         
         public Dentist Dentist { get; set; }
-        public int DentistId { get; set; }
+        public int? DentistId { get; set; }
     }
 }

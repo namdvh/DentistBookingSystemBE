@@ -11,20 +11,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using DentisBooking.Data.Enum;
+using DentistBooking.ViewModels.System;
 using DentistBooking.ViewModels.System.Users;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using DentistBooking.ViewModels.System.Services;
 
 namespace DentistBooking.Application.System.Dentists
 {
     public class DentistService : IDentistService
     {
         private readonly DentistDBContext _context;
-        // private readonly UserManager<Dentist> _dentistService;
+        private readonly UserManager<User> _userService;
 
-        public DentistService(DentistDBContext context)
+        public DentistService(DentistDBContext context, UserManager<User> userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         public async Task<DentistResponse> GetDentistList(PaginationFilter filter)
@@ -42,33 +45,15 @@ namespace DentistBooking.Application.System.Dentists
             };
 
 
-            // var pagedData = await _context.Users
-            //     .OrderBy(filter._by + " " + orderBy)
-            //     .Skip((filter.PageNumber - 1) * filter.PageSize)
-            //     .Take(filter.PageSize)
-            //     .Where(x => x.Deleted_by != null )
-            //     .Join(_context.Dentists,
-            //         user=>user.DentistId,
-            //         dentist=>dentist.Id ,
-            //         (user,dentist)=>new
-            //         {
-            //             UserDTO user = new UserDTO{
-            //             
-            //         }
-            //         })
-            //     .ToListAsync();
-            //         
-
-
             var data = await (from user in _context.Users
-                    join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                    from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                    where user.Deleted_by != null
-                    select new { user, dentistAttribute })
+                              join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                              from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                              where user.Deleted_by != null
+                              select new { user, dentistAttribute })
                 .OrderByDescending(x => x.user.Created_at)
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize).ToListAsync();
-            
+
 
             List<DentistDTO> dentistList = new();
 
@@ -85,6 +70,10 @@ namespace DentistBooking.Application.System.Dentists
             {
                 foreach (var item in data)
                 {
+                    List<ServiceDto> services = new();
+
+                    ServiceDto serviceDto = new();
+
                     DentistDTO dto = new();
                     dto.Description = item.dentistAttribute?.Description;
                     dto.Email = item.user.Email;
@@ -95,6 +84,8 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Status = item.user.Status;
                     dto.FirstName = item.user.FirstName;
                     dto.LastName = item.user.LastName;
+
+                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
 
                     dentistList.Add(dto);
                 }
@@ -120,9 +111,78 @@ namespace DentistBooking.Application.System.Dentists
 
         public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
         {
-            DentistResponse response = new();
-            return response;
+            var response = new DentistResponse();
+            var validator = new AddDentistRequestValidator();
+            response.Errors = new List<string>();
+            var results = await validator.ValidateAsync(request);
 
+            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
+
+
+            if (!results.IsValid)
+            {
+                response.Content = null;
+                response.Code = "200";
+                foreach (var failure in results.Errors)
+                {
+                    response.Errors.Add(failure.ErrorMessage.ToString());
+                }
+
+                return response;
+            }
+
+            var newDentist = new Dentist()
+            {
+                Clinic = clinic,
+                Description = request.Description,
+                Position = request.Position,
+            };
+
+            var rs = _context.Dentists.Add(newDentist);
+            await _context.SaveChangesAsync();
+
+            var newUser = new User()
+            {
+                DOB = request.DOB,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber,
+                Status = Status.ACTIVE,
+                Gender = request.Gender,
+                Dentist = newDentist
+            };
+
+            var result = await _userService.CreateAsync(newUser, request.Password);
+
+            if (result.Succeeded)
+            {
+                var dentistService = new ServiceDentist();
+
+                if (request.ServiceId != null && request.ServiceId.Any())
+                {
+                    foreach (var x in request.ServiceId)
+                    {
+                        dentistService.DentistId = newDentist.Id;
+                        dentistService.ServiceId = x;
+
+                        _context.ServiceDentists.Add(dentistService);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                response.Code = "200";
+                response.Message = "Register successfully";
+
+                return response;
+            }
+
+            response.Content = null;
+            response.Code = "200";
+            response.Message = "Register failed";
+
+            return response;
         }
 
         public async Task<DentistResponse> UpdateDentist(UpdateDentistRequest request)
@@ -178,7 +238,7 @@ namespace DentistBooking.Application.System.Dentists
         {
             var response = new DentistResponse();
             var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
-             
+
             if (dentist == null)
             {
                 response.Code = "404";
@@ -194,16 +254,37 @@ namespace DentistBooking.Application.System.Dentists
                 response.Message = "Error";
                 return response;
             }
-            
-             
+
+
             user.Deleted_by = request.DeletedBy;
             await _userService.UpdateAsync(user);
             response.Code = "200";
             response.Message = "Delete successfully";
-             
-             
+
+
             return response;
         }
-        
+
+
+        private async Task<List<ServiceDto>> GetServiceFromDentist(int dentistId)
+        {
+            var results = await (from t1 in _context.ServiceDentists
+                                 join t2 in _context.Services
+                                     on t1.ServiceId equals t2.Id
+                                 where t1.DentistId == dentistId
+                                 select t2).ToListAsync();
+
+            var final = new List<ServiceDto>();
+
+            foreach (var service in results)
+            {
+                ServiceDto dto = new();
+                dto.Id = service.Id;
+                dto.ServiceName = service.Name;
+                final.Add(dto);
+            }
+
+            return final;
+        }
     }
 }

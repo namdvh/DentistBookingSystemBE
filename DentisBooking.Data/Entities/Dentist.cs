@@ -12,8 +12,7 @@ namespace DentisBooking.Data.Entities
         public string Description { get; set; }
         //Relationship
 
-        //public int ImageId { get; set; }
-        //public Image Image { get; set; }
+       
 
         public ICollection<BookingDetail> BookingDetails { get; set; }
         

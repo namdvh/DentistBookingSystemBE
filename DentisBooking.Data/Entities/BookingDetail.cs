@@ -29,7 +29,7 @@ namespace DentisBooking.Data.Entities
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         
-        public Guid DentistId { get; set; }
+        public int? DentistId { get; set; }
         public Dentist Dentist { get; set; }
     }
 

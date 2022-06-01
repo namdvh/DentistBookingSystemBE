@@ -1,4 +1,6 @@
 using DentisBooking.Data.Enum;
+using System;
+using System.Collections.Generic;
 
 namespace DentistBooking.ViewModels.System.Dentists
 {
@@ -8,7 +10,9 @@ namespace DentistBooking.ViewModels.System.Dentists
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        
+
+        public DateTime DOB { get; set; }
+
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,5 +21,7 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Position Position { get; set; }
         public string Description { get; set; }
         public int ClinicId { get; set; }
+
+        public List<int>? ServiceId { get; set; }
     }
 }
