@@ -93,12 +93,37 @@ namespace DentistBooking.Application.System.Users
 
             var principal = GetPrincipalFromToken(refreshToken.refreshToken);
 
+            try
+            {
+
             if (GetPrincipalFromToken(refreshToken.refreshToken) == null)
             {
                 response.Code = "900";
                 response.Message = "Invalid Token";
                 return response;
             }
+            }
+            catch (SecurityTokenExpiredException)
+            {
+
+                response.Code = "901";
+                response.Message = "Expired Token";
+                return response;
+            }
+            catch(SecurityTokenInvalidSignatureException)
+            {
+                response.Code = "900";
+                response.Message = "Invalid Token";
+                return response;
+            }
+            catch(ArgumentException)
+            {
+                response.Code = "900";
+                response.Message = "Arugment invalid Token";
+                return response;
+            }
+
+
             string username = principal.Identity.Name;
             var user = await _userService.FindByNameAsync(username);
 
@@ -146,9 +171,6 @@ namespace DentistBooking.Application.System.Users
                 byte[] signingKeyBytes = Encoding.UTF8.GetBytes(signingKey);
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-
-                //TokenValidationParameters validationParameters = new TokenValidationParameters();
-                //validationParameters.IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                 var tokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -164,15 +186,15 @@ namespace DentistBooking.Application.System.Users
             }
             catch (SecurityTokenExpiredException ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new SecurityTokenExpiredException();
             }
             catch (SecurityTokenInvalidSignatureException e)
             {
-                Console.WriteLine(e.Message);
+                throw new SecurityTokenInvalidSignatureException();
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new ArgumentException();
             }
             return principal;
         }
