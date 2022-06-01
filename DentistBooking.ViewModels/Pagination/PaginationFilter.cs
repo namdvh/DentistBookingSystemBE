@@ -15,8 +15,6 @@ namespace DentistBooking.ViewModels.Pagination
         public int _order { get; set; }
         
         public bool _all { get; set; }
-        
-        public string? Keyword { get; set; }
             
         public PaginationFilter()
         {
@@ -42,15 +40,6 @@ namespace DentistBooking.ViewModels.Pagination
             _all = all;
         }
         
-        public PaginationFilter(int pageNumber, int pageSize, string sortBy, int orderBy,bool all,string keyword)
-        {
-            PageNumber = pageNumber < 1 ? 1 : pageNumber;
-            PageSize = pageSize > 10 ? 10 : pageSize;
-            _by = String.IsNullOrEmpty(sortBy) ? "Created_at" : sortBy;
-            _order = orderBy > 0 ? 1 : orderBy;
-            _all = all;
-            keyword = keyword;
-        }
         
         
         

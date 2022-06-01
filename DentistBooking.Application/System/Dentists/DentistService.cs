@@ -139,6 +139,7 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
+
         public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
         {
             var response = new DentistResponse();
@@ -290,6 +291,100 @@ namespace DentistBooking.Application.System.Dentists
             await _userService.UpdateAsync(user);
             response.Code = "200";
             response.Message = "Delete successfully";
+
+
+            return response;
+        }
+
+        public async Task<DentistResponse> SearchDentist(PaginationFilter filter,string keyword)
+        {
+            DentistResponse response = new();
+            PaginationDTO paginationDto = new();
+
+            var orderBy = filter._order.ToString();
+
+            orderBy = orderBy switch
+            {
+                "1" => "descending",
+                "-1" => "ascending",
+                _ => orderBy
+            };
+
+
+            var data = (from user in _context.Users
+                    join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                    from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                    where user.Deleted_by != null
+                    select new { user, dentistAttribute })
+                .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword)|| x.user.LastName.Contains(keyword)))
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .OrderByDescending(x => x.user.Created_at)
+                .ToList();
+
+
+            List<DentistDTO> dentistList = new();
+
+
+            var totalRecords = _context.Users.Count(x=>(x.FirstName.Contains(keyword)|| x.LastName.Contains(keyword)));
+
+            if (!data.Any())
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any dentists in DB";
+            }
+            else
+            {
+                foreach (var item in data)
+                {
+                    List<ServiceDto> services = new();
+
+                    ServiceDto serviceDto = new();
+
+                    DentistDTO dto = new();
+                    dto.Description = item.dentistAttribute?.Description;
+                    dto.Email = item.user.Email;
+                    dto.Gender = item.user.Gender;
+                    dto.Id = item.user.Id;
+                    dto.Phone = item.user.PhoneNumber;
+                    dto.Position = item.dentistAttribute.Position;
+                    dto.Status = item.user.Status;
+                    dto.FirstName = item.user.FirstName;
+                    dto.LastName = item.user.LastName;
+
+                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
+
+                    dentistList.Add(dto);
+                }
+
+                response.Content = dentistList;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+            }
+
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDto.CurrentPage = filter.PageNumber;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDto;
 
 
             return response;
