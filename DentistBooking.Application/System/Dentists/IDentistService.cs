@@ -14,7 +14,7 @@ namespace DentistBooking.Application.System.Dentists
         Task<DentistResponse> GetDentistList(PaginationFilter filter);
 
         Task<DentistResponse> CreateDentist(AddDentistRequest request);
-        Task<DentistResponse> UpdateDentist(UpdateDentistRequest request);
-        Task<DentistResponse> DeleteDentist(DeleteDentistRequest request);
+        Task<DentistCodeResponse> UpdateDentist(UpdateDentistRequest request);
+        Task<DentistCodeResponse> DeleteDentist(DeleteDentistRequest request);
     }
 }
