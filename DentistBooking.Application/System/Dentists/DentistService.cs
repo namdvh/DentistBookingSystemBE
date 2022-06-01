@@ -391,7 +391,7 @@ namespace DentistBooking.Application.System.Dentists
         }
 
 
-        private async Task<List<ServiceDto>> GetServiceFromDentist(int dentistId)
+        private async Task<List<DentistServiceDto>> GetServiceFromDentist(int dentistId)
         {
             var results = await (from t1 in _context.ServiceDentists
                 join t2 in _context.Services
@@ -399,11 +399,11 @@ namespace DentistBooking.Application.System.Dentists
                 where t1.DentistId == dentistId
                 select t2).ToListAsync();
 
-            var final = new List<ServiceDto>();
+            var final = new List<DentistServiceDto>();
 
             foreach (var service in results)
             {
-                ServiceDto dto = new();
+                DentistServiceDto dto = new();
                 dto.Id = service.Id;
                 dto.ServiceName = service.Name;
                 final.Add(dto);
