@@ -41,7 +41,6 @@ namespace DentisBooking.Api.Controllers
             return Ok(result);
         }
 
-
         [HttpPut]
         public async Task<IActionResult> UpdateBooking([FromBody] BookingRequest request)
         {

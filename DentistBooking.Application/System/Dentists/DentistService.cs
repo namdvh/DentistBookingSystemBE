@@ -44,9 +44,9 @@ namespace DentistBooking.Application.System.Dentists
                 _ => orderBy
             };
 
-            var data = (dynamic)null;
+            dynamic data;
 
-            if (true)
+            if (filter._all)
             {
                 data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
@@ -55,18 +55,27 @@ namespace DentistBooking.Application.System.Dentists
                         select new { user, dentistAttribute })
                     .Where(x => x.user.DentistId != null)
                     .OrderByDescending(x => x.user.Created_at)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize).ToListAsync();
+                    .ToListAsync();
             }
             else
             {
+                data = (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                        where user.Deleted_by != null
+                        select new { user, dentistAttribute })
+                    .Where(x => x.user.DentistId != null)
+                    .OrderByDescending(x => x.user.Created_at)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToList();
             }
 
 
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = await _context.Dentists.CountAsync();
+            var totalRecords = _context.Users.Count(x => x.DentistId != null);
 
             if (data == null)
             {
@@ -103,11 +112,24 @@ namespace DentistBooking.Application.System.Dentists
                 response.Code = "200";
             }
 
-            var totalPages = ((double)totalRecords / (double)filter.PageSize);
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
             var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             paginationDto.CurrentPage = filter.PageNumber;
-            paginationDto.PageSize = filter.PageSize;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
             paginationDto.TotalPages = roundedTotalPages;
             paginationDto.TotalRecords = totalRecords;
 
@@ -116,6 +138,7 @@ namespace DentistBooking.Application.System.Dentists
 
             return response;
         }
+
 
         public async Task<DentistResponse> CreateDentist(AddDentistRequest request)
         {
@@ -273,8 +296,102 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
+        public async Task<DentistResponse> SearchDentist(PaginationFilter filter,string keyword)
+        {
+            DentistResponse response = new();
+            PaginationDTO paginationDto = new();
 
-        private async Task<List<ServiceDto>> GetServiceFromDentist(int dentistId)
+            var orderBy = filter._order.ToString();
+
+            orderBy = orderBy switch
+            {
+                "1" => "descending",
+                "-1" => "ascending",
+                _ => orderBy
+            };
+
+
+            var data = (from user in _context.Users
+                    join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                    from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                    where user.Deleted_by != null
+                    select new { user, dentistAttribute })
+                .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword)|| x.user.LastName.Contains(keyword)))
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .OrderByDescending(x => x.user.Created_at)
+                .ToList();
+
+
+            List<DentistDTO> dentistList = new();
+
+
+            var totalRecords = _context.Users.Count(x=>(x.FirstName.Contains(keyword)|| x.LastName.Contains(keyword)));
+
+            if (!data.Any())
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any dentists in DB";
+            }
+            else
+            {
+                foreach (var item in data)
+                {
+                    List<ServiceDto> services = new();
+
+                    ServiceDto serviceDto = new();
+
+                    DentistDTO dto = new();
+                    dto.Description = item.dentistAttribute?.Description;
+                    dto.Email = item.user.Email;
+                    dto.Gender = item.user.Gender;
+                    dto.Id = item.user.Id;
+                    dto.Phone = item.user.PhoneNumber;
+                    dto.Position = item.dentistAttribute.Position;
+                    dto.Status = item.user.Status;
+                    dto.FirstName = item.user.FirstName;
+                    dto.LastName = item.user.LastName;
+
+                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
+
+                    dentistList.Add(dto);
+                }
+
+                response.Content = dentistList;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+            }
+
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDto.CurrentPage = filter.PageNumber;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDto;
+
+
+            return response;
+        }
+
+
+        private async Task<List<DentistServiceDto>> GetServiceFromDentist(int dentistId)
         {
             var results = await (from t1 in _context.ServiceDentists
                 join t2 in _context.Services
@@ -282,11 +399,11 @@ namespace DentistBooking.Application.System.Dentists
                 where t1.DentistId == dentistId
                 select t2).ToListAsync();
 
-            var final = new List<ServiceDto>();
+            var final = new List<DentistServiceDto>();
 
             foreach (var service in results)
             {
-                ServiceDto dto = new();
+                DentistServiceDto dto = new();
                 dto.Id = service.Id;
                 dto.ServiceName = service.Name;
                 final.Add(dto);
