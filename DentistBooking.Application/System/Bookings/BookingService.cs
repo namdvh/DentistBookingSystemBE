@@ -28,23 +28,30 @@ namespace DentistBooking.Application.System.Bookings
             {
                 for (int i = 0; i < request.DentistIds.Count; i++)
                 {
+
                     //check keyTime
-                    BookingDetail existedDetail = _context.BookingDetails
-                                                  .Where(g => g.DentistId == request.DentistIds[i]
-                                                  && g.ServiceId == request.ServiceIds[i]
-                                                  && g.Created_at == DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")))
-                                                  .SingleOrDefault();
-                    if (existedDetail.KeyTime == request.KeyTimes[i])
+                    var existedDetail = await (from detail in _context.BookingDetails
+                                               join book in _context.Bookings on detail.BookingId equals book.Id
+                                               where detail.DentistId == request.DentistIds[i]
+                                               && detail.ServiceId == request.ServiceIds[i]
+                                               && book.Date.Equals(request.Date)
+                                               select detail).ToListAsync();
+
+                    foreach (var item in existedDetail)
                     {
-                        response.Code = "700";
-                        response.Message = "KeyTime is already chosen!";
-                        return response;
+                        if (item.KeyTime == request.KeyTimes[i])
+                        {
+                            response.Code = "700";
+                            response.Message = "KeyTime is already chosen!";
+                            return response;
+                        }
                     }
+                    
                 }
                 Booking booking = new Booking()
                 {
                     Status = 0,
-                    Date = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
+                    Date = request.Date,
                     Total = request.Total,
                     UserId = request.UserId,
                     Created_at = DateTime.Now
@@ -94,7 +101,7 @@ namespace DentistBooking.Application.System.Bookings
 
             try
             {
-                Booking obj = _context.Bookings.Find(bookingId);
+                Booking obj = await _context.Bookings.FindAsync(bookingId);
                 if (obj != null)
                 {
                     obj.Deleted_by = userId;
@@ -184,7 +191,7 @@ namespace DentistBooking.Application.System.Bookings
 
             try
             {
-                Booking obj = _context.Bookings.Where(g => g.Id == request.Id).SingleOrDefault();
+                Booking obj = await _context.Bookings.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
                     obj.Total = request.Total;
