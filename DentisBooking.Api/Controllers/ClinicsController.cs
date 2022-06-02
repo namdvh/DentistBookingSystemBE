@@ -51,7 +51,7 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteClinic([FromQuery] string clinicId, Guid userId)
+        public async Task<IActionResult> DeleteClinic([FromQuery] int clinicId, Guid userId)
         {
             if (!ModelState.IsValid)
             {

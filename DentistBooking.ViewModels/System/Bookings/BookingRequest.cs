@@ -13,7 +13,6 @@ namespace DentistBooking.ViewModels.System.Bookings
         public DateTime Date { get; set; }
         public decimal Total { get; set; }
 
-        public Status Status { get; set; }
 
         public Guid UserId { get; set; }
     }

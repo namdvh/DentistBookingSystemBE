@@ -1,32 +1,29 @@
-﻿using AutoMapper;
-using DentisBooking.Data.DataContext;
-using DentisBooking.Data.Entities;
+﻿using DentisBooking.Data.DataContext;
 using DentistBooking.ViewModels.Pagination;
-using DentistBooking.ViewModels.System.Clinics;
-using Microsoft.EntityFrameworkCore;
+using DentistBooking.ViewModels.System.Discounts;
+using DentisBooking.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
+using DentistBooking.Application.System.Discounts;
 
-
-namespace DentistBooking.Application.System.Clinics
+namespace DentistBooking.Application.System.Discounts
 {
-    public class ClinicService : IClinicService
+    public class DiscountService : IDiscountService
     {
         private readonly DentistDBContext _context;
-        private readonly IMapper _mapper;
 
-        public ClinicService(DentistDBContext context, IMapper mapper)
+        public DiscountService(DentistDBContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public async Task<ListClinicResponse> GetClinicList(PaginationFilter filter)
+        public async Task<ListDiscountResponse> GetDiscountList(PaginationFilter filter)
         {
-            ListClinicResponse response = new();
+            ListDiscountResponse response = new();
             PaginationDTO paginationDTO = new();
 
             string orderBy = filter._order.ToString();
@@ -39,28 +36,24 @@ namespace DentistBooking.Application.System.Clinics
             {
                 orderBy = "ascending";
             }
-            var pagedData = await _context.Clinics
+            var pagedData = await _context.Discounts
                     .OrderBy(filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
 
-            var totalRecords = await _context.Clinics.CountAsync();
+            var totalRecords = await _context.Discounts.CountAsync();
 
             if (!pagedData.Any())
             {
                 response.Content = null;
                 response.Code = "200";
-                response.Message = "There aren't any clinics in DB";
+                response.Message = "There aren't any discount in DB";
             }
             else
             {
-                List<ClinicDTO> result = new List<ClinicDTO>();
-                foreach (Clinic x in pagedData)
-                {
-                    result.Add(MapToDTO(x));
-                }
-                response.Content = result;
+   
+                response.Content = pagedData;
                 response.Message = "SUCCESS";
                 response.Code = "200";
 
@@ -81,80 +74,64 @@ namespace DentistBooking.Application.System.Clinics
 
         }
 
-
-        public ClinicDTO MapToDTO(Clinic clinic)
+        public async Task<DiscountResponse> CreateDiscount(DiscountRequest request)
         {
-            ClinicDTO clinicDTO = new ClinicDTO()
-            {
-                Id = clinic.Id,
-                Address = clinic.Address,
-                Description = clinic.Description,
-                Name = clinic.Name,
-                Phone = clinic.Phone,
-                Status = clinic.Status,
-                Created_at = clinic.Created_at,
-                Updated_at = (DateTime)clinic.Updated_at,
-                Deleted_at = (DateTime)clinic.Deleted_at,
-                Created_by = (Guid)clinic.Created_by,
-                Deleted_by = (Guid)clinic.Deleted_by,
-                Updated_by = (Guid)clinic.Updated_by,
-
-            };
-            return clinicDTO;
-        }
-
-        public async Task<ClinicResponse> CreateClinic(ClinicRequest request)
-        {
-            ClinicResponse response = new ClinicResponse();
+            DiscountResponse response = new DiscountResponse();
             try
             {
-                Clinic clinic = new Clinic()
+                Discount discount = new Discount()
                 {
-                    Name = request.Name,
-                    Address = request.Address,
-                    Phone = request.Phone,
+                    Title = request.Title,
+                    StartDate = request.StartDate,
+                    EndDate = request.EndDate,
                     Description = request.Description,
-                    Status = DentisBooking.Data.Enum.Status.ACTIVE,
+                    Percent = request.Percent,
+                    Amount = request.Amount,
+                    status = DentisBooking.Data.Enum.Status.ACTIVE,
+                    ApplyForAll = request.ApplyForAll,
                     Created_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
                     Created_by = request.UserId
                 };
 
-                _context.Clinics.Add(clinic);
+                _context.Discounts.Add(discount);
                 await _context.SaveChangesAsync();
 
                 response.Code = "200";
-                response.Message = "Create clinic successfully";
+                response.Message = "Create discount successfully";
 
                 return response;
             }
             catch (DbUpdateException)
             {
                 response.Code = "200";
-                response.Message = "Create clinic failed";
+                response.Message = "Create discount failed";
 
                 return response;
             }
 
         }
-        public async Task<ClinicResponse> UpdateClinic(ClinicRequest request)
+        public async Task<DiscountResponse> UpdateDiscount(DiscountRequest request)
         {
-            ClinicResponse response = new ClinicResponse();
+            DiscountResponse response = new DiscountResponse();
 
             try
             {
-                Clinic obj = await _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
+                Discount obj = await _context.Discounts.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
-                    obj.Name = request.Name;
-                    obj.Address = request.Address;
-                    obj.Phone = request.Phone;
+                    obj.Title = request.Title;
+                    obj.StartDate = request.StartDate;
+                    obj.EndDate = request.EndDate;
                     obj.Description = request.Description;
+                    obj.Percent = request.Percent;
+                    obj.Amount = request.Amount;
+                    obj.ApplyForAll = request.ApplyForAll;
                     obj.Updated_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
                     obj.Updated_by = request.UserId;
 
                     await _context.SaveChangesAsync();
                     response.Code = "200";
-                    response.Message = "Update clinic successfully";
+                    response.Message = "Update discount successfully";
 
                     return response;
 
@@ -162,62 +139,60 @@ namespace DentistBooking.Application.System.Clinics
                 else
                 {
                     response.Code = "200";
-                    response.Message = "Can not find that clinic";
+                    response.Message = "Can not find that discount";
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
 
                 response.Code = "200";
-                response.Message = "Update clinic failed";
+                response.Message = "Update discount failed";
 
                 return response;
             }
 
         }
 
-        public async Task<ClinicResponse> DeleteClinic(int clinicId, Guid userId)
+        public async Task<DiscountResponse> DeleteDiscount(int discountId, Guid userId)
         {
-            ClinicResponse response = new ClinicResponse();
+            DiscountResponse response = new DiscountResponse();
 
             try
             {
-                Clinic obj = await _context.Clinics.FindAsync(clinicId);
-                if(obj != null)
+                Discount obj = await _context.Discounts.FindAsync(discountId);
+                if (obj != null)
                 {
                     obj.Deleted_by = userId;
                     obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
-                    obj.Status = DentisBooking.Data.Enum.Status.INACTIVE;
+                    obj.status = DentisBooking.Data.Enum.Status.INACTIVE;
 
                     await _context.SaveChangesAsync();
 
                     response.Code = "200";
-                    response.Message = "Delete clinic successfully";
+                    response.Message = "Delete discount successfully";
 
                     return response;
                 }
                 else
                 {
                     response.Code = "200";
-                    response.Message = "Can not find that clinic";
+                    response.Message = "Can not find that discount";
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
 
                 response.Code = "200";
-                response.Message = "Delete clinic failed";
+                response.Message = "Delete discount failed";
 
-                return response; 
+                return response;
             }
         }
-
-
     }
 }

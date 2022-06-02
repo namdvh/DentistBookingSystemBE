@@ -53,7 +53,7 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteBooking([FromQuery] string bookingId, Guid userId)
+        public async Task<IActionResult> DeleteBooking([FromQuery] int bookingId, Guid userId)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpGet("getbookingdetail")]
-        public async Task<IActionResult> GetBookingDetail([FromQuery] string bookingId)
+        public async Task<IActionResult> GetBookingDetail([FromQuery] int bookingId)
         {
             if (!ModelState.IsValid)
             {
