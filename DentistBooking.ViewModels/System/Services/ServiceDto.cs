@@ -10,5 +10,7 @@ namespace DentistBooking.ViewModels.System.Services
     {
         public int Id { get; set; }
         public string ServiceName { get; set; }
+        
+        public string Procedure { get; set; }
     }
 }
