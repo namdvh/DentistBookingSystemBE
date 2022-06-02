@@ -141,7 +141,7 @@ namespace DentistBooking.Application.System.Clinics
 
             try
             {
-                Clinic obj = _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefault();
+                Clinic obj = await _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
                     obj.Name = request.Name;
@@ -185,7 +185,7 @@ namespace DentistBooking.Application.System.Clinics
 
             try
             {
-                Clinic obj = _context.Clinics.Find(clinicId);
+                Clinic obj = await _context.Clinics.FindAsync(clinicId);
                 if(obj != null)
                 {
                     obj.Deleted_by = userId;
