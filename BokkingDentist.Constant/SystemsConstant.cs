@@ -8,6 +8,8 @@ namespace BokkingDentist.Constant
 {
     public class SystemsConstant
     {
-        public const string MainConnectionString = "LocalDbKhoa";
+
+        public const string MainConnectionString = "DefaultDb";
+
     }
 }

@@ -15,6 +15,7 @@ namespace DentisBooking.Api.Controllers
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
+
         public DentistsController(IDentistService dentistService)
         {
             _dentistService = dentistService;
@@ -23,10 +24,25 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDentist([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize,filter._by,filter._order);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,
+                filter._all);
             var result = await _dentistService.GetDentistList(validFilter);
             return Ok(result);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter,string keyword)
+        {
+            DentistResponse result = new();
+            if (keyword != null)
+            {
+                var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+                result = await _dentistService.SearchDentist(validFilter,keyword);
+            }
+
+            return Ok(result);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> AddNewDentist([FromBody] AddDentistRequest newDentist)
@@ -34,14 +50,14 @@ namespace DentisBooking.Api.Controllers
             var result = await _dentistService.CreateDentist(newDentist);
             return Ok(result);
         }
-        
+
         [HttpPut]
         public async Task<IActionResult> UpdateDentist([FromBody] UpdateDentistRequest newDentist)
         {
             var result = await _dentistService.UpdateDentist(newDentist);
             return Ok(result);
         }
-        
+
         [HttpDelete]
         public async Task<IActionResult> RemoveDentist([FromBody] DeleteDentistRequest request)
         {

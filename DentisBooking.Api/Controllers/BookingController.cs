@@ -33,7 +33,7 @@ namespace DentisBooking.Api.Controllers
             return Ok(rs);
         }
 
-        [HttpGet]
+        [HttpGet("getallbooking")]
         public async Task<IActionResult> GetAllBooking([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
@@ -63,7 +63,7 @@ namespace DentisBooking.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("getbookingdetail")]
         public async Task<IActionResult> GetBookingDetail([FromQuery] string bookingId)
         {
             if (!ModelState.IsValid)

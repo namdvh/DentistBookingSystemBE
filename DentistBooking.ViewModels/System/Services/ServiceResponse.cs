@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace DentistBooking.ViewModels.System.Services
 {
-    public class ServiceDto
+    public class ServiceResponse
     {
-        public int Id { get; set; }
-        public string ServiceName { get; set; }
-        
-        public string Procedure { get; set; }
+        public string Code { get; set; }
+        public string Message { get; set; } 
     }
 }
