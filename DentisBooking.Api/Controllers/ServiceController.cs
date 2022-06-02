@@ -10,7 +10,7 @@ namespace DentisBooking.Api.Controllers
 {
     [Route("api/services")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ServiceController : ControllerBase
     {
         private readonly IServiceService _serviceService;
