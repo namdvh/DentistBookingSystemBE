@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Net;
 using DentisBooking.Data.Extensions;
 using DentistBooking.Application.System.Services;
+using DentistBooking.Application.System.Discounts;
 
 namespace DentisBooking.Api
 {
@@ -67,6 +68,7 @@ namespace DentisBooking.Api
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IClinicService, ClinicService>();
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IValidator<RegisterRequest>,RegisterRequestValidator>();
             services.AddScoped<IValidator<AddDentistRequest>,AddDentistRequestValidator>();
             //services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizeMiddleWare>();
