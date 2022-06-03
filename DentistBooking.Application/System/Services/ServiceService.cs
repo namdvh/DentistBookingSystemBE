@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentistBooking.Application.System.Services
 {
-    public class ServiceService :IServiceService
+    public class ServiceService : IServiceService
     {
         private readonly DentistDBContext _context;
 
@@ -36,17 +36,27 @@ namespace DentistBooking.Application.System.Services
                 "-1" => "ascending",
                 _ => orderBy
             };
-            
-            var pagedData = await _context.Services
-                .OrderBy(filter._by + " " + orderBy)
-                .Where(x=>x.Deleted_by == null)
-                .Skip((filter.PageNumber - 1) * filter.PageSize)
-                .Take(filter.PageSize)
-                .ToListAsync();
 
+            List<Service> pagedData;
 
+            if (filter._all)
+            {
+                pagedData = await _context.Services
+              .OrderBy(filter._by + " " + orderBy)
+              .Where(x => x.Deleted_by == null)
+              .ToListAsync();
+            }
+            else
+            {
+                pagedData = await _context.Services
+              .OrderBy(filter._by + " " + orderBy)
+              .Where(x => x.Deleted_by == null)
+              .Skip((filter.PageNumber - 1) * filter.PageSize)
+              .Take(filter.PageSize)
+              .ToListAsync();
+            }
 
-            var totalRecords = await _context.Clinics.CountAsync(x=>x.Deleted_by == null);
+            var totalRecords = await _context.Services.CountAsync(x => x.Status != Status.INACTIVE);
 
             if (!pagedData.Any())
             {
@@ -66,11 +76,23 @@ namespace DentistBooking.Application.System.Services
                 response.Code = "200";
 
             }
-            var totalPages = ((double)totalRecords / (double)filter.PageSize);
-            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             paginationDto.CurrentPage = filter.PageNumber;
-            paginationDto.PageSize = filter.PageSize;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
             paginationDto.TotalPages = roundedTotalPages;
             paginationDto.TotalRecords = totalRecords;
 
@@ -89,13 +111,13 @@ namespace DentistBooking.Application.System.Services
 
             if (request.DiscountId != null)
             {
-                 discount = _context.Discounts.FirstOrDefault(x => x.Id == request.DiscountId);
+                discount = _context.Discounts.FirstOrDefault(x => x.Id == request.DiscountId);
             }
-            
+
             try
             {
                 var service = new Service();
-                
+
                 if (discount != null)
                 {
                     service.Discount = discount;
@@ -135,7 +157,7 @@ namespace DentistBooking.Application.System.Services
             {
                 discount = _context.Discounts.FirstOrDefault(x => x.Id == request.DiscountId);
             }
-            
+
             try
             {
                 var obj = _context.Services.Where(g => g.Id == request.Id).SingleOrDefault();
@@ -166,7 +188,7 @@ namespace DentistBooking.Application.System.Services
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
@@ -184,8 +206,8 @@ namespace DentistBooking.Application.System.Services
 
             try
             {
-                Service obj = _context.Services.FirstOrDefault(x=>x.Id == serviceID);
-                if(obj != null)
+                Service obj = _context.Services.FirstOrDefault(x => x.Id == serviceID);
+                if (obj != null)
                 {
                     obj.Deleted_by = userId;
                     obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
@@ -205,7 +227,7 @@ namespace DentistBooking.Application.System.Services
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
@@ -213,7 +235,7 @@ namespace DentistBooking.Application.System.Services
                 response.Code = "200";
                 response.Message = "Delete service failed";
 
-                return response; 
+                return response;
             }
         }
 
@@ -224,7 +246,7 @@ namespace DentistBooking.Application.System.Services
                 Id = service.Id,
                 Procedure = service.Procedure,
                 ServiceName = service.Name
-                
+
 
             };
             return serviceDto;
