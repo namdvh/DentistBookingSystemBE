@@ -50,7 +50,7 @@ namespace DentistBooking.Application.System.Bookings
                 }
                 Booking booking = new Booking()
                 {
-                    Status = 0,
+                    Status = DentisBooking.Data.Enum.Status.ACTIVE,
                     Date = request.Date,
                     Total = request.Total,
                     UserId = request.UserId,
@@ -95,7 +95,7 @@ namespace DentistBooking.Application.System.Bookings
 
         }
 
-        public async Task<BookingResponse> DeleteBooking(string bookingId, Guid userId)
+        public async Task<BookingResponse> DeleteBooking(int bookingId, Guid userId)
         {
             BookingResponse response = new BookingResponse();
 
@@ -196,7 +196,6 @@ namespace DentistBooking.Application.System.Bookings
                 {
                     obj.Total = request.Total;
                     obj.Date = request.Date;
-                    obj.Status = request.Status;
                     obj.Updated_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
                     obj.Updated_by = request.UserId;
 
@@ -226,7 +225,7 @@ namespace DentistBooking.Application.System.Bookings
             }
         }
 
-        public async Task<BookingDetailResponse> GetBookingDetail(string bookingId)
+        public async Task<BookingDetailResponse> GetBookingDetail(int bookingId)
         {
             BookingDetailResponse response = new BookingDetailResponse();
             try

@@ -14,7 +14,7 @@ namespace DentistBooking.Application.System.Clinics
         Task<ListClinicResponse> GetClinicList(PaginationFilter filter);
         Task<ClinicResponse> CreateClinic(ClinicRequest request);
         Task<ClinicResponse> UpdateClinic(ClinicRequest request);
-        Task<ClinicResponse> DeleteClinic(string clinicId, Guid userId);
+        Task<ClinicResponse> DeleteClinic(int clinicId, Guid userId);
 
     }
 }
