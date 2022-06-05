@@ -43,20 +43,20 @@ namespace DentistBooking.Application.System.Services
             {
                 pagedData = await _context.Services
               .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null)
+              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
               .ToListAsync();
             }
             else
             {
                 pagedData = await _context.Services
               .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null)
+              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
               .Skip((filter.PageNumber - 1) * filter.PageSize)
               .Take(filter.PageSize)
               .ToListAsync();
             }
 
-            var totalRecords = await _context.Services.CountAsync(x => x.Status != Status.INACTIVE);
+            var totalRecords = await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
 
             if (!pagedData.Any())
             {

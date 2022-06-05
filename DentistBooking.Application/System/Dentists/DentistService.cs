@@ -55,7 +55,7 @@ namespace DentistBooking.Application.System.Dentists
                 data = await (from user in _context.Users
                               join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
                               from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                              where user.Deleted_by != null
+                              where user.Deleted_by != null && user.Status != Status.INACTIVE
                               select new { user, dentistAttribute })
                     .Where(x => x.user.DentistId != null)
                     .OrderByDescending(x => x.user.Created_at)
@@ -66,7 +66,7 @@ namespace DentistBooking.Application.System.Dentists
                 data = (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
                         from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                        where user.Deleted_by != null
+                        where user.Deleted_by != null && user.Status != Status.INACTIVE
                         select new { user, dentistAttribute })
                     .Where(x => x.user.DentistId != null)
                     .OrderByDescending(x => x.user.Created_at)
@@ -79,7 +79,7 @@ namespace DentistBooking.Application.System.Dentists
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = _context.Users.Count(x => x.DentistId != null);
+            var totalRecords = _context.Users.Count(x => x.DentistId != null && x.Status != Status.INACTIVE);
 
             if (data == null)
             {
@@ -298,6 +298,7 @@ namespace DentistBooking.Application.System.Dentists
 
 
             user.Deleted_by = request.DeletedBy;
+            user.Status = Status.INACTIVE;
             await _userService.UpdateAsync(user);
             response.Code = "200";
             response.Message = "Delete successfully";
@@ -324,7 +325,7 @@ namespace DentistBooking.Application.System.Dentists
             var data = (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
                         from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                        where user.Deleted_by != null
+                        where user.Deleted_by != null && user.Status != Status.INACTIVE
                         select new { user, dentistAttribute })
                 .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword) || x.user.LastName.Contains(keyword)))
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
