@@ -11,7 +11,7 @@ namespace DentisBooking.Api.Controllers
     [Route("api/dentists")]
     [ApiController]
     //[TypeFilter(typeof(AuthorizeMiddleWare))]
-    [Authorize]
+    //[Authorize]
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
@@ -31,13 +31,13 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter,string keyword)
+        public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter, string keyword)
         {
             DentistResponse result = new();
             if (keyword != null)
             {
                 var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
-                result = await _dentistService.SearchDentist(validFilter,keyword);
+                result = await _dentistService.SearchDentist(validFilter, keyword);
             }
 
             return Ok(result);

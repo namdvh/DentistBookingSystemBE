@@ -13,7 +13,7 @@ namespace DentisBooking.Data.Configurations
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
 
-            builder.Property(x => x.Procedure).IsRequired().HasMaxLength(500);
+            builder.Property(x => x.Procedure).IsRequired();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(300);
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.Price).IsRequired();

@@ -23,11 +23,14 @@ namespace DentistBooking.Application.System.Dentists
     {
         private readonly DentistDBContext _context;
         private readonly UserManager<User> _userService;
+        private readonly RoleManager<Role> _roleManager;
+        private const string DENTIST_ID = "20efd516-f16c-41b3-b11d-bc908cd2056d";
 
-        public DentistService(DentistDBContext context, UserManager<User> userService)
+        public DentistService(DentistDBContext context, UserManager<User> userService, RoleManager<Role> roleManager)
         {
             _context = context;
             _userService = userService;
+            _roleManager = roleManager;
         }
 
         public async Task<DentistResponse> GetDentistList(PaginationFilter filter)
@@ -36,6 +39,7 @@ namespace DentistBooking.Application.System.Dentists
             PaginationDTO paginationDto = new();
 
             var orderBy = filter._order.ToString();
+
 
             orderBy = orderBy switch
             {
@@ -49,10 +53,10 @@ namespace DentistBooking.Application.System.Dentists
             if (filter._all)
             {
                 data = await (from user in _context.Users
-                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                        where user.Deleted_by != null
-                        select new { user, dentistAttribute })
+                              join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                              from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                              where user.Deleted_by != null
+                              select new { user, dentistAttribute })
                     .Where(x => x.user.DentistId != null)
                     .OrderByDescending(x => x.user.Created_at)
                     .ToListAsync();
@@ -101,6 +105,7 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Status = item.user.Status;
                     dto.FirstName = item.user.FirstName;
                     dto.LastName = item.user.LastName;
+                    dto.ImageUrl = item.user.ImageUrl;
 
                     dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
 
@@ -147,6 +152,9 @@ namespace DentistBooking.Application.System.Dentists
             response.Errors = new List<string>();
             var results = await validator.ValidateAsync(request);
 
+            var defaultRole = _roleManager.FindByIdAsync(DENTIST_ID).Result;
+
+
             var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
 
 
@@ -190,6 +198,8 @@ namespace DentistBooking.Application.System.Dentists
             if (result.Succeeded)
             {
                 var dentistService = new ServiceDentist();
+
+                await _userService.AddToRoleAsync(newUser, defaultRole.Name);
 
                 if (request.ServiceId != null && request.ServiceId.Any())
                 {
@@ -296,7 +306,7 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistResponse> SearchDentist(PaginationFilter filter,string keyword)
+        public async Task<DentistResponse> SearchDentist(PaginationFilter filter, string keyword)
         {
             DentistResponse response = new();
             PaginationDTO paginationDto = new();
@@ -312,11 +322,11 @@ namespace DentistBooking.Application.System.Dentists
 
 
             var data = (from user in _context.Users
-                    join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                    from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                    where user.Deleted_by != null
-                    select new { user, dentistAttribute })
-                .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword)|| x.user.LastName.Contains(keyword)))
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
+                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
+                        where user.Deleted_by != null
+                        select new { user, dentistAttribute })
+                .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword) || x.user.LastName.Contains(keyword)))
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .OrderByDescending(x => x.user.Created_at)
@@ -326,7 +336,7 @@ namespace DentistBooking.Application.System.Dentists
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = _context.Users.Count(x=>(x.FirstName.Contains(keyword)|| x.LastName.Contains(keyword)));
+            var totalRecords = _context.Users.Count(x => (x.FirstName.Contains(keyword) || x.LastName.Contains(keyword)));
 
             if (!data.Any())
             {
@@ -394,10 +404,10 @@ namespace DentistBooking.Application.System.Dentists
         private async Task<List<DentistServiceDto>> GetServiceFromDentist(int dentistId)
         {
             var results = await (from t1 in _context.ServiceDentists
-                join t2 in _context.Services
-                    on t1.ServiceId equals t2.Id
-                where t1.DentistId == dentistId
-                select t2).ToListAsync();
+                                 join t2 in _context.Services
+                                     on t1.ServiceId equals t2.Id
+                                 where t1.DentistId == dentistId
+                                 select t2).ToListAsync();
 
             var final = new List<DentistServiceDto>();
 
