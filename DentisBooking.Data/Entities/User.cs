@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DentisBooking.Data.Entities
 {
-    public class User:IdentityUser<Guid>
+    public class User : IdentityUser<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,6 +23,8 @@ namespace DentisBooking.Data.Entities
 
         public Status Status { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         //Realtionship
 
         //public int ImageId { get; set; }
@@ -30,7 +32,7 @@ namespace DentisBooking.Data.Entities
 
         //public int BookingId { get; set; }
         public List<Booking> Bookings { get; set; }
-        
+
         public Dentist Dentist { get; set; }
         public int? DentistId { get; set; }
     }
