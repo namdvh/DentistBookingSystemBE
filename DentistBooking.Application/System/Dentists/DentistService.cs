@@ -53,35 +53,34 @@ namespace DentistBooking.Application.System.Dentists
             if (filter._all)
             {
                 data = await (from user in _context.Users
-                              join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                              from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                              where user.Deleted_by != null && user.Status != Status.INACTIVE
-                              select new { user, dentistAttribute })
-                    .Where(x => x.user.DentistId != null)
-                    .OrderByDescending(x => x.user.Created_at)
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                        where user.Deleted_by != null && user.Status != Status.INACTIVE
+                        select new { user, dentist })
+                    .OrderBy("user."+filter._by + " " + orderBy)
                     .ToListAsync();
             }
             else
             {
-                data = (from user in _context.Users
-                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                        where user.Deleted_by != null && user.Status != Status.INACTIVE
-                        select new { user, dentistAttribute })
-                    .Where(x => x.user.DentistId != null)
-                    .OrderByDescending(x => x.user.Created_at)
+                data = await (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                        where  user.Status != Status.INACTIVE
+                        select new { user, dentist })
+                    .OrderBy("user."+filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
-                    .ToList();
+                    .ToListAsync();
             }
 
 
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = _context.Users.Count(x => x.DentistId != null && x.Status != Status.INACTIVE);
+            var totalRecords = (from user in _context.Users
+                join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                where user.Deleted_by != null && user.Status != Status.INACTIVE
+                select new { user, dentist }).Count();
 
-            if (data == null)
+            if (data==null)
             {
                 response.Content = null;
                 response.Code = "200";
@@ -96,18 +95,20 @@ namespace DentistBooking.Application.System.Dentists
                     ServiceDto serviceDto = new();
 
                     DentistDTO dto = new();
-                    dto.Description = item.dentistAttribute?.Description;
+                    dto.Description = item.dentist?.Description;
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
                     dto.Phone = item.user.PhoneNumber;
-                    dto.Position = item.dentistAttribute.Position;
+                    dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
                     dto.FirstName = item.user.FirstName;
                     dto.LastName = item.user.LastName;
                     dto.ImageUrl = item.user.ImageUrl;
+                    dto.ClinicID = item.dentist.ClinicId;
+                    dto.DentistID = item.dentist.Id;
 
-                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
+                    dto.Services = await GetServiceFromDentist(item.dentist.Id);
 
                     dentistList.Add(dto);
                 }
@@ -232,22 +233,42 @@ namespace DentistBooking.Application.System.Dentists
             var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.Id);
             var clinic = _context.Clinics.FirstOrDefault(x => x.Id == request.ClinicId);
             var dentistService = new ServiceDentist();
+            var postService = _context.ServiceDentists.Where(x => x.DentistId == dentist.Id).Select(x => x.ServiceId).ToList();
+            var services = _context.Services.ToList();
             if (dentist != null)
             {
                 if (clinic != null) dentist.Clinic = clinic;
                 dentist.Description = request.Description;
                 if (request.Position != null) dentist.Position = (Position)request.Position;
 
-                if (request.ServiceId.Any())
+                foreach (var option in services)
                 {
-                    foreach (var x in request.ServiceId)
+                    if (request.ServiceId.Contains(option.Id))       //is checked
                     {
-                        dentistService.DentistId = dentist.Id;
-                        dentistService.ServiceId = x;
+                        if (!postService.Contains(option.Id))
+                        {
+                            dentistService = new();
+                            dentistService.DentistId = dentist.Id;
+                            dentistService.ServiceId = option.Id;
+                            _context.ServiceDentists.Add(dentistService);
+                            await _context.SaveChangesAsync();
 
-                        _context.ServiceDentists.Add(dentistService);
-                        await _context.SaveChangesAsync();
+                        }
                     }
+                    else
+                    {
+                        if (postService.Contains(option.Id))
+                        {
+                            dentistService = new();
+                            dentistService.DentistId = dentist.Id;
+                            dentistService.ServiceId = option.Id;
+                            _context.ServiceDentists.Remove(dentistService);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+
+
+
                 }
 
                 var user = _context.Users.FirstOrDefault(x => x.DentistId == dentist.Id);
@@ -275,19 +296,10 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistCodeResponse> DeleteDentist(DeleteDentistRequest request)
+        public async Task<DentistCodeResponse> DeleteDentist(int dentistID)
         {
             var response = new DentistCodeResponse();
-            var dentist = _context.Dentists.FirstOrDefault(x => x.Id == request.DentistId);
-
-            if (dentist == null)
-            {
-                response.Code = "404";
-                response.Message = "Not found dentist";
-                return response;
-            }
-
-            var user = _context.Users.FirstOrDefault(x => x.DentistId == dentist.Id);
+            var user = _context.Users.FirstOrDefault(x => x.DentistId == dentistID);
 
             if (user == null)
             {
@@ -296,15 +308,62 @@ namespace DentistBooking.Application.System.Dentists
                 return response;
             }
 
+            if (user.Status == Status.INACTIVE)
+            {
+                user.Deleted_at = null;
+                user.Status = Status.ACTIVE;
+            }
+            else
+            {
+                user.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                user.Status = Status.INACTIVE;
+            }
 
-            user.Deleted_by = request.DeletedBy;
-            user.Status = Status.INACTIVE;
             await _userService.UpdateAsync(user);
             response.Code = "200";
             response.Message = "Delete successfully";
 
 
             return response;
+        }
+
+        public async Task<DentistDTO> GetDentist(Guid userID)
+        {
+            try
+            {
+                var data = await (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id 
+                        where user.Deleted_by != null && user.Id == userID
+                        select new { user, dentist })
+                    .Where(x => x.user.DentistId != null).FirstOrDefaultAsync();
+
+
+                DentistDTO dto = new();
+                dto.Description = data.dentist?.Description;
+                dto.Email = data.user.Email;
+                dto.Gender = data.user.Gender;
+                dto.Id = data.user.Id;
+                dto.Phone = data.user.PhoneNumber;
+                dto.UserName = data.user.UserName;
+                dto.Position = data.dentist.Position;
+                dto.Dob = data.user.DOB;
+                dto.Status = data.user.Status;
+                dto.FirstName = data.user.FirstName;
+                dto.LastName = data.user.LastName;
+                dto.DentistID = data.dentist.Id;
+                dto.ClinicID = data.dentist.ClinicId;
+
+                dto.Services = await GetServiceFromDentist(data.dentist.Id);
+
+
+                return dto;
+
+            }
+            catch (DbUpdateException)
+            {
+
+                return null;
+            }
         }
 
         public async Task<DentistResponse> SearchDentist(PaginationFilter filter, string keyword)
@@ -322,22 +381,24 @@ namespace DentistBooking.Application.System.Dentists
             };
 
 
-            var data = (from user in _context.Users
-                        join dentist in _context.Dentists on user.DentistId equals dentist.Id into dentistsUser
-                        from dentistAttribute in dentistsUser.DefaultIfEmpty()
-                        where user.Deleted_by != null && user.Status != Status.INACTIVE
-                        select new { user, dentistAttribute })
-                .Where(x => x.user.DentistId != null && (x.user.FirstName.Contains(keyword) || x.user.LastName.Contains(keyword)))
+            var data =  await (from user in _context.Users
+                    join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                    where user.Deleted_by != null && user.Status != Status.INACTIVE && (user.FirstName.Contains(keyword)||user.LastName.Contains(keyword)) && user.DentistId!=null
+                    select new { user, dentist })
+                .OrderBy("user."+filter._by + " " + orderBy)
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize)
-                .OrderByDescending(x => x.user.Created_at)
-                .ToList();
+                .ToListAsync();
 
 
             List<DentistDTO> dentistList = new();
 
 
-            var totalRecords = _context.Users.Count(x => (x.FirstName.Contains(keyword) || x.LastName.Contains(keyword)));
+            var totalRecords = (from user in _context.Users
+                join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                where user.Deleted_by != null && user.Status != Status.INACTIVE &&
+                      (user.FirstName.Contains(keyword) || user.LastName.Contains(keyword)) && user.DentistId != null
+                select new { user, dentist }).Count();
 
             if (!data.Any())
             {
@@ -354,17 +415,20 @@ namespace DentistBooking.Application.System.Dentists
                     ServiceDto serviceDto = new();
 
                     DentistDTO dto = new();
-                    dto.Description = item.dentistAttribute?.Description;
+                    dto.Description = item.dentist?.Description;
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
                     dto.Phone = item.user.PhoneNumber;
-                    dto.Position = item.dentistAttribute.Position;
+                    dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
                     dto.FirstName = item.user.FirstName;
                     dto.LastName = item.user.LastName;
+                    dto.ImageUrl = item.user.ImageUrl;
+                    dto.ClinicID = item.dentist.ClinicId;
+                    dto.DentistID = item.dentist.Id;
 
-                    dto.Services = await GetServiceFromDentist(item.dentistAttribute.Id);
+                    dto.Services = await GetServiceFromDentist(item.dentist.Id);
 
                     dentistList.Add(dto);
                 }
