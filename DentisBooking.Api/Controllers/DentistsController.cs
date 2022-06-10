@@ -1,4 +1,5 @@
-﻿using DentistBooking.Application.System.Dentists;
+﻿using System;
+using DentistBooking.Application.System.Dentists;
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Dentists;
 using Microsoft.AspNetCore.Authorization;
@@ -31,13 +32,13 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter,string keyword)
+        public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter, string keyword)
         {
             DentistResponse result = new();
             if (keyword != null)
             {
                 var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
-                result = await _dentistService.SearchDentist(validFilter,keyword);
+                result = await _dentistService.SearchDentist(validFilter, keyword);
             }
 
             return Ok(result);
@@ -59,10 +60,20 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveDentist([FromBody] DeleteDentistRequest request)
+        [Route("{dentistID}")]
+        public async Task<IActionResult> RemoveDentist([FromRoute] int dentistID)
         {
-            var result = await _dentistService.DeleteDentist(request);
+            var result = await _dentistService.DeleteDentist(dentistID);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("{dentistID}")]
+        public async Task<IActionResult> GetDentist([FromRoute] Guid dentistID)
+        {
+            DentistDTO result = await _dentistService.GetDentist(dentistID);
+            return Ok(result);
+        }
+                
+
     }
 }

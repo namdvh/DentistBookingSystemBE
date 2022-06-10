@@ -39,13 +39,24 @@ namespace DentistBooking.Application.System.Clinics
             {
                 orderBy = "ascending";
             }
-            var pagedData = await _context.Clinics
-                    .OrderBy(filter._by + " " + orderBy)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize)
-                    .ToListAsync();
+            List<Clinic> pagedData;
+            if (filter._all)
+            {
+                pagedData = await _context.Clinics
+                   .OrderBy(filter._by + " " + orderBy)
+                   .ToListAsync();
+            }
+            else
+            {
+                pagedData = await _context.Clinics
+                   .OrderBy(filter._by + " " + orderBy)
+                   .Skip((filter.PageNumber - 1) * filter.PageSize)
+                   .Take(filter.PageSize)
+                   .ToListAsync();
+            }
 
-            var totalRecords = await _context.Clinics.CountAsync();
+
+            var totalRecords = await _context.Clinics.CountAsync(x => x.Status != DentisBooking.Data.Enum.Status.INACTIVE);
 
             if (!pagedData.Any())
             {
@@ -65,11 +76,23 @@ namespace DentistBooking.Application.System.Clinics
                 response.Code = "200";
 
             }
-            var totalPages = ((double)totalRecords / (double)filter.PageSize);
-            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             paginationDTO.CurrentPage = filter.PageNumber;
-            paginationDTO.PageSize = filter.PageSize;
+
+            paginationDTO.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
             paginationDTO.TotalPages = roundedTotalPages;
             paginationDTO.TotalRecords = totalRecords;
 
@@ -114,6 +137,7 @@ namespace DentistBooking.Application.System.Clinics
                     Address = request.Address,
                     Phone = request.Phone,
                     Description = request.Description,
+                    Status = DentisBooking.Data.Enum.Status.ACTIVE,
                     Created_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
                     Created_by = request.UserId
                 };
@@ -141,14 +165,13 @@ namespace DentistBooking.Application.System.Clinics
 
             try
             {
-                Clinic obj = _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefault();
+                Clinic obj = await _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
                     obj.Name = request.Name;
                     obj.Address = request.Address;
                     obj.Phone = request.Phone;
                     obj.Description = request.Description;
-                    obj.Status = request.Status;
                     obj.Updated_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
                     obj.Updated_by = request.UserId;
 
@@ -166,7 +189,7 @@ namespace DentistBooking.Application.System.Clinics
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
@@ -179,14 +202,14 @@ namespace DentistBooking.Application.System.Clinics
 
         }
 
-        public async Task<ClinicResponse> DeleteClinic(string clinicId, Guid userId)
+        public async Task<ClinicResponse> DeleteClinic(int clinicId, Guid userId)
         {
             ClinicResponse response = new ClinicResponse();
 
             try
             {
-                Clinic obj = _context.Clinics.Find(clinicId);
-                if(obj != null)
+                Clinic obj = await _context.Clinics.FindAsync(clinicId);
+                if (obj != null)
                 {
                     obj.Deleted_by = userId;
                     obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
@@ -206,7 +229,7 @@ namespace DentistBooking.Application.System.Clinics
 
                     return response;
                 }
-                
+
             }
             catch (DbUpdateException)
             {
@@ -214,7 +237,7 @@ namespace DentistBooking.Application.System.Clinics
                 response.Code = "200";
                 response.Message = "Delete clinic failed";
 
-                return response; 
+                return response;
             }
         }
 

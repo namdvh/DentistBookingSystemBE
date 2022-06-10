@@ -14,7 +14,6 @@ namespace DentistBooking.ViewModels.System.Clinics
         public string? Description { get; set; }
         public string Address { get; set; }
         public int Phone { get; set; }
-        public Status Status { get; set; }
         public Guid UserId { get; set; }
 
     }

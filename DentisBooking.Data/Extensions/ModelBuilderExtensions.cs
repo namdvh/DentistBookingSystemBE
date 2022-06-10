@@ -181,6 +181,13 @@ namespace DentisBooking.Data.Extensions
                 Description = "User",
                 Name = "User",
                 NormalizedName = "USER"
+            },
+            new Role
+            {
+                Id = Guid.Parse("20EFD516-F16C-41B3-B11D-BC908CD2056D"),
+                Description = "Docter",
+                Name = "Docter",
+                NormalizedName = "DOCTER"
             });
 
             for (int i = 20; i < 51; i++)
@@ -288,7 +295,7 @@ namespace DentisBooking.Data.Extensions
                     modelBuilder.Entity<BookingDetail>().HasData(new BookingDetail
                     {
                         Id = j,
-                        DentistId =i,
+                        DentistId = i,
                         KeyTime = Enum.KeyTime._7_730,
                         Note = "nhe nhang thoi nha bac si",
                         Status = Enum.Status.ACTIVE,

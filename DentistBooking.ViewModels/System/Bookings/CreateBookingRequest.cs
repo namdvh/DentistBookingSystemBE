@@ -15,6 +15,7 @@ namespace DentistBooking.ViewModels.System.Bookings
         public List<KeyTime> KeyTimes { get; set; }
         public Guid UserId { get; set; }
         public decimal Total { get; set; }
+        public DateTime Date { get; set; }
         public string? Note { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace DentisBooking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order, filter._all);
             ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
             return Ok(result);
         }
@@ -51,7 +51,7 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteClinic([FromQuery] string clinicId, Guid userId)
+        public async Task<IActionResult> DeleteClinic([FromQuery] int clinicId, Guid userId)
         {
             if (!ModelState.IsValid)
             {
