@@ -9,7 +9,7 @@ namespace DentistBooking.ViewModels.System.Bookings
 {
     public class BookingDetailResponse
     {
-        public IEnumerable<BookingDetail> Details { get; set; }
+        public IEnumerable<BookingDetailDto> Details { get; set; }
         public string Code { get; set; }
         public string Message { get; set; }
     }
