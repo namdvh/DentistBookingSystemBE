@@ -19,7 +19,6 @@ namespace DentisBooking.Data.Entities
         public DateTime? Deleted_at { get; set; }
         public Guid? Deleted_by { get; set; }
         public Guid? Updated_by { get; set; }
-        [JsonIgnore]
         public List<BookingDetail> BookingDetails { get; set; }
         public Guid UserId { get; set; }
         public User Created_by { get; set; }
