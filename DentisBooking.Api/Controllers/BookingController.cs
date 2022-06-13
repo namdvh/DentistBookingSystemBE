@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
 
 namespace DentisBooking.Api.Controllers
 {
     [Route("api/bookings")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BookingController : ControllerBase
     {
 
@@ -71,6 +72,23 @@ namespace DentisBooking.Api.Controllers
                 return BadRequest(ModelState);
             }
             BookingDetailResponse result = await _bookingService.GetBookingDetail(bookingId);
+            return Ok(result);
+        }
+        
+        [HttpGet("dentist/{dentistID}")]
+        public async Task<IActionResult> GetBookingListDentist([FromQuery] PaginationFilter filter,int dentistID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            int id = 0;
+            
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+            
+            ListBookingDTOResponse result = await _bookingService.GetBookingListForDentist(validFilter,dentistID);
+        
             return Ok(result);
         }
     }

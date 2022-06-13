@@ -23,19 +23,18 @@ namespace DentistBooking.Application.System.Bookings
 
         public async Task<BookingResponse> CreateBooking(CreateBookingRequest request)
         {
-            BookingResponse response = new BookingResponse(); 
+            BookingResponse response = new BookingResponse();
             try
             {
                 for (int i = 0; i < request.DentistIds.Count; i++)
                 {
-
                     //check keyTime
                     var existedDetail = await (from detail in _context.BookingDetails
-                                               join book in _context.Bookings on detail.BookingId equals book.Id
-                                               where detail.DentistId == request.DentistIds[i]
-                                               && detail.ServiceId == request.ServiceIds[i]
-                                               && book.Date.Equals(request.Date)
-                                               select detail).ToListAsync();
+                        join book in _context.Bookings on detail.BookingId equals book.Id
+                        where detail.DentistId == request.DentistIds[i]
+                              && detail.ServiceId == request.ServiceIds[i]
+                              && book.Date.Equals(request.Date)
+                        select detail).ToListAsync();
 
                     foreach (var item in existedDetail)
                     {
@@ -46,8 +45,8 @@ namespace DentistBooking.Application.System.Bookings
                             return response;
                         }
                     }
-                    
                 }
+
                 Booking booking = new Booking()
                 {
                     Status = DentisBooking.Data.Enum.Status.ACTIVE,
@@ -80,7 +79,6 @@ namespace DentistBooking.Application.System.Bookings
                 response.Message = "Booking successfully";
 
                 return response;
-
             }
             catch (DbUpdateException)
             {
@@ -89,10 +87,6 @@ namespace DentistBooking.Application.System.Bookings
 
                 return response;
             }
-
-
-
-
         }
 
         public async Task<BookingResponse> DeleteBooking(int bookingId, Guid userId)
@@ -122,11 +116,9 @@ namespace DentistBooking.Application.System.Bookings
 
                     return response;
                 }
-
             }
             catch (DbUpdateException)
             {
-
                 response.Code = "200";
                 response.Message = "Delete booking failed";
 
@@ -149,11 +141,12 @@ namespace DentistBooking.Application.System.Bookings
             {
                 orderBy = "ascending";
             }
+
             var pagedData = await _context.Bookings
-                    .OrderBy(filter._by + " " + orderBy)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize)
-                    .ToListAsync();
+                .OrderBy(filter._by + " " + orderBy)
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToListAsync();
 
             var totalRecords = await _context.Bookings.CountAsync();
 
@@ -168,8 +161,8 @@ namespace DentistBooking.Application.System.Bookings
                 response.Content = pagedData;
                 response.Message = "SUCCESS";
                 response.Code = "200";
-
             }
+
             var totalPages = ((double)totalRecords / (double)filter.PageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
@@ -179,7 +172,6 @@ namespace DentistBooking.Application.System.Bookings
             paginationDTO.TotalRecords = totalRecords;
 
             response.Pagination = paginationDTO;
-
 
 
             return response;
@@ -204,7 +196,6 @@ namespace DentistBooking.Application.System.Bookings
                     response.Message = "Update booking successfully";
 
                     return response;
-
                 }
                 else
                 {
@@ -213,11 +204,9 @@ namespace DentistBooking.Application.System.Bookings
 
                     return response;
                 }
-
             }
             catch (DbUpdateException)
             {
-
                 response.Code = "200";
                 response.Message = "Update booking failed";
 
@@ -230,9 +219,10 @@ namespace DentistBooking.Application.System.Bookings
             BookingDetailResponse response = new BookingDetailResponse();
             try
             {
-                List<BookingDetail> details = await _context.BookingDetails.Where(g => g.BookingId.Equals(bookingId)).ToListAsync();
+                List<BookingDetail> details =
+                    await _context.BookingDetails.Where(g => g.BookingId.Equals(bookingId)).ToListAsync();
 
-                if(details != null)
+                if (details != null)
                 {
                     response.Details = details;
                     response.Code = "200";
@@ -259,6 +249,106 @@ namespace DentistBooking.Application.System.Bookings
             }
         }
 
+        public async Task<ListBookingDTOResponse> GetBookingListForDentist(PaginationFilter filter, int dentistId)
+        {
+            ListBookingDTOResponse response = new();
+            PaginationDTO paginationDto = new();
+            List<BookingDTO> listDto = new();
 
+            var user = _context.Users.Where(x => x.DentistId == dentistId).FirstOrDefault();
+
+            var orderBy = filter._order.ToString();
+
+            if (orderBy.Equals("1"))
+            {
+                orderBy = "descending";
+            }
+            else if (orderBy.Equals("-1"))
+            {
+                orderBy = "ascending";
+            }
+
+            var createdAt = "Created_at";
+
+            if (filter._by.Equals("hour"))
+            {
+                createdAt += ".Hour";
+            }else if (filter._by.Equals("month"))
+            {
+                createdAt += ".Month";
+            }
+            else
+            {
+                createdAt += ".Day";
+            }
+            dynamic pagedData=null;
+
+            if (filter._all)
+            {
+                pagedData = await _context.Bookings
+                    .Where(x=>x.UserId==user.Id)
+                    .OrderBy(createdAt + " " + orderBy)
+                    .ToListAsync();
+            }
+            else
+            {
+                pagedData = await _context.Bookings
+                    .Where(x=>x.UserId==user.Id)
+                    .OrderBy(createdAt + " " + orderBy)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToListAsync();
+            }
+
+
+            var totalRecords =  _context.Bookings
+                .Where(x=>x.UserId==user.Id).Count();
+
+            if (pagedData==null)
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any bookings in DB";
+            }
+            else
+            {
+                foreach (var x in pagedData)
+                {
+                    listDto.Add(MapToDto(x));
+                }
+                
+                
+                response.Content = listDto;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+            }
+
+            var totalPages = ((double)totalRecords / (double)filter.PageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+            
+            paginationDto.CurrentPage = filter.PageNumber;
+            paginationDto.PageSize = filter.PageSize;
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDto;
+
+
+            return response;
+        }
+
+
+        private BookingDTO MapToDto(Booking booking)
+        {
+            BookingDTO bookingDto = new BookingDTO()
+            {
+                Date = booking.Date,
+                Id = booking.Id,
+                Status = booking.Status,
+                Total = booking.Total,
+                UserId = booking.UserId
+            };
+            return bookingDto;
+        }
     }
 }
