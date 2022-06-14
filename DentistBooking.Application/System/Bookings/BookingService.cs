@@ -276,18 +276,18 @@ namespace DentistBooking.Application.System.Bookings
                 orderBy = "ascending";
             }
 
-            var createdAt = "Created_at";
+            var createdAt = "Date";
 
-            if (filter._by.Equals("hour"))
+            if (filter._by.Equals("day"))
             {
-                createdAt += ".Hour";
+                createdAt += ".Day";
             }else if (filter._by.Equals("month"))
             {
                 createdAt += ".Month";
             }
             else
             {
-                createdAt += ".Day";
+                createdAt += ".Year";
             }
             dynamic pagedData=null;
 
