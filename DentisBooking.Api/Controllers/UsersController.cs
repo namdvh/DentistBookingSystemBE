@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DentistBooking.ViewModels.Pagination;
 
 namespace DentisBooking.Api.Controllers
 {
@@ -105,6 +106,37 @@ namespace DentisBooking.Api.Controllers
                principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
 
             return principal;
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAllUser([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+            var result = await _userService.GetUserList(validFilter);
+            return Ok(result);
+        }
+        
+        [HttpGet]
+        [Route("{userID}")]
+        public async Task<IActionResult> GetUserById([FromRoute] Guid userID)
+        {
+            UserDTO result = await _userService.GetUser(userID);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest request)
+        {
+            var result = await _userService.UpdateUser(request);
+            return Ok(result);
+        }
+        
+        [HttpDelete]
+        [Route("{userId}")]
+        public async Task<IActionResult> RemoveUser([FromRoute] Guid userId)
+        {
+            var result = await _userService.DeleteUser(userId);
+            return Ok(result);
         }
     }
 }
