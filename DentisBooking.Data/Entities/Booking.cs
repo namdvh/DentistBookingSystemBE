@@ -1,6 +1,7 @@
 ﻿using DentisBooking.Data.Enum;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DentisBooking.Data.Entities
 {
