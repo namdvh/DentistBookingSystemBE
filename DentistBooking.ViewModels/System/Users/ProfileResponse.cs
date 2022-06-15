@@ -9,7 +9,7 @@ namespace DentistBooking.ViewModels.System.Users
 {
     public class ProfileResponse
     {
-        public User User { get; set; }
+        public ProfileDTO ProfileDTO { get; set; }
 
         public string Role { get; set; }
 

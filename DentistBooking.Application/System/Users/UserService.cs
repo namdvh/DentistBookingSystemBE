@@ -296,9 +296,33 @@ namespace DentistBooking.Application.System.Users
                 response.Message = "Expired Refresh Token in getProfile";
                 return response;
             }
+            ProfileDTO profile = new ProfileDTO()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.PhoneNumber,
+                DentistId = user.DentistId,
+                DOB = user.DOB,
+                Gender = user.Gender,
+                ImageUrl = user.ImageUrl
+
+            };
+
+            if (profile.DentistId != null)
+            {
+                var getDentist = (from dentist in _context.Dentists
+                                    where dentist.Id == profile.DentistId
+                                    select dentist).FirstOrDefault();
+                profile.Position = getDentist.Position;
+                profile.Description = getDentist?.Description;
+            }
+
+     
 
             var role = await _userService.GetRolesAsync(user);
-            response.User = user;
+            response.ProfileDTO = profile;
             response.Role = role[0];
             response.Code = "200";
             response.Message = "msg";
