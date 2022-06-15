@@ -54,7 +54,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id
-                        where user.Deleted_by != null && user.Status != Status.INACTIVE
+                        where  user.Status != Status.INACTIVE
                         select new { user, dentist })
                     .OrderBy("user."+filter._by + " " + orderBy)
                     .ToListAsync();
@@ -333,7 +333,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 var data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id 
-                        where user.Deleted_by != null && user.Id == userID
+                        where   user.Id == userID
                         select new { user, dentist })
                     .Where(x => x.user.DentistId != null).FirstOrDefaultAsync();
 
