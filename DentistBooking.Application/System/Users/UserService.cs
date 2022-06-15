@@ -299,6 +299,7 @@ namespace DentistBooking.Application.System.Users
             ProfileDTO profile = new ProfileDTO()
             {
                 Id = user.Id,
+                UserName = username,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
