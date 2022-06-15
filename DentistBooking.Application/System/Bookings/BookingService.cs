@@ -373,7 +373,7 @@ namespace DentistBooking.Application.System.Bookings
             {
                 Id = bookingDetail.Id,
                 Note = bookingDetail.Note,
-                Services =  GetServiceFromDentist(bookingDetail.DentistId),
+                Services =  GetService(bookingDetail.ServiceId),
                 Status = bookingDetail.Status,
                 KeyTime = bookingDetail.KeyTime
 
@@ -381,6 +381,8 @@ namespace DentistBooking.Application.System.Bookings
 
             return detailDto;
         }
+        
+   
         
 
         private UserDTO MapToDTO(Guid userID)
@@ -399,25 +401,15 @@ namespace DentistBooking.Application.System.Bookings
             return userDto;
         }
         
-        private  List<DentistServiceDto> GetServiceFromDentist(int? dentistId)
+        private  DentistServiceDto GetService(int serviceId)
         {
-            var results =  (from t1 in _context.ServiceDentists
-                join t2 in _context.Services
-                    on t1.ServiceId equals t2.Id
-                where t1.DentistId == dentistId
-                select t2).ToList();
+            var result = _context.Services.FirstOrDefault(x => x.Id == serviceId);
 
-            var final = new List<DentistServiceDto>();
-
-            foreach (var service in results)
-            {
                 DentistServiceDto dto = new();
-                dto.Id = service.Id;
-                dto.ServiceName = service.Name;
-                final.Add(dto);
-            }
+                dto.Id = result.Id;
+                dto.ServiceName = result.Name;
 
-            return final;
+            return dto;
         }
     }
 }
