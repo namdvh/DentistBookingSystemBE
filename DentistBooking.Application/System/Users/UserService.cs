@@ -413,6 +413,7 @@ namespace DentistBooking.Application.System.Users
                 user.LastName = request.LastName;
                 user.PhoneNumber = request.PhoneNumber;
                 user.Gender = (Gender)request.Gender;
+                user.ImageUrl = request.ImageUrl;
             }
 
             await _userService.UpdateAsync(user);
@@ -481,6 +482,7 @@ namespace DentistBooking.Application.System.Users
             dto.FirstName = user.FirstName;
             dto.LastName = user.LastName;
             dto.role = "User";
+            dto.ImageUrl = user.ImageUrl;
             return dto;
         }
     }
