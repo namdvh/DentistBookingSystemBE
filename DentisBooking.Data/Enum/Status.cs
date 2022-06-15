@@ -3,7 +3,11 @@
     public enum Status
     {
         ACTIVE,
-        INACTIVE
-        
+        INACTIVE,
+        PENDING,
+        CONFIRMED,
+        DONE,
+        DECLINED
+
     }
 }

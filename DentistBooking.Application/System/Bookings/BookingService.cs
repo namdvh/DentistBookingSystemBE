@@ -295,7 +295,7 @@ namespace DentistBooking.Application.System.Bookings
             {
                 pagedData = await (from booking in _context.Bookings
                     join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                    where bookingDetail.DentistId == dentistId
+                    where bookingDetail.DentistId == dentistId && ( booking.Status == DentisBooking.Data.Enum.Status.CONFIRMED || booking.Status == DentisBooking.Data.Enum.Status.DONE )
                     select new { booking, bookingDetail })
                     .OrderBy("booking."+createdAt + " " + orderBy)
                     .ToListAsync();
@@ -305,8 +305,8 @@ namespace DentistBooking.Application.System.Bookings
             {
                 pagedData = await (from booking in _context.Bookings
                         join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId
-                        select new { booking, bookingDetail })
+                        where bookingDetail.DentistId == dentistId && (booking.Status == DentisBooking.Data.Enum.Status.CONFIRMED || booking.Status == DentisBooking.Data.Enum.Status.DONE)
+                                   select new { booking, bookingDetail })
                     .OrderBy("booking."+createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
