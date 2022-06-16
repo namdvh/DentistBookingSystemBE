@@ -364,7 +364,7 @@ namespace DentistBooking.Application.System.Bookings
                 Total = booking.Total,
                 UserId = booking.UserId,
                 User = MapToDTO(booking.UserId),
-                Detail = GetDetailFromBooking(booking.Id,booking.Date,booking.Status)
+                Detail = GetDetailFromBooking(booking.Id,booking.Date,booking.Status,MapToDTO(booking.UserId))
             };
             return bookingDto;
         }
@@ -414,7 +414,7 @@ namespace DentistBooking.Application.System.Bookings
             return dto;
         }
 
-        private List<BookingDtoDetail> GetDetailFromBooking(int bookingId,DateTime date,Status status)
+        private List<BookingDtoDetail> GetDetailFromBooking(int bookingId,DateTime date,Status status,UserDTO userDto)
         {
             List<BookingDtoDetail> list = new();
 
@@ -429,7 +429,8 @@ namespace DentistBooking.Application.System.Bookings
                     Id = x.Id,
                     KeyTime = x.KeyTime,
                     Date = date,
-                    Status = status
+                    Status = status,
+                    User = userDto
                 };
                 list.Add(detail);
 

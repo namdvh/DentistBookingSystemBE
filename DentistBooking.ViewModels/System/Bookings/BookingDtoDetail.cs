@@ -1,5 +1,6 @@
 using System;
 using DentisBooking.Data.Enum;
+using DentistBooking.ViewModels.System.Users;
 
 namespace DentistBooking.ViewModels.System.Bookings
 {
@@ -12,6 +13,9 @@ namespace DentistBooking.ViewModels.System.Bookings
         public DateTime Date { get; set; }
         
         public Status Status { get; set; } 
+        
+        public UserDTO User { get; set; }
+
 
     }
 }
