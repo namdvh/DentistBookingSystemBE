@@ -397,7 +397,8 @@ namespace DentistBooking.Application.System.Bookings
                 LastName = user.LastName,
                 Phone = user.PhoneNumber,
                 Id = user.Id.ToString(),
-                Email = user.Email
+                Email = user.Email,
+                ImageUrl = user.ImageUrl
             };
 
             return userDto;
