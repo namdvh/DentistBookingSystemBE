@@ -15,6 +15,8 @@ namespace DentistBooking.ViewModels.System.Bookings
         public Status Status { get; set; } 
         
         public UserDTO User { get; set; }
+        
+        public string ServiceName { get; set; }
 
 
     }
