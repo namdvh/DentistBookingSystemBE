@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using DentisBooking.Data.Enum;
 using DentistBooking.ViewModels.System.Dentists;
 using DentistBooking.ViewModels.System.Users;
 
@@ -363,7 +364,7 @@ namespace DentistBooking.Application.System.Bookings
                 Total = booking.Total,
                 UserId = booking.UserId,
                 User = MapToDTO(booking.UserId),
-                Detail = GetDetailFromBooking(booking.Id)
+                Detail = GetDetailFromBooking(booking.Id,booking.Date,booking.Status)
             };
             return bookingDto;
         }
@@ -413,7 +414,7 @@ namespace DentistBooking.Application.System.Bookings
             return dto;
         }
 
-        private List<BookingDtoDetail> GetDetailFromBooking(int bookingId)
+        private List<BookingDtoDetail> GetDetailFromBooking(int bookingId,DateTime date,Status status)
         {
             List<BookingDtoDetail> list = new();
 
@@ -426,7 +427,9 @@ namespace DentistBooking.Application.System.Bookings
                 BookingDtoDetail detail = new()
                 {
                     Id = x.Id,
-                    KeyTime = x.KeyTime
+                    KeyTime = x.KeyTime,
+                    Date = date,
+                    Status = status
                 };
                 list.Add(detail);
 
