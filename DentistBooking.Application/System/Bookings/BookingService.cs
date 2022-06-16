@@ -362,7 +362,8 @@ namespace DentistBooking.Application.System.Bookings
                 Status = booking.Status,
                 Total = booking.Total,
                 UserId = booking.UserId,
-                User = MapToDTO(booking.UserId)
+                User = MapToDTO(booking.UserId),
+                Detail = GetDetailFromBooking(booking.Id)
             };
             return bookingDto;
         }
@@ -410,6 +411,28 @@ namespace DentistBooking.Application.System.Bookings
                 dto.ServiceName = result.Name;
 
             return dto;
+        }
+
+        private List<BookingDtoDetail> GetDetailFromBooking(int bookingId)
+        {
+            List<BookingDtoDetail> list = new();
+
+
+            var data =  _context.BookingDetails.Where(x => x.BookingId == bookingId).ToList();
+
+
+            foreach (var x in data)
+            {
+                BookingDtoDetail detail = new()
+                {
+                    Id = x.Id,
+                    KeyTime = x.KeyTime
+                };
+                list.Add(detail);
+
+            }
+
+            return list;
         }
     }
 }
