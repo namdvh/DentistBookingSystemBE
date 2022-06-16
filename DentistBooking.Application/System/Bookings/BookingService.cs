@@ -299,10 +299,11 @@ namespace DentistBooking.Application.System.Bookings
                 pagedData = await (from booking in _context.Bookings
                         join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
                         where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == DentisBooking.Data.Enum.Status.CONFIRMED ||
-                               booking.Status == DentisBooking.Data.Enum.Status.DONE)
-                        select new { booking, bookingDetail })
+                              (booking.Status == Status.CONFIRMED ||
+                               booking.Status == Status.DONE)
+                        select new { booking})
                     .OrderBy("booking." + createdAt + " " + orderBy)
+                    .Distinct()
                     .ToListAsync();
             }
             else
@@ -310,11 +311,12 @@ namespace DentistBooking.Application.System.Bookings
                 pagedData = await (from booking in _context.Bookings
                         join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
                         where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == DentisBooking.Data.Enum.Status.CONFIRMED ||
-                               booking.Status == DentisBooking.Data.Enum.Status.DONE)
-                        select new { booking, bookingDetail })
+                              (booking.Status == Status.CONFIRMED ||
+                               booking.Status == Status.DONE)
+                        select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Distinct()
                     .Take(filter.PageSize)
                     .ToListAsync();
             }
