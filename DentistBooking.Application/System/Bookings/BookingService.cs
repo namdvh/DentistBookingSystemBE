@@ -325,7 +325,7 @@ namespace DentistBooking.Application.System.Bookings
             var totalRecords = await (from booking in _context.Bookings
                 join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
                 where bookingDetail.DentistId == dentistId
-                select new { booking, bookingDetail }).CountAsync();
+                select new { booking }).CountAsync();
 
             if (pagedData == null)
             {
