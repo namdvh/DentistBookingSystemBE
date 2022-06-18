@@ -428,14 +428,7 @@ namespace DentistBooking.Application.System.Bookings
                     .Distinct()
                     .Take(filter.PageSize)
                     .ToListAsync();
-                totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE)
-                        select new { booking,bookingDetail })
-                    .Distinct()
-                    .CountAsync();
+                totalRecords = await _context.BookingDetails.Where(x=>x.DentistId ==dentistId ).CountAsync();
             }
 
 
