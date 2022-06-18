@@ -83,7 +83,7 @@ namespace DentisBooking.Api.Controllers
                 return BadRequest(ModelState);
             }
             
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,filter._all);
             
             var result = await _bookingService.GetBookingListForDentist(validFilter,dentistId,where);
         
