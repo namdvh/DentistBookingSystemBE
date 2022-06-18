@@ -75,17 +75,17 @@ namespace DentisBooking.Api.Controllers
             return Ok(result);
         }
         
-        [HttpGet("dentist/{dentistID}")]
-        public async Task<IActionResult> GetBookingListDentist([FromQuery] PaginationFilter filter,int dentistID)
+        [HttpGet("dentist/{dentistId}")]
+        public async Task<IActionResult> GetBookingListDentist([FromQuery] PaginationFilter filter,int dentistId,string where)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order);
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,filter._all);
             
-            var result = await _bookingService.GetBookingListForDentist(validFilter,dentistID);
+            var result = await _bookingService.GetBookingListForDentist(validFilter,dentistId,where);
         
             return Ok(result);
         }
