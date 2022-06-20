@@ -104,6 +104,31 @@ namespace DentistBooking.Application.System.Clinics
 
         }
 
+        public async Task<ClinicDTOResponse> GetClinic(int id)
+        {
+            ClinicDTOResponse response = new();
+                try
+                {
+                    Clinic obj = await _context.Clinics.FindAsync(id);
+                    if (obj != null)
+                    {
+                        var result = MapToDTO(obj);
+                        response.Clinic = result;
+                        response.Code = "200";
+                        response.Message = "SUCCESS";
+                        return response;
+                    }
+
+                }
+                catch (DbUpdateException)
+                {
+                    response.Code = "500";
+                    response.Message = "FAILED";
+                }
+                
+                return null;
+        }
+
 
         public ClinicDTO MapToDTO(Clinic clinic)
         {

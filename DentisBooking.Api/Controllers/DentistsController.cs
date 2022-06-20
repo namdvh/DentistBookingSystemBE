@@ -30,6 +30,15 @@ namespace DentisBooking.Api.Controllers
             var result = await _dentistService.GetDentistList(validFilter);
             return Ok(result);
         }
+        
+        [HttpGet("user")]
+        public async Task<IActionResult> GetAllDentistUser([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,
+                filter._all);
+            var result = await _dentistService.GetDentistListForUser(validFilter);
+            return Ok(result);
+        }
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchDentist([FromQuery] PaginationFilter filter, string keyword)

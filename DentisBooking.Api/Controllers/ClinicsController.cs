@@ -46,6 +46,15 @@ namespace DentisBooking.Api.Controllers
             ClinicResponse result = await _clinicService.CreateClinic(request);
             return Ok(result);
         }
+        
+        [HttpGet]
+        [Route("{clinicID}")]
+        public async Task<IActionResult> GetClinic([FromRoute] int clinicID)
+        {
+            var result = await _clinicService.GetClinic(clinicID);
+            return Ok(result);
+        }
+        
 
         [HttpPut]
         public async Task<IActionResult> UpdateClinic([FromBody] ClinicRequest request)

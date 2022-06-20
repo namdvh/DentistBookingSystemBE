@@ -9,6 +9,8 @@ namespace DentistBooking.Application.System.Services
     public interface IServiceService
     {
         Task<ListServiceResponse> GetServiceList(PaginationFilter filter);
+        Task<ListServiceResponse> GetServiceListForUser(PaginationFilter filter);
+        Task<ServiceDtoResponse> GetService(int id);
         Task<ServiceResponse> CreateService(AddServiceRequest request);
         Task<ServiceResponse> UpdateService(ServiceRequest request);
         Task<ServiceResponse> DeleteService(int clinicId, Guid userId);

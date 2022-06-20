@@ -299,7 +299,7 @@ namespace DentistBooking.Application.System.Bookings
             }
 
             dynamic pagedData = null;
-            dynamic totalRecords = null;
+            int totalRecords = 0;
 
 
             if (where.Contains("day"))
