@@ -394,6 +394,7 @@ namespace DentistBooking.Application.System.Dentists
                     user.PhoneNumber = request.Phone;
                     if (request.Status != null) user.Status = (Status)request.Status;
                     if (request.Gender != null) user.Gender = (Gender)request.Gender;
+                    if (request.Image != null) user.ImageUrl = request.Image;
                     user.Updated_by = request.UpdatedBy;
                 }
 
