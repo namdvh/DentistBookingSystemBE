@@ -76,5 +76,13 @@ namespace DentisBooking.Api.Controllers
             var result = await _serviceService.DeleteService(serviceId, userId);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("clinics/{clinicId}")]
+        public async Task<IActionResult> GetServiceFromClinic([FromRoute] int clinicId)
+        {
+            var result = await _serviceService.GetServiceListByClinic(clinicId);
+            return Ok(result);
+        }
     }
 }

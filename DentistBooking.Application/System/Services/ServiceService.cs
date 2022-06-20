@@ -48,14 +48,13 @@ namespace DentistBooking.Application.System.Services
             else
             {
                 pagedData = await _context.Services
-                    .OrderBy(filter._by + " " + orderBy)
-                    .Skip((filter.PageNumber - 1) * filter.PageSize)
-                    .Take(filter.PageSize)
-                    .ToListAsync();
+              .OrderBy(filter._by + " " + orderBy)
+              .Skip((filter.PageNumber - 1) * filter.PageSize)
+              .Take(filter.PageSize)
+              .ToListAsync();
             }
 
-            var totalRecords =
-                await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
+            var totalRecords = await _context.Services.CountAsync();
 
             if (!pagedData.Any())
             {
@@ -352,6 +351,44 @@ namespace DentistBooking.Application.System.Services
                 Status = service.Status
             };
             return serviceDto;
+        }
+
+        public async Task<ListServiceResponse> GetServiceListByClinic(int clinicId)
+        {
+            List<ServiceDto> dtoList = new();
+            ListServiceResponse response = new();
+
+            try
+            {
+                var data = await (from service in _context.Services
+                                  join serviceDentist in _context.ServiceDentists on service.Id equals serviceDentist.ServiceId
+                                  join dentist in _context.Dentists on serviceDentist.DentistId equals dentist.Id
+                                  where dentist.ClinicId == clinicId
+                                  select service).Distinct()
+                    .ToListAsync();
+
+
+                var test = data.ToList();
+
+
+
+                foreach (var x in data)
+                {
+                    dtoList.Add(MapToDTO(x));
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            response.Content = dtoList;
+            response.Code = "200";
+            response.Message = "Successful";
+
+            return response;
+
+
         }
     }
 }
