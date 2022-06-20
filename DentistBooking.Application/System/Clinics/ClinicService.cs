@@ -115,6 +115,7 @@ namespace DentistBooking.Application.System.Clinics
                 Name = clinic.Name,
                 Phone = clinic.Phone,
                 Status = clinic.Status,
+                ImageUrl = clinic.ImageUrl,
                 Created_at = clinic.Created_at,
                 Updated_at = (DateTime)clinic.Updated_at,
                 Deleted_at = (DateTime)clinic.Deleted_at,
@@ -138,6 +139,7 @@ namespace DentistBooking.Application.System.Clinics
                     Phone = request.Phone,
                     Description = request.Description,
                     Status = DentisBooking.Data.Enum.Status.ACTIVE,
+                    ImageUrl = null,
                     Created_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
                     Created_by = request.UserId
                 };
@@ -168,10 +170,32 @@ namespace DentistBooking.Application.System.Clinics
                 Clinic obj = await _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
+                    string images ="";
+                    if(request.ImageUrl.Count != 1)
+                    {
+                        for (int i = 0; i < request.ImageUrl.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                images = request.ImageUrl[0];
+                            }
+                            else
+                            {
+                                images = String.Concat(images, ";", request.ImageUrl[i]);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        images = request.ImageUrl[0];
+                    }
+                    
                     obj.Name = request.Name;
                     obj.Address = request.Address;
                     obj.Phone = request.Phone;
                     obj.Description = request.Description;
+                    obj.ImageUrl = images;
                     obj.Updated_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
                     obj.Updated_by = request.UserId;
 

@@ -13,6 +13,7 @@ namespace DentisBooking.Data.Entities
         public int Phone { get; set; }
 
         public Status Status { get; set; }
+        public string? ImageUrl { get; set; }
         public DateTime Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public DateTime? Deleted_at { get; set; }
