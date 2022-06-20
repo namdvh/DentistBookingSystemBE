@@ -43,14 +43,93 @@ namespace DentistBooking.Application.System.Services
             {
                 pagedData = await _context.Services
                     .OrderBy(filter._by + " " + orderBy)
-                    .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
                     .ToListAsync();
             }
             else
             {
                 pagedData = await _context.Services
                     .OrderBy(filter._by + " " + orderBy)
-                    .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToListAsync();
+            }
+
+            var totalRecords =
+                await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
+
+            if (!pagedData.Any())
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any clinics in DB";
+            }
+            else
+            {
+                var result = new List<ServiceDto>();
+                foreach (var x in pagedData)
+                {
+                    result.Add(MapToDTO(x));
+                }
+
+                response.Content = result;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+            }
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDto.CurrentPage = filter.PageNumber;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDto;
+
+
+            return response;
+        }
+
+        public async Task<ListServiceResponse> GetServiceListForUser(PaginationFilter filter)
+        {
+            ListServiceResponse response = new();
+            PaginationDTO paginationDto = new();
+
+            var orderBy = filter._order.ToString();
+
+            orderBy = orderBy switch
+            {
+                "1" => "descending",
+                "-1" => "ascending",
+                _ => orderBy
+            };
+
+            List<Service> pagedData;
+
+            if (filter._all)
+            {
+                pagedData = await _context.Services
+                    .OrderBy(filter._by + " " + orderBy)
+                    .Where(x => x.Status != Status.INACTIVE)
+                    .ToListAsync();
+            }
+            else
+            {
+                pagedData = await _context.Services
+                    .OrderBy(filter._by + " " + orderBy)
+                    .Where(x => x.Status != Status.INACTIVE)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Take(filter.PageSize)
                     .ToListAsync();
@@ -267,8 +346,10 @@ namespace DentistBooking.Application.System.Services
             var serviceDto = new ServiceDto()
             {
                 Id = service.Id,
-                Procedure = service.Procedure,
-                ServiceName = service.Name
+                Procedure = service.Procedure,      
+                ServiceName = service.Name,
+                Price = service.Price,
+                Status = service.Status
             };
             return serviceDto;
         }

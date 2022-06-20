@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DentisBooking.Data.Enum;
 
 namespace DentistBooking.ViewModels.System.Services
 {
@@ -12,5 +13,8 @@ namespace DentistBooking.ViewModels.System.Services
         public string ServiceName { get; set; }
         
         public string Procedure { get; set; }
+        
+        public Status Status { get; set; }
+        public decimal Price { get; set; }
     }
 }
