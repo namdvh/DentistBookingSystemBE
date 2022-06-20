@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using DentisBooking.Data.Enum;
 
 
 namespace DentistBooking.Application.System.Clinics
@@ -141,11 +142,6 @@ namespace DentistBooking.Application.System.Clinics
                 Phone = clinic.Phone,
                 Status = clinic.Status,
                 Created_at = clinic.Created_at,
-                Updated_at = (DateTime)clinic.Updated_at,
-                Deleted_at = (DateTime)clinic.Deleted_at,
-                Created_by = (Guid)clinic.Created_by,
-                Deleted_by = (Guid)clinic.Deleted_by,
-                Updated_by = (Guid)clinic.Updated_by,
 
             };
             return clinicDTO;
@@ -227,43 +223,35 @@ namespace DentistBooking.Application.System.Clinics
 
         }
 
-        public async Task<ClinicResponse> DeleteClinic(int clinicId, Guid userId)
+        public async Task<ClinicResponse> DeleteClinic(int clinicId)
         {
-            ClinicResponse response = new ClinicResponse();
+            var response = new ClinicResponse();
+            var clinic = _context.Clinics.FirstOrDefault(x => x.Id == clinicId);
 
-            try
+            if (clinic == null)
             {
-                Clinic obj = await _context.Clinics.FindAsync(clinicId);
-                if (obj != null)
-                {
-                    obj.Deleted_by = userId;
-                    obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
-                    obj.Status = DentisBooking.Data.Enum.Status.INACTIVE;
-
-                    await _context.SaveChangesAsync();
-
-                    response.Code = "200";
-                    response.Message = "Delete clinic successfully";
-
-                    return response;
-                }
-                else
-                {
-                    response.Code = "200";
-                    response.Message = "Can not find that clinic";
-
-                    return response;
-                }
-
-            }
-            catch (DbUpdateException)
-            {
-
-                response.Code = "200";
-                response.Message = "Delete clinic failed";
-
+                response.Code = "404";
+                response.Message = "Error";
                 return response;
             }
+
+            if (clinic.Status == Status.INACTIVE)
+            {
+                clinic.Deleted_at = null;
+                clinic.Status = Status.ACTIVE;
+            }
+            else
+            {
+                clinic.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                clinic.Status = Status.INACTIVE;
+            }
+
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            response.Message = "Delete successfully";
+
+
+            return response;
         }
 
 

@@ -304,39 +304,35 @@ namespace DentistBooking.Application.System.Services
             }
         }
 
-        public async Task<ServiceResponse> DeleteService(int serviceID, Guid userId)
+        public async Task<ServiceResponse> DeleteService(int serviceID)
         {
             var response = new ServiceResponse();
+            var service = _context.Services.FirstOrDefault(x => x.Id == serviceID);
 
-            try
+            if (service == null)
             {
-                Service obj = _context.Services.FirstOrDefault(x => x.Id == serviceID);
-                if (obj != null)
-                {
-                    obj.Deleted_by = userId;
-                    obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
-                    obj.Status = Status.INACTIVE;
-
-                    await _context.SaveChangesAsync();
-
-                    response.Code = "200";
-                    response.Message = "Delete service successfully";
-
-                    return response;
-                }
-
-                response.Code = "200";
-                response.Message = "Can not find that service";
-
+                response.Code = "404";
+                response.Message = "Error";
                 return response;
             }
-            catch (DbUpdateException)
-            {
-                response.Code = "200";
-                response.Message = "Delete service failed";
 
-                return response;
+            if (service.Status == Status.INACTIVE)
+            {
+                service.Deleted_at = null;
+                service.Status = Status.ACTIVE;
             }
+            else
+            {
+                service.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                service.Status = Status.INACTIVE;
+            }
+
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            response.Message = "Delete successfully";
+
+
+            return response;
         }
 
         private ServiceDto MapToDTO(Service service)

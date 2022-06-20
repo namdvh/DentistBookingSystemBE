@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using DentisBooking.Data.Enum;
 using Microsoft.EntityFrameworkCore;
 using DentistBooking.Application.System.Discounts;
 
@@ -156,43 +157,35 @@ namespace DentistBooking.Application.System.Discounts
 
         }
 
-        public async Task<DiscountResponse> DeleteDiscount(int discountId, Guid userId)
+        public async Task<DiscountResponse> DeleteDiscount(int discountId)
         {
-            DiscountResponse response = new DiscountResponse();
+            var response = new DiscountResponse();
+            var discount = _context.Discounts.FirstOrDefault(x => x.Id == discountId);
 
-            try
+            if (discount == null)
             {
-                Discount obj = await _context.Discounts.FindAsync(discountId);
-                if (obj != null)
-                {
-                    obj.Deleted_by = userId;
-                    obj.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
-                    obj.status = DentisBooking.Data.Enum.Status.INACTIVE;
-
-                    await _context.SaveChangesAsync();
-
-                    response.Code = "200";
-                    response.Message = "Delete discount successfully";
-
-                    return response;
-                }
-                else
-                {
-                    response.Code = "200";
-                    response.Message = "Can not find that discount";
-
-                    return response;
-                }
-
-            }
-            catch (DbUpdateException)
-            {
-
-                response.Code = "200";
-                response.Message = "Delete discount failed";
-
+                response.Code = "404";
+                response.Message = "Error";
                 return response;
             }
+
+            if (discount.status == Status.INACTIVE)
+            {
+                discount.Deleted_at = null;
+                discount.status = Status.ACTIVE;
+            }
+            else
+            {
+                discount.Deleted_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd"));
+                discount.status = Status.INACTIVE;
+            }
+
+            await _context.SaveChangesAsync();
+            response.Code = "200";
+            response.Message = "Delete successfully";
+
+
+            return response;
         }
     }
 }

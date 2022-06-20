@@ -368,7 +368,7 @@ namespace DentistBooking.Application.System.Users
                             on user.Id equals userRole.UserId
                         join role in _context.Roles
                             on userRole.RoleId equals role.Id
-                        where role.Name.Equals("User") && user.Status != Status.INACTIVE
+                        where role.Name.Equals("User") 
                         select user
                     )
                     .OrderBy(filter._by + " " + orderBy)
@@ -388,7 +388,7 @@ namespace DentistBooking.Application.System.Users
                         on user.Id equals userRole.UserId
                     join role in _context.Roles
                         on userRole.RoleId equals role.Id
-                    where role.Name.Equals("User") && user.Status != Status.INACTIVE
+                    where role.Name.Equals("User") 
                     select user
                 ).Count();
 

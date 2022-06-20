@@ -67,13 +67,13 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteService([FromQuery] int serviceId, Guid userId)
+        public async Task<IActionResult> DeleteService([FromQuery] int serviceId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = await _serviceService.DeleteService(serviceId, userId);
+            var result = await _serviceService.DeleteService(serviceId);
             return Ok(result);
         }
     }
