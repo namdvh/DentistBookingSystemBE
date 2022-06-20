@@ -22,6 +22,8 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Status? Status { get; set; }
         public Position? Position { get; set; }
         public string? Description { get; set; }
+        
+        public string? Image { get; set; }
         public int ClinicId { get; set; }
         public Guid UpdatedBy { get; set; }
         public List<int> ServiceId { get; set; }
