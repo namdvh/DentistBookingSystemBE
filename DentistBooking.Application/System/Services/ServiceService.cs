@@ -324,13 +324,11 @@ namespace DentistBooking.Application.System.Services
 
                     return response;
                 }
-                else
-                {
-                    response.Code = "200";
-                    response.Message = "Can not find that service";
 
-                    return response;
-                }
+                response.Code = "200";
+                response.Message = "Can not find that service";
+
+                return response;
             }
             catch (DbUpdateException)
             {

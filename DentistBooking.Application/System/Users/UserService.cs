@@ -437,7 +437,7 @@ namespace DentistBooking.Application.System.Users
                 user.Email = request.Email;
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
-                user.PhoneNumber = request.PhoneNumber;
+                user.PhoneNumber = request.Phone;
                 user.Gender = (Gender)request.Gender;
                 user.ImageUrl = request.ImageUrl;
             }
