@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
+using System.Collections.Generic;
+using DentisBooking.Data.Enum;
 
 namespace DentisBooking.Api.Controllers
 {
@@ -87,6 +89,17 @@ namespace DentisBooking.Api.Controllers
             
             var result = await _bookingService.GetBookingListForDentist(validFilter,dentistId,where);
         
+            return Ok(result);
+        }
+
+        [HttpGet("available")]
+        public async Task<IActionResult> GetBookingDetail([FromQuery] int dentistId, DateTime date)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            List<KeyTime> result = await _bookingService.GetAvailableKeyTime(dentistId, date);
             return Ok(result);
         }
     }
