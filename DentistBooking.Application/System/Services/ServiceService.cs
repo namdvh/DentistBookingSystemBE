@@ -43,20 +43,18 @@ namespace DentistBooking.Application.System.Services
             {
                 pagedData = await _context.Services
               .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
               .ToListAsync();
             }
             else
             {
                 pagedData = await _context.Services
               .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
               .Skip((filter.PageNumber - 1) * filter.PageSize)
               .Take(filter.PageSize)
               .ToListAsync();
             }
 
-            var totalRecords = await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
+            var totalRecords = await _context.Services.CountAsync();
 
             if (!pagedData.Any())
             {
@@ -250,6 +248,44 @@ namespace DentistBooking.Application.System.Services
 
             };
             return serviceDto;
+        }
+
+        public async Task<ListServiceResponse> GetServiceListByClinic(int clinicId)
+        {
+            List<ServiceDto> dtoList = new();
+            ListServiceResponse response = new();
+
+            try
+            {
+                var data = await (from service in _context.Services
+                                  join serviceDentist in _context.ServiceDentists on service.Id equals serviceDentist.ServiceId
+                                  join dentist in _context.Dentists on serviceDentist.DentistId equals dentist.Id
+                                  where dentist.ClinicId == clinicId
+                                  select service).Distinct()
+                    .ToListAsync();
+
+
+                var test = data.ToList();
+
+
+
+                foreach (var x in data)
+                {
+                    dtoList.Add(MapToDTO(x));
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            response.Content = dtoList;
+            response.Code = "200";
+            response.Message = "Successful";
+
+            return response;
+
+
         }
     }
 }

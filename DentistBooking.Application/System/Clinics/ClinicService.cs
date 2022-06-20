@@ -56,7 +56,7 @@ namespace DentistBooking.Application.System.Clinics
             }
 
 
-            var totalRecords = await _context.Clinics.CountAsync(x => x.Status != DentisBooking.Data.Enum.Status.INACTIVE);
+            var totalRecords = await _context.Clinics.CountAsync();
 
             if (!pagedData.Any())
             {
@@ -107,6 +107,7 @@ namespace DentistBooking.Application.System.Clinics
 
         public ClinicDTO MapToDTO(Clinic clinic)
         {
+            List<string> list = clinic.ImageUrl.Split(';').ToList();
             ClinicDTO clinicDTO = new ClinicDTO()
             {
                 Id = clinic.Id,
@@ -115,14 +116,13 @@ namespace DentistBooking.Application.System.Clinics
                 Name = clinic.Name,
                 Phone = clinic.Phone,
                 Status = clinic.Status,
-                ImageUrl = clinic.ImageUrl,
+                ImageUrl = list,
                 Created_at = clinic.Created_at,
-                Updated_at = (DateTime)clinic.Updated_at,
-                Deleted_at = (DateTime)clinic.Deleted_at,
-                Created_by = (Guid)clinic.Created_by,
-                Deleted_by = (Guid)clinic.Deleted_by,
-                Updated_by = (Guid)clinic.Updated_by,
-
+                Updated_at = clinic.Updated_at,
+                Deleted_at = clinic.Deleted_at,
+                Created_by = clinic.Created_by,
+                Deleted_by = clinic.Deleted_by,
+                Updated_by = clinic.Updated_by
             };
             return clinicDTO;
         }
@@ -170,8 +170,8 @@ namespace DentistBooking.Application.System.Clinics
                 Clinic obj = await _context.Clinics.Where(g => g.Id == request.Id).SingleOrDefaultAsync();
                 if (obj != null)
                 {
-                    string images ="";
-                    if(request.ImageUrl.Count != 1)
+                    string images = "";
+                    if (request.ImageUrl.Count != 1)
                     {
                         for (int i = 0; i < request.ImageUrl.Count; i++)
                         {
@@ -190,7 +190,7 @@ namespace DentistBooking.Application.System.Clinics
                     {
                         images = request.ImageUrl[0];
                     }
-                    
+
                     obj.Name = request.Name;
                     obj.Address = request.Address;
                     obj.Phone = request.Phone;
@@ -265,6 +265,87 @@ namespace DentistBooking.Application.System.Clinics
             }
         }
 
+        public async Task<ListClinicResponse> GetClinicListForBooking(PaginationFilter filter)
+        {
+            ListClinicResponse response = new();
+            PaginationDTO paginationDTO = new();
 
+            string orderBy = filter._order.ToString();
+
+            if (orderBy.Equals("1"))
+            {
+                orderBy = "descending";
+            }
+            else if (orderBy.Equals("-1"))
+            {
+                orderBy = "ascending";
+            }
+            List<Clinic> pagedData;
+            if (filter._all)
+            {
+                pagedData = await (from clinic in _context.Clinics
+                                   where clinic.Status != DentisBooking.Data.Enum.Status.INACTIVE
+                                   select clinic)
+                   .OrderBy(filter._by + " " + orderBy)
+                   .ToListAsync();
+            }
+            else
+            {
+                pagedData = await (from clinic in _context.Clinics
+                                   where clinic.Status != DentisBooking.Data.Enum.Status.INACTIVE
+                                   select clinic)
+                   .OrderBy(filter._by + " " + orderBy)
+                   .Skip((filter.PageNumber - 1) * filter.PageSize)
+                   .Take(filter.PageSize)
+                   .ToListAsync();
+            }
+
+
+            var totalRecords = await _context.Clinics.CountAsync(x => x.Status != DentisBooking.Data.Enum.Status.INACTIVE);
+
+            if (!pagedData.Any())
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any clinics in DB";
+            }
+            else
+            {
+                List<ClinicDTO> result = new List<ClinicDTO>();
+                foreach (Clinic x in pagedData)
+                {
+                    result.Add(MapToDTO(x));
+                }
+                response.Content = result;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+
+            }
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDTO.CurrentPage = filter.PageNumber;
+
+            paginationDTO.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
+            paginationDTO.TotalPages = roundedTotalPages;
+            paginationDTO.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDTO;
+
+
+
+            return response;
+        }
     }
 }

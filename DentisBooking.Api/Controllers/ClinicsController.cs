@@ -19,8 +19,16 @@ namespace DentisBooking.Api.Controllers
             _clinicService = clinicService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order, filter._all);
+            ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
+            return Ok(result);
+        }
+        
+        [HttpGet("booking")]
+        public async Task<IActionResult> GetClinicsForBooking([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order, filter._all);
             ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
