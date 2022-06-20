@@ -20,7 +20,7 @@ namespace DentistBooking.Application.System.Clinics
 
         Task<ClinicResponse> CreateClinic(ClinicRequest request);
         Task<ClinicResponse> UpdateClinic(ClinicRequest request);
-        Task<ClinicResponse> DeleteClinic(int clinicId, Guid userId);
+        Task<ClinicResponse> DeleteClinic(int clinicId);
 
     }
 }
