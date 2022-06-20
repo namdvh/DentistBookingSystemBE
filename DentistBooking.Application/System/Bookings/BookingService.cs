@@ -29,31 +29,31 @@ namespace DentistBooking.Application.System.Bookings
             BookingResponse response = new BookingResponse();
             try
             {
-                for (int i = 0; i < request.DentistIds.Count; i++)
-                {
-                    //check keyTime
-                    var existedDetail = await (from detail in _context.BookingDetails
-                        join book in _context.Bookings on detail.BookingId equals book.Id
-                        where detail.DentistId == request.DentistIds[i]
-                              && detail.ServiceId == request.ServiceIds[i]
-                              && book.Date.Equals(request.Date)
-                        select detail).ToListAsync();
+                //for (int i = 0; i < request.DentistIds.Count; i++)
+                //{
+                //    //check keyTime
+                //    var existedDetail = await (from detail in _context.BookingDetails
+                //        join book in _context.Bookings on detail.BookingId equals book.Id
+                //        where detail.DentistId == request.DentistIds[i]
+                //              && detail.ServiceId == request.ServiceIds[i]
+                //              && book.Date.Equals(request.Date)
+                //        select detail).ToListAsync();
 
-                    foreach (var item in existedDetail)
-                    {
-                        if (item.KeyTime == request.KeyTimes[i])
-                        {
-                            response.Code = "700";
-                            response.Message = "KeyTime is already chosen!";
-                            return response;
-                        }
-                    }
-                }
+                //    foreach (var item in existedDetail)
+                //    {
+                //        if (item.KeyTime == request.KeyTimes[i])
+                //        {
+                //            response.Code = "700";
+                //            response.Message = "KeyTime is already chosen!";
+                //            return response;
+                //        }
+                //    }
+                //}
 
                 Booking booking = new Booking()
                 {
-                    Status = DentisBooking.Data.Enum.Status.ACTIVE,
-                    Date = request.Date,
+                    Status = Status.PENDING,
+                    Date = DateTime.Parse(request.Date.ToShortDateString()),
                     Total = request.Total,
                     UserId = request.UserId,
                     Created_at = DateTime.Now
@@ -559,6 +559,24 @@ namespace DentistBooking.Application.System.Bookings
             }
 
             return list;
+        }
+
+        public async Task<List<KeyTime>> GetAvailableKeyTime(int dentistId, DateTime date)
+        {
+            List<KeyTime> list = new();
+
+            var details = await(from t1 in _context.Bookings
+                                join t2 in _context.BookingDetails
+                                on t1.Id equals t2.BookingId
+                                where t1.Date.Equals(date) && t2.DentistId == dentistId
+                                select t2).ToListAsync();
+            list = Enum.GetValues(typeof(KeyTime)).Cast<KeyTime>().ToList();
+            foreach (var item in details)
+            {
+                list.Remove(item.KeyTime);
+            }
+            return list;
+
         }
     }
 }
