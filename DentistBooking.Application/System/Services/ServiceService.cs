@@ -42,21 +42,22 @@ namespace DentistBooking.Application.System.Services
             if (filter._all)
             {
                 pagedData = await _context.Services
-              .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
-              .ToListAsync();
+                    .OrderBy(filter._by + " " + orderBy)
+                    .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
+                    .ToListAsync();
             }
             else
             {
                 pagedData = await _context.Services
-              .OrderBy(filter._by + " " + orderBy)
-              .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
-              .Skip((filter.PageNumber - 1) * filter.PageSize)
-              .Take(filter.PageSize)
-              .ToListAsync();
+                    .OrderBy(filter._by + " " + orderBy)
+                    .Where(x => x.Deleted_by == null && x.Status != Status.INACTIVE)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToListAsync();
             }
 
-            var totalRecords = await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
+            var totalRecords =
+                await _context.Services.CountAsync(x => x.Status != Status.INACTIVE && x.Deleted_by == null);
 
             if (!pagedData.Any())
             {
@@ -71,11 +72,12 @@ namespace DentistBooking.Application.System.Services
                 {
                     result.Add(MapToDTO(x));
                 }
+
                 response.Content = result;
                 response.Message = "SUCCESS";
                 response.Code = "200";
-
             }
+
             double totalPages;
 
             if (filter._all == false)
@@ -99,8 +101,33 @@ namespace DentistBooking.Application.System.Services
             response.Pagination = paginationDto;
 
 
-
             return response;
+        }
+
+        public async Task<ServiceDtoResponse> GetService(int id)
+        {
+            ServiceDtoResponse response = new();
+            try
+            {
+                var service = await _context.Services.FirstOrDefaultAsync(x => x.Id == id);
+                if (service == null)
+                {
+                    response.Message = "Not found";
+                    response.Code = "404";
+                }
+
+                response.Service = MapToDTO(service);
+                response.Code = "200";
+                response.Message = "SUCCESS";
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Code = "500";
+                response.Message = e.Message;
+                return response;
+            }
         }
 
         public async Task<ServiceResponse> CreateService(AddServiceRequest request)
@@ -170,6 +197,7 @@ namespace DentistBooking.Application.System.Services
                     {
                         obj.Discount = discount;
                     }
+
                     obj.Updated_by = request.UserId;
                     obj.Price = request.Price;
                     obj.Procedure = request.Procedure;
@@ -179,7 +207,6 @@ namespace DentistBooking.Application.System.Services
                     response.Message = "Update services successfully";
 
                     return response;
-
                 }
                 else
                 {
@@ -188,11 +215,9 @@ namespace DentistBooking.Application.System.Services
 
                     return response;
                 }
-
             }
             catch (DbUpdateException)
             {
-
                 response.Code = "200";
                 response.Message = "Update clinic failed";
 
@@ -227,11 +252,9 @@ namespace DentistBooking.Application.System.Services
 
                     return response;
                 }
-
             }
             catch (DbUpdateException)
             {
-
                 response.Code = "200";
                 response.Message = "Delete service failed";
 
@@ -246,8 +269,6 @@ namespace DentistBooking.Application.System.Services
                 Id = service.Id,
                 Procedure = service.Procedure,
                 ServiceName = service.Name
-
-
             };
             return serviceDto;
         }
