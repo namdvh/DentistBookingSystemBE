@@ -15,7 +15,7 @@ namespace DentistBooking.ViewModels.System.Dentists
         //public string Password { get; set; }
        // public string ConfirmPassword { get; set; }
         
-        public string? PhoneNumber { get; set; }
+        public string? Phone { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public Gender? Gender { get; set; }

@@ -391,7 +391,7 @@ namespace DentistBooking.Application.System.Dentists
                     user.FirstName = request.FirstName;
                     user.LastName = request.LastName;
                     user.UserName = request.UserName;
-                    user.PhoneNumber = request.PhoneNumber;
+                    user.PhoneNumber = request.Phone;
                     if (request.Status != null) user.Status = (Status)request.Status;
                     if (request.Gender != null) user.Gender = (Gender)request.Gender;
                     user.Updated_by = request.UpdatedBy;
