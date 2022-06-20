@@ -268,7 +268,8 @@ namespace DentistBooking.Application.System.Users
                 Phone = user.PhoneNumber,
                 Status = user.Status,
                 Created_at = user.Created_at,
-                role = roleName
+                role = roleName,
+                ImageUrl = user.ImageUrl
             };
             return userDto;
         }

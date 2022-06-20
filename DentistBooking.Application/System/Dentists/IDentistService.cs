@@ -12,6 +12,7 @@ namespace DentistBooking.Application.System.Dentists
     public interface IDentistService
     {
         Task<DentistResponse> GetDentistList(PaginationFilter filter);
+        Task<DentistResponse> GetDentistListForUser(PaginationFilter filter);
 
         Task<DentistResponse> SearchDentist(PaginationFilter filter,string keyword);
 
