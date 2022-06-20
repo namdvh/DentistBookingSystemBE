@@ -10,7 +10,7 @@ namespace DentisBooking.Api.Controllers
 {
     [Route("api/clinics")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ClinicsController : ControllerBase
     {
         private readonly IClinicService _clinicService;
