@@ -79,7 +79,7 @@ namespace DentisBooking.Api.Controllers
         [Route("{dentistID}")]
         public async Task<IActionResult> GetDentist([FromRoute] Guid dentistID)
         {
-            DentistDTO result = await _dentistService.GetDentist(dentistID);
+            DentistClinicResponse result = await _dentistService.GetDentist(dentistID);
             return Ok(result);
         }
                 

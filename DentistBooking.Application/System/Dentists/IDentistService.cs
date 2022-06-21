@@ -20,6 +20,6 @@ namespace DentistBooking.Application.System.Dentists
         Task<DentistCodeResponse> UpdateDentist(UpdateDentistRequest request);
         Task<DentistCodeResponse> DeleteDentist(int dentistId);
         
-        Task<DentistDTO> GetDentist(Guid userId);
+        Task<DentistClinicResponse> GetDentist(Guid userId);
     }
 }

@@ -16,6 +16,7 @@ using DentistBooking.ViewModels.System.Users;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using DentistBooking.ViewModels.System.Services;
+using DentistBooking.ViewModels.System.Clinics;
 
 namespace DentistBooking.Application.System.Dentists
 {
@@ -440,14 +441,16 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistDTO> GetDentist(Guid userID)
+        public async Task<DentistClinicResponse> GetDentist(Guid userID)
         {
+            DentistClinicResponse response = new DentistClinicResponse();
             try
             {
                 var data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id 
+                        join clinic in _context.Clinics on dentist.ClinicId equals clinic.Id
                         where   user.Id == userID
-                        select new { user, dentist })
+                        select new { user, dentist, clinic })
                     .Where(x => x.user.DentistId != null).FirstOrDefaultAsync();
 
 
@@ -466,10 +469,20 @@ namespace DentistBooking.Application.System.Dentists
                 dto.DentistID = data.dentist.Id;
                 dto.ClinicID = data.dentist.ClinicId;
 
+
+
                 dto.Services = await GetServiceFromDentist(data.dentist.Id);
 
+                ClinicDTO clinicDTO = new();
+                clinicDTO.Address = data.clinic.Address;
+                clinicDTO.Name = data.clinic.Name;
+                clinicDTO.Phone = data.clinic.Phone;
 
-                return dto;
+                response.Message = "Get dentist and clinic successfully";
+                response.Code = "200";
+                response.DentistDTO = dto;
+                response.ClinicDTO = clinicDTO;
+                return response;
 
             }
             catch (DbUpdateException)

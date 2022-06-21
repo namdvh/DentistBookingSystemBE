@@ -11,7 +11,7 @@ namespace DentistBooking.ViewModels.System.Users
         public string LastName { get; set; }
         public DateTime DOB { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
         public Gender Gender { get; set; }
         
         public string? ImageUrl { get; set; }
