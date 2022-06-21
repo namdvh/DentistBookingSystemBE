@@ -449,7 +449,7 @@ namespace DentistBooking.Application.System.Bookings
             {
                 foreach (var x in pagedData)
                 {
-                    listDto.Add(mapToBookingDto(x.booking));
+                    listDto.Add(mapToBookingDto(x.booking,dentistId));
                 }
 
 
@@ -473,7 +473,7 @@ namespace DentistBooking.Application.System.Bookings
         }
 
 
-        private BookingDTO mapToBookingDto(Booking booking)
+        private BookingDTO mapToBookingDto(Booking booking,int dentistId)
         {
             BookingDTO bookingDto = new BookingDTO()
             {
@@ -483,7 +483,7 @@ namespace DentistBooking.Application.System.Bookings
                 Total = booking.Total,
                 UserId = booking.UserId,
                 User = MapToDTO(booking.UserId),
-                Detail = GetDetailFromBooking(booking.Id, booking.Date, booking.Status, MapToDTO(booking.UserId))
+                Detail = GetDetailFromBooking(booking.Id, booking.Date, booking.Status, MapToDTO(booking.UserId), dentistId)
             };
             return bookingDto;
         }
@@ -532,12 +532,12 @@ namespace DentistBooking.Application.System.Bookings
         }
 
         private List<BookingDtoDetail> GetDetailFromBooking(int bookingId, DateTime date, Status status,
-            UserDTO userDto)
+            UserDTO userDto,int dentistId)
         {
             List<BookingDtoDetail> list = new();
 
 
-            var data = _context.BookingDetails.Where(x => x.BookingId == bookingId).ToList();
+            var data = _context.BookingDetails.Where(x => x.BookingId == bookingId&& x.DentistId==dentistId).ToList();
 
 
             foreach (var x in data)
