@@ -108,26 +108,26 @@ namespace DentistBooking.Application.System.Clinics
         public async Task<ClinicDTOResponse> GetClinic(int id)
         {
             ClinicDTOResponse response = new();
-                try
+            try
+            {
+                Clinic obj = await _context.Clinics.FindAsync(id);
+                if (obj != null)
                 {
-                    Clinic obj = await _context.Clinics.FindAsync(id);
-                    if (obj != null)
-                    {
-                        var result = MapToDTO(obj);
-                        response.Clinic = result;
-                        response.Code = "200";
-                        response.Message = "SUCCESS";
-                        return response;
-                    }
+                    var result = MapToDTO(obj);
+                    response.Clinic = result;
+                    response.Code = "200";
+                    response.Message = "SUCCESS";
+                    return response;
+                }
 
-                }
-                catch (DbUpdateException)
-                {
-                    response.Code = "500";
-                    response.Message = "FAILED";
-                }
-                
-                return null;
+            }
+            catch (DbUpdateException)
+            {
+                response.Code = "500";
+                response.Message = "FAILED";
+            }
+
+            return null;
         }
 
 
@@ -357,6 +357,38 @@ namespace DentistBooking.Application.System.Clinics
             response.Pagination = paginationDTO;
 
 
+
+            return response;
+        }
+
+        public async Task<ListClinicResponse> GetClinicListForUpdateDentist(int dentistId)
+        {
+            ListClinicResponse response = new();
+            var detail = await (from bookingDetail in _context.BookingDetails
+                                where bookingDetail.DentistId == dentistId && bookingDetail.Status != Status.DONE && bookingDetail.Status != Status.DECLINED
+                                select bookingDetail).ToListAsync();
+            if (detail.Count != 0)
+            {
+                response.Content = null;
+                response.Message = "Dentist is busy, can not change clinic";
+                response.Code = "300";
+            }
+            else
+            {
+                var clinicList = await (from clinic in _context.Clinics
+                                        where clinic.Status != DentisBooking.Data.Enum.Status.INACTIVE
+                                        select clinic)
+                                                 .ToListAsync();
+
+                List<ClinicDTO> result = new List<ClinicDTO>();
+                foreach (Clinic x in clinicList)
+                {
+                    result.Add(MapToDTO(x));
+                }
+                response.Content = result;
+                response.Message = "Get Clinic for update Dentist successfully";
+                response.Code = "200";
+            }
 
             return response;
         }
