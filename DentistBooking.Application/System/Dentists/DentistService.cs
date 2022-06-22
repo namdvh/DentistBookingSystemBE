@@ -429,6 +429,7 @@ namespace DentistBooking.Application.System.Dentists
             }
 
             await _userService.UpdateAsync(user);
+            await _context.SaveChangesAsync();
             response.Code = "200";
             response.Message = "Delete successfully";
 
