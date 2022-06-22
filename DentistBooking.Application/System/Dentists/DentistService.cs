@@ -95,6 +95,7 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
                     dto.Phone = item.user.PhoneNumber;
                     dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
@@ -207,6 +208,7 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
                     dto.Phone = item.user.PhoneNumber;
                     dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
