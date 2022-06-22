@@ -296,7 +296,7 @@ namespace DentistBooking.Application.System.Dentists
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
+                PhoneNumber = request.Phone,
                 Status = Status.ACTIVE,
                 Gender = request.Gender,
                 Dentist = newDentist
@@ -323,14 +323,14 @@ namespace DentistBooking.Application.System.Dentists
                 }
 
                 response.Code = "200";
-                response.Message = "Register successfully";
+                response.Message = "Create successfully";
 
                 return response;
             }
 
             response.Content = null;
             response.Code = "200";
-            response.Message = "Register failed";
+            response.Message = "Create failed";
 
             return response;
         }
