@@ -95,6 +95,7 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
                     dto.Phone = item.user.PhoneNumber;
                     dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
@@ -207,6 +208,7 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
                     dto.Phone = item.user.PhoneNumber;
                     dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
@@ -296,7 +298,7 @@ namespace DentistBooking.Application.System.Dentists
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
+                PhoneNumber = request.Phone,
                 Status = Status.ACTIVE,
                 Gender = request.Gender,
                 Dentist = newDentist
@@ -323,14 +325,14 @@ namespace DentistBooking.Application.System.Dentists
                 }
 
                 response.Code = "200";
-                response.Message = "Register successfully";
+                response.Message = "Create successfully";
 
                 return response;
             }
 
             response.Content = null;
             response.Code = "200";
-            response.Message = "Register failed";
+            response.Message = "Create failed";
 
             return response;
         }
