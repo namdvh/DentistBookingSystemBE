@@ -11,7 +11,6 @@ namespace DentisBooking.Data.Configurations
             builder.ToTable("Bookings");
             builder.HasKey(x => x.Id);
             builder.Property(x=>x.Id).ValueGeneratedOnAdd();
-            builder.Property(x => x.Date).IsRequired().HasDefaultValueSql("getutcdate()");
             builder.Property(x => x.Total).IsRequired();
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.Created_at).HasDefaultValueSql("getutcdate()");
