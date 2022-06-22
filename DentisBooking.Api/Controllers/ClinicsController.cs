@@ -26,6 +26,12 @@ namespace DentisBooking.Api.Controllers
             ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
             return Ok(result);
         }
+        [HttpGet("dentist")]
+        public async Task<IActionResult> GetClinicsForUpdateDentist([FromQuery] int dentistId)
+        {
+            ListClinicResponse result = await _clinicService.GetClinicListForUpdateDentist(dentistId);
+            return Ok(result);
+        }
         
         [HttpGet("booking")]
         public async Task<IActionResult> GetClinicsForBooking([FromQuery] PaginationFilter filter)

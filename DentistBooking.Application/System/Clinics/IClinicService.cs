@@ -12,6 +12,7 @@ namespace DentistBooking.Application.System.Clinics
     public interface IClinicService
     {
         Task<ListClinicResponse> GetClinicList(PaginationFilter filter);
+        Task<ListClinicResponse> GetClinicListForUpdateDentist(int dentistId);
 
         Task<ListClinicResponse> GetClinicListForBooking(PaginationFilter filter);
 

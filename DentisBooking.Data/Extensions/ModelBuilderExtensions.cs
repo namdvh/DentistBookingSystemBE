@@ -296,7 +296,7 @@ namespace DentisBooking.Data.Extensions
                     {
                         Id = j,
                         DentistId = i,
-                        KeyTime = Enum.KeyTime._7_730,
+                        KeyTime = Enum.KeyTime._7h_7h30,
                         Note = "nhe nhang thoi nha bac si",
                         Status = Enum.Status.ACTIVE,
                         BookingId = i - 9,
