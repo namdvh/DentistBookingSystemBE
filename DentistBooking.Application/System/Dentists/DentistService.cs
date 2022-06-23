@@ -605,6 +605,9 @@ namespace DentistBooking.Application.System.Dentists
                 DentistServiceDto dto = new();
                 dto.Id = service.Id;
                 dto.ServiceName = service.Name;
+                dto.Price = service.Price;
+                dto.Procedure = service.Procedure;
+                dto.Status = service.Status;
                 final.Add(dto);
             }
 
