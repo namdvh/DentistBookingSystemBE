@@ -10,7 +10,7 @@ namespace DentisBooking.Api.Controllers
 {
     [Route("api/clinics")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ClinicsController : ControllerBase
     {
         private readonly IClinicService _clinicService;
@@ -19,8 +19,22 @@ namespace DentisBooking.Api.Controllers
             _clinicService = clinicService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllClinics([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order, filter._all);
+            ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
+            return Ok(result);
+        }
+        [HttpGet("dentist")]
+        public async Task<IActionResult> GetClinicsForUpdateDentist([FromQuery] int dentistId)
+        {
+            ListClinicResponse result = await _clinicService.GetClinicListForUpdateDentist(dentistId);
+            return Ok(result);
+        }
+        
+        [HttpGet("booking")]
+        public async Task<IActionResult> GetClinicsForBooking([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order, filter._all);
             ListClinicResponse result = await _clinicService.GetClinicList(validFilter);
@@ -38,6 +52,15 @@ namespace DentisBooking.Api.Controllers
             ClinicResponse result = await _clinicService.CreateClinic(request);
             return Ok(result);
         }
+        
+        [HttpGet]
+        [Route("{clinicID}")]
+        public async Task<IActionResult> GetClinic([FromRoute] int clinicID)
+        {
+            var result = await _clinicService.GetClinic(clinicID);
+            return Ok(result);
+        }
+        
 
         [HttpPut]
         public async Task<IActionResult> UpdateClinic([FromBody] ClinicRequest request)
@@ -51,13 +74,13 @@ namespace DentisBooking.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteClinic([FromQuery] int clinicId, Guid userId)
+        public async Task<IActionResult> DeleteClinic([FromQuery] int clinicId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            ClinicResponse result = await _clinicService.DeleteClinic(clinicId, userId);
+            ClinicResponse result = await _clinicService.DeleteClinic(clinicId);
             return Ok(result);
         }
     }

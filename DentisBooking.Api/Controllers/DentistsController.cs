@@ -12,7 +12,7 @@ namespace DentisBooking.Api.Controllers
     [Route("api/dentists")]
     [ApiController]
     //[TypeFilter(typeof(AuthorizeMiddleWare))]
-    [Authorize]
+    //[Authorize]
     public class DentistsController : ControllerBase
     {
         private readonly IDentistService _dentistService;
@@ -28,6 +28,15 @@ namespace DentisBooking.Api.Controllers
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,
                 filter._all);
             var result = await _dentistService.GetDentistList(validFilter);
+            return Ok(result);
+        }
+        
+        [HttpGet("user")]
+        public async Task<IActionResult> GetAllDentistUser([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter._by, filter._order,
+                filter._all);
+            var result = await _dentistService.GetDentistListForUser(validFilter);
             return Ok(result);
         }
 
@@ -70,7 +79,7 @@ namespace DentisBooking.Api.Controllers
         [Route("{dentistID}")]
         public async Task<IActionResult> GetDentist([FromRoute] Guid dentistID)
         {
-            DentistDTO result = await _dentistService.GetDentist(dentistID);
+            DentistClinicResponse result = await _dentistService.GetDentist(dentistID);
             return Ok(result);
         }
                 

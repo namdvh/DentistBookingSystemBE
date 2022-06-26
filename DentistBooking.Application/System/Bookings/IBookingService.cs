@@ -1,4 +1,5 @@
-﻿using DentistBooking.ViewModels.Pagination;
+﻿using DentisBooking.Data.Enum;
+using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Bookings;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace DentistBooking.Application.System.Bookings
         Task<BookingResponse> UpdateBooking(BookingRequest request);
         Task<BookingResponse> DeleteBooking(int bookingId, Guid userId);
         Task<BookingDetailResponse> GetBookingDetail(int bookingId);
-
-        Task<ListBookingDTOResponse> GetBookingListForDentist(PaginationFilter filter, int dentistId);
+        Task<ListBookingDTOResponse> GetBookingListForDentist(PaginationFilter filter, int dentistId,string _where);
+        Task<List<KeyTime>> GetAvailableKeyTime(int dentistId, DateTime date);
     }
 }

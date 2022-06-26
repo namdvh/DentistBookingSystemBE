@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DentisBooking.Data.DataContext;
+﻿using DentisBooking.Data.DataContext;
 using DentisBooking.Data.Entities;
 using DentistBooking.ViewModels.Pagination;
 using DentistBooking.ViewModels.System.Dentists;
@@ -7,15 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using DentisBooking.Data.Enum;
-using DentistBooking.ViewModels.System;
-using DentistBooking.ViewModels.System.Users;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using DentistBooking.ViewModels.System.Services;
+using DentistBooking.ViewModels.System.Clinics;
 
 namespace DentistBooking.Application.System.Dentists
 {
@@ -54,7 +50,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id
-                        where user.Deleted_by != null && user.Status != Status.INACTIVE
+                        
                         select new { user, dentist })
                     .OrderBy("user."+filter._by + " " + orderBy)
                     .ToListAsync();
@@ -63,7 +59,7 @@ namespace DentistBooking.Application.System.Dentists
             {
                 data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id
-                        where  user.Status != Status.INACTIVE
+                        
                         select new { user, dentist })
                     .OrderBy("user."+filter._by + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
@@ -99,6 +95,120 @@ namespace DentistBooking.Application.System.Dentists
                     dto.Email = item.user.Email;
                     dto.Gender = item.user.Gender;
                     dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
+                    dto.Phone = item.user.PhoneNumber;
+                    dto.Position = item.dentist.Position;
+                    dto.Status = item.user.Status;
+                    dto.FirstName = item.user.FirstName;
+                    dto.LastName = item.user.LastName;
+                    dto.ImageUrl = item.user.ImageUrl;
+                    dto.ClinicID = item.dentist.ClinicId;
+                    dto.DentistID = item.dentist.Id;
+
+                    dto.Services = await GetServiceFromDentist(item.dentist.Id);
+
+                    dentistList.Add(dto);
+                }
+
+                response.Content = dentistList;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+            }
+
+
+            double totalPages;
+
+            if (filter._all == false)
+            {
+                totalPages = ((double)totalRecords / (double)filter.PageSize);
+            }
+            else
+            {
+                totalPages = 1;
+            }
+
+            var roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDto.CurrentPage = filter.PageNumber;
+
+            paginationDto.PageSize = filter._all == false ? filter.PageSize : totalRecords;
+
+            paginationDto.TotalPages = roundedTotalPages;
+            paginationDto.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDto;
+
+
+            return response;
+        }
+
+        public async Task<DentistResponse> GetDentistListForUser(PaginationFilter filter)
+        {
+              DentistResponse response = new();
+            PaginationDTO paginationDto = new();
+
+            var orderBy = filter._order.ToString();
+
+
+            orderBy = orderBy switch
+            {
+                "1" => "descending",
+                "-1" => "ascending",
+                _ => orderBy
+            };
+
+            dynamic data;
+
+            if (filter._all)
+            {
+                data = await (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                        where user.Status != Status.INACTIVE
+                        select new { user, dentist })
+                    .OrderBy("user."+filter._by + " " + orderBy)
+                    .ToListAsync();
+            }
+            else
+            {
+                data = await (from user in _context.Users
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                        where user.Status != Status.INACTIVE
+                        select new { user, dentist })
+                    .OrderBy("user."+filter._by + " " + orderBy)
+                    .Skip((filter.PageNumber - 1) * filter.PageSize)
+                    .Take(filter.PageSize)
+                    .ToListAsync();
+            }
+
+
+            List<DentistDTO> dentistList = new();
+
+
+            var totalRecords = (from user in _context.Users
+                join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                where user.Deleted_by != null && user.Status != Status.INACTIVE
+                select new { user, dentist }).Count();
+
+            if (data==null)
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any dentists in DB";
+            }
+            else
+            {
+                foreach (var item in data)
+                {
+                    List<ServiceDto> services = new();
+
+                    ServiceDto serviceDto = new();
+
+                    DentistDTO dto = new();
+                    dto.Description = item.dentist?.Description;
+                    dto.Email = item.user.Email;
+                    dto.Gender = item.user.Gender;
+                    dto.Id = item.user.Id;
+                    dto.Dob = item.user.DOB;
                     dto.Phone = item.user.PhoneNumber;
                     dto.Position = item.dentist.Position;
                     dto.Status = item.user.Status;
@@ -188,7 +298,7 @@ namespace DentistBooking.Application.System.Dentists
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
+                PhoneNumber = request.Phone,
                 Status = Status.ACTIVE,
                 Gender = request.Gender,
                 Dentist = newDentist
@@ -215,14 +325,14 @@ namespace DentistBooking.Application.System.Dentists
                 }
 
                 response.Code = "200";
-                response.Message = "Register successfully";
+                response.Message = "Create successfully";
 
                 return response;
             }
 
             response.Content = null;
             response.Code = "200";
-            response.Message = "Register failed";
+            response.Message = "Create failed";
 
             return response;
         }
@@ -279,9 +389,10 @@ namespace DentistBooking.Application.System.Dentists
                     user.FirstName = request.FirstName;
                     user.LastName = request.LastName;
                     user.UserName = request.UserName;
-                    user.PhoneNumber = request.PhoneNumber;
+                    user.PhoneNumber = request.Phone;
                     if (request.Status != null) user.Status = (Status)request.Status;
                     if (request.Gender != null) user.Gender = (Gender)request.Gender;
+                    if (request.Image != null) user.ImageUrl = request.Image;
                     user.Updated_by = request.UpdatedBy;
                 }
 
@@ -320,6 +431,7 @@ namespace DentistBooking.Application.System.Dentists
             }
 
             await _userService.UpdateAsync(user);
+            await _context.SaveChangesAsync();
             response.Code = "200";
             response.Message = "Delete successfully";
 
@@ -327,14 +439,16 @@ namespace DentistBooking.Application.System.Dentists
             return response;
         }
 
-        public async Task<DentistDTO> GetDentist(Guid userID)
+        public async Task<DentistClinicResponse> GetDentist(Guid userID)
         {
+            DentistClinicResponse response = new DentistClinicResponse();
             try
             {
                 var data = await (from user in _context.Users
                         join dentist in _context.Dentists on user.DentistId equals dentist.Id 
-                        where user.Deleted_by != null && user.Id == userID
-                        select new { user, dentist })
+                        join clinic in _context.Clinics on dentist.ClinicId equals clinic.Id
+                        where   user.Id == userID
+                        select new { user, dentist, clinic })
                     .Where(x => x.user.DentistId != null).FirstOrDefaultAsync();
 
 
@@ -353,10 +467,20 @@ namespace DentistBooking.Application.System.Dentists
                 dto.DentistID = data.dentist.Id;
                 dto.ClinicID = data.dentist.ClinicId;
 
+
+
                 dto.Services = await GetServiceFromDentist(data.dentist.Id);
 
+                ClinicDTO clinicDTO = new();
+                clinicDTO.Address = data.clinic.Address;
+                clinicDTO.Name = data.clinic.Name;
+                clinicDTO.Phone = data.clinic.Phone;
 
-                return dto;
+                response.Message = "Get dentist and clinic successfully";
+                response.Code = "200";
+                response.DentistDTO = dto;
+                response.ClinicDTO = clinicDTO;
+                return response;
 
             }
             catch (DbUpdateException)
@@ -481,6 +605,9 @@ namespace DentistBooking.Application.System.Dentists
                 DentistServiceDto dto = new();
                 dto.Id = service.Id;
                 dto.ServiceName = service.Name;
+                dto.Price = service.Price;
+                dto.Procedure = service.Procedure;
+                dto.Status = service.Status;
                 final.Add(dto);
             }
 
