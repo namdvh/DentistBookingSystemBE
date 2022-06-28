@@ -133,7 +133,11 @@ namespace DentistBooking.Application.System.Clinics
 
         public ClinicDTO MapToDTO(Clinic clinic)
         {
-            List<string> list = clinic.ImageUrl.Split(';').ToList();
+            List<string> list = new List<string>();
+            if (clinic.ImageUrl != null)
+            {
+                list = clinic.ImageUrl.Split(';').ToList();
+            }
             ClinicDTO clinicDTO = new ClinicDTO()
             {
                 Id = clinic.Id,
