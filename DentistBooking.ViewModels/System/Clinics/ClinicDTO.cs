@@ -13,7 +13,7 @@ namespace DentistBooking.ViewModels.System.Clinics
         public string Name { get; set; }
         public string? Description { get; set; }
         public string Address { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public Status Status { get; set; }
         public List<string>? ImageUrl { get; set; }

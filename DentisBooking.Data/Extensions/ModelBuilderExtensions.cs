@@ -51,7 +51,7 @@ namespace DentisBooking.Data.Extensions
                          Name = "TestClinic" + i,
                          Description = "TestDescirption" + i,
                          Address = "TestAddress" + i,
-                         Phone = 0868644651,
+                         Phone = "0868644651",
                          Created_at = DateTime.Now,
                          Updated_at = DateTime.Now,
                          Deleted_at = DateTime.Now,
