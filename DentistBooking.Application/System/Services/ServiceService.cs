@@ -343,7 +343,8 @@ namespace DentistBooking.Application.System.Services
                 Procedure = service.Procedure,      
                 ServiceName = service.Name,
                 Price = service.Price,
-                Status = service.Status
+                Status = service.Status,
+                DiscountId= service.DiscountId
             };
             return serviceDto;
         }
