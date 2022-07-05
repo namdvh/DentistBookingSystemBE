@@ -13,6 +13,8 @@ namespace DentistBooking.ViewModels.System.Bookings
 
         public Status Status { get; set; }
         public DentistServiceDto Services { get; set; }
+        
+        public DentistDTO Dentist { get; set; }
 
     }
 }
