@@ -496,7 +496,8 @@ namespace DentistBooking.Application.System.Bookings
                 Note = bookingDetail.Note,
                 Services = GetService(bookingDetail.ServiceId),
                 Status = bookingDetail.Status,
-                KeyTime = bookingDetail.KeyTime
+                KeyTime = bookingDetail.KeyTime,
+                Dentist = MapToDentistDTO((int)bookingDetail.DentistId)
             };
 
             return detailDto;
@@ -519,6 +520,36 @@ namespace DentistBooking.Application.System.Bookings
 
             return userDto;
         }
+        
+        private DentistDTO MapToDentistDTO(int dentistId)
+        {
+            var data = (from user in _context.Users
+                join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                where user.DentistId == dentistId
+                select new { user, dentist }).FirstOrDefault();
+
+            DentistDTO dto = new();
+            if (data != null)
+            {
+                dto.Description = data.dentist?.Description;
+                dto.Email = data.user.Email;
+                dto.Gender = data.user.Gender;
+                dto.Id = data.user.Id;
+                dto.Dob = data.user.DOB;
+                dto.Phone = data.user.PhoneNumber;
+                dto.Status = data.user.Status;
+                dto.FirstName = data.user.FirstName;
+                dto.LastName = data.user.LastName;
+                dto.ImageUrl = data.user.ImageUrl;
+                dto.ClinicID = data.dentist.ClinicId;
+                dto.DentistID = data.dentist.Id;
+            }
+
+            return dto;
+        }
+        
+        
+        
 
         private DentistServiceDto GetService(int serviceId)
         {
@@ -577,6 +608,84 @@ namespace DentistBooking.Application.System.Bookings
             }
             return list;
 
+        }
+
+        public async Task<BookingResponse> UpdateBookingStatus(BookingStatusRequest request)
+        {
+            BookingResponse response = null;
+            try
+            {
+                var booking = _context.Bookings.FirstOrDefault(x => x.Id == request.bookingID);
+                if (booking != null)
+                {
+                    booking.Status = request.status;
+                    response = new()
+                    {
+
+                        Code = "200",
+                        Message = "Update status succesfull"
+                    };
+
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    response = new()
+                    {
+
+                        Code = "203",
+                        Message = "Not found "
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                response = new()
+                {
+
+                    Code = "203",
+                    Message = "Update failed"
+                };
+            }
+
+            return response;
+        }
+
+        public async Task<BookingResponse> UpdateBookingDetailStatus(BookingDetailStatusRequest request)
+        {
+            BookingResponse response = new();
+            try
+            {
+                var detail = await _context.BookingDetails.FirstOrDefaultAsync(x => x.Id == request.bookingDetailID);
+                var bookingId = detail.BookingId;
+                var booking = await _context.Bookings.Where(x => x.Id == bookingId).FirstOrDefaultAsync();
+
+                detail.Status = request.status;
+                var count = _context.BookingDetails.Where(x => x.BookingId == bookingId && x.Status == Status.INACTIVE).Count();
+                if (count == 0)
+                {
+                    booking.Status = Status.DONE;
+                }
+
+
+                response.Code = "200";
+                response.Message = "Update successfully";
+                await _context.SaveChangesAsync();
+                return response;
+
+
+            }
+            catch (Exception e)
+            {
+                response = new()
+                {
+
+                    Code = "203",
+                    Message = "Update failed"
+                };
+            }
+
+            return response;
         }
     }
 }

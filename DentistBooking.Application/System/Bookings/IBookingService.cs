@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DentistBooking.ViewModels.System.Dentists;
 
 namespace DentistBooking.Application.System.Bookings
 {
@@ -18,5 +19,8 @@ namespace DentistBooking.Application.System.Bookings
         Task<BookingDetailResponse> GetBookingDetail(int bookingId);
         Task<ListBookingDTOResponse> GetBookingListForDentist(PaginationFilter filter, int dentistId,string _where);
         Task<List<KeyTime>> GetAvailableKeyTime(int dentistId, DateTime date);
+        
+        Task<BookingResponse> UpdateBookingStatus(BookingStatusRequest request);
+        Task<BookingResponse> UpdateBookingDetailStatus(BookingDetailStatusRequest request);
     }
 }

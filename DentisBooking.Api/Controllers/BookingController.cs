@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
 using DentisBooking.Data.Enum;
+using DentistBooking.ViewModels.System.Dentists;
 
 namespace DentisBooking.Api.Controllers
 {
@@ -63,6 +64,30 @@ namespace DentisBooking.Api.Controllers
                 return BadRequest(ModelState);
             }
             BookingResponse result = await _bookingService.DeleteBooking(bookingId, userId);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        [Route("status")]
+        public async Task<IActionResult> UpdateBookingStatus([FromBody] BookingStatusRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            BookingResponse result = await _bookingService.UpdateBookingStatus(request);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        [Route("detail/status")]
+        public async Task<IActionResult> UpdateBookingDetailStatus([FromBody] BookingDetailStatusRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            BookingResponse result = await _bookingService.UpdateBookingDetailStatus(request);
             return Ok(result);
         }
 
