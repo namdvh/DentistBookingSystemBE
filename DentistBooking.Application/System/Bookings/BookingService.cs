@@ -29,26 +29,6 @@ namespace DentistBooking.Application.System.Bookings
             BookingResponse response = new BookingResponse();
             try
             {
-                //for (int i = 0; i < request.DentistIds.Count; i++)
-                //{
-                //    //check keyTime
-                //    var existedDetail = await (from detail in _context.BookingDetails
-                //        join book in _context.Bookings on detail.BookingId equals book.Id
-                //        where detail.DentistId == request.DentistIds[i]
-                //              && detail.ServiceId == request.ServiceIds[i]
-                //              && book.Date.Equals(request.Date)
-                //        select detail).ToListAsync();
-
-                //    foreach (var item in existedDetail)
-                //    {
-                //        if (item.KeyTime == request.KeyTimes[i])
-                //        {
-                //            response.Code = "700";
-                //            response.Message = "KeyTime is already chosen!";
-                //            return response;
-                //        }
-                //    }
-                //}
 
                 Booking booking = new Booking()
                 {
@@ -67,6 +47,7 @@ namespace DentistBooking.Application.System.Bookings
                     BookingDetail detail = new BookingDetail()
                     {
                         BookingId = booking.Id,
+                        DentistId = request.DentistIds[i],
                         Created_at = DateTime.Now,
                         KeyTime = request.KeyTimes[i],
                         Note = request.Note,
@@ -132,6 +113,7 @@ namespace DentistBooking.Application.System.Bookings
         public async Task<ListBookingResponse> GetBookingList(PaginationFilter filter)
         {
             ListBookingResponse response = new();
+            List<BookingDTO> listDto = new();
             PaginationDTO paginationDTO = new();
 
             string orderBy = filter._order.ToString();
@@ -161,7 +143,11 @@ namespace DentistBooking.Application.System.Bookings
             }
             else
             {
-                response.Content = pagedData;
+                foreach (var x in pagedData)
+                {
+                    listDto.Add(mapToBookingDto(x));
+                }
+                response.Content = listDto;
                 response.Message = "SUCCESS";
                 response.Code = "200";
             }
@@ -309,12 +295,11 @@ namespace DentistBooking.Application.System.Bookings
                 int year = int.Parse(where.Split('.')[3]);
 
                 pagedData = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Day == day &&
-                              booking.Date.Month == month && booking.Date.Year == year
-                        select new { booking })
+                                   join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                   where bookingDetail.DentistId == dentistId &&
+                                         booking.Status == Status.CONFIRMED && booking.Date.Day == day &&
+                                         booking.Date.Month == month && booking.Date.Year == year
+                                   select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Distinct()
@@ -322,12 +307,11 @@ namespace DentistBooking.Application.System.Bookings
                     .ToListAsync();
 
                 totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Day == day &&
-                              booking.Date.Month == month && booking.Date.Year == year
-                        select new { booking })
+                                      join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                      where bookingDetail.DentistId == dentistId &&
+                                            booking.Status == Status.CONFIRMED && booking.Date.Day == day &&
+                                            booking.Date.Month == month && booking.Date.Year == year
+                                      select new { booking })
                     .Distinct()
                     .CountAsync();
             }
@@ -338,12 +322,11 @@ namespace DentistBooking.Application.System.Bookings
                 int year = int.Parse(where.Split('.')[2]);
 
                 pagedData = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Month == month &&
-                              booking.Date.Year == year
-                        select new { booking })
+                                   join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                   where bookingDetail.DentistId == dentistId &&
+                                        booking.Status == Status.CONFIRMED && booking.Date.Month == month &&
+                                         booking.Date.Year == year
+                                   select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Distinct()
@@ -351,12 +334,11 @@ namespace DentistBooking.Application.System.Bookings
                     .ToListAsync();
 
                 totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Month == month &&
-                              booking.Date.Year == year
-                        select new { booking })
+                                      join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                      where bookingDetail.DentistId == dentistId &&
+                                           booking.Status == Status.CONFIRMED && booking.Date.Month == month &&
+                                            booking.Date.Year == year
+                                      select new { booking })
                     .Distinct()
                     .CountAsync();
             }
@@ -366,11 +348,10 @@ namespace DentistBooking.Application.System.Bookings
                 int year = int.Parse(where.Split('.')[1]);
 
                 pagedData = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Year == year
-                        select new { booking })
+                                   join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                   where bookingDetail.DentistId == dentistId &&
+                                         booking.Status == Status.CONFIRMED && booking.Date.Year == year
+                                   select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Distinct()
@@ -378,11 +359,10 @@ namespace DentistBooking.Application.System.Bookings
                     .ToListAsync();
 
                 totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date.Year == year
-                        select new { booking })
+                                      join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                      where bookingDetail.DentistId == dentistId &&
+                                            booking.Status == Status.CONFIRMED && booking.Date.Year == year
+                                      select new { booking })
                     .Distinct()
                     .CountAsync();
             }
@@ -393,11 +373,10 @@ namespace DentistBooking.Application.System.Bookings
                 var endDate = DateTime.Parse(where.Split('.')[2]);
 
                 pagedData = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date >= startDate && booking.Date <= endDate
-                        select new { booking })
+                                   join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                   where bookingDetail.DentistId == dentistId &&
+                                         booking.Status == Status.CONFIRMED && booking.Date >= startDate && booking.Date <= endDate
+                                   select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Distinct()
@@ -405,11 +384,10 @@ namespace DentistBooking.Application.System.Bookings
                     .ToListAsync();
 
                 totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE) && booking.Date >= startDate && booking.Date <= endDate
-                        select new { booking })
+                                      join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                      where bookingDetail.DentistId == dentistId &&
+                                            booking.Status == Status.CONFIRMED && booking.Date >= startDate && booking.Date <= endDate
+                                      select new { booking })
                     .Distinct()
                     .CountAsync();
             }
@@ -418,22 +396,20 @@ namespace DentistBooking.Application.System.Bookings
             if (filter._all)
             {
                 pagedData = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE)
-                        select new { booking })
+                                   join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                   where bookingDetail.DentistId == dentistId &&
+                                         booking.Status == Status.CONFIRMED
+                                   select new { booking })
                     .OrderBy("booking." + createdAt + " " + orderBy)
                     .Skip((filter.PageNumber - 1) * filter.PageSize)
                     .Distinct()
                     .Take(filter.PageSize)
                     .ToListAsync();
                 totalRecords = await (from booking in _context.Bookings
-                        join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
-                        where bookingDetail.DentistId == dentistId &&
-                              (booking.Status == Status.CONFIRMED ||
-                               booking.Status == Status.DONE)
-                        select new { booking })
+                                      join bookingDetail in _context.BookingDetails on booking.Id equals bookingDetail.BookingId
+                                      where bookingDetail.DentistId == dentistId &&
+                                            booking.Status == Status.CONFIRMED
+                                      select new { booking })
                     .Distinct()
                     .CountAsync();
             }
@@ -449,7 +425,7 @@ namespace DentistBooking.Application.System.Bookings
             {
                 foreach (var x in pagedData)
                 {
-                    listDto.Add(mapToBookingDto(x.booking,dentistId));
+                    listDto.Add(mapToBookingDto(x.booking, dentistId));
                 }
 
 
@@ -473,7 +449,7 @@ namespace DentistBooking.Application.System.Bookings
         }
 
 
-        private BookingDTO mapToBookingDto(Booking booking,int dentistId)
+        private BookingDTO mapToBookingDto(Booking booking, int dentistId)
         {
             BookingDTO bookingDto = new BookingDTO()
             {
@@ -484,6 +460,19 @@ namespace DentistBooking.Application.System.Bookings
                 UserId = booking.UserId,
                 User = MapToDTO(booking.UserId),
                 Detail = GetDetailFromBooking(booking.Id, booking.Date, booking.Status, MapToDTO(booking.UserId), dentistId)
+            };
+            return bookingDto;
+        }
+        private BookingDTO mapToBookingDto(Booking booking)
+        {
+            BookingDTO bookingDto = new BookingDTO()
+            {
+                Date = booking.Date,
+                Id = booking.Id,
+                Status = booking.Status,
+                Total = booking.Total,
+                UserId = booking.UserId,
+                User = MapToDTO(booking.UserId),
             };
             return bookingDto;
         }
@@ -520,13 +509,13 @@ namespace DentistBooking.Application.System.Bookings
 
             return userDto;
         }
-        
+
         private DentistDTO MapToDentistDTO(int dentistId)
         {
             var data = (from user in _context.Users
-                join dentist in _context.Dentists on user.DentistId equals dentist.Id
-                where user.DentistId == dentistId
-                select new { user, dentist }).FirstOrDefault();
+                        join dentist in _context.Dentists on user.DentistId equals dentist.Id
+                        where user.DentistId == dentistId
+                        select new { user, dentist }).FirstOrDefault();
 
             DentistDTO dto = new();
             if (data != null)
@@ -547,9 +536,9 @@ namespace DentistBooking.Application.System.Bookings
 
             return dto;
         }
-        
-        
-        
+
+
+
 
         private DentistServiceDto GetService(int serviceId)
         {
@@ -563,12 +552,12 @@ namespace DentistBooking.Application.System.Bookings
         }
 
         private List<BookingDtoDetail> GetDetailFromBooking(int bookingId, DateTime date, Status status,
-            UserDTO userDto,int dentistId)
+            UserDTO userDto, int dentistId)
         {
             List<BookingDtoDetail> list = new();
 
 
-            var data = _context.BookingDetails.Where(x => x.BookingId == bookingId&& x.DentistId==dentistId).ToList();
+            var data = _context.BookingDetails.Where(x => x.BookingId == bookingId && x.DentistId == dentistId).ToList();
 
 
             foreach (var x in data)
@@ -596,11 +585,11 @@ namespace DentistBooking.Application.System.Bookings
         {
             List<KeyTime> list = new();
 
-            var details = await(from t1 in _context.Bookings
-                                join t2 in _context.BookingDetails
-                                on t1.Id equals t2.BookingId
-                                where t1.Date.Equals(date) && t2.DentistId == dentistId
-                                select t2).ToListAsync();
+            var details = await (from t1 in _context.Bookings
+                                 join t2 in _context.BookingDetails
+                                 on t1.Id equals t2.BookingId
+                                 where t1.Date.Equals(date) && t2.DentistId == dentistId
+                                 select t2).ToListAsync();
             list = Enum.GetValues(typeof(KeyTime)).Cast<KeyTime>().ToList();
             foreach (var item in details)
             {
@@ -661,6 +650,7 @@ namespace DentistBooking.Application.System.Bookings
                 var booking = await _context.Bookings.Where(x => x.Id == bookingId).FirstOrDefaultAsync();
 
                 detail.Status = request.status;
+                _context.SaveChanges();
                 var count = _context.BookingDetails.Where(x => x.BookingId == bookingId && x.Status == Status.INACTIVE).Count();
                 if (count == 0)
                 {
