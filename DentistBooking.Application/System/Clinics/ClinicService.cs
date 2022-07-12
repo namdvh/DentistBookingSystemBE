@@ -134,7 +134,7 @@ namespace DentistBooking.Application.System.Clinics
         public ClinicDTO MapToDTO(Clinic clinic)
         {
             List<string> list = new List<string>();
-            if (clinic.ImageUrl != null)
+            if (clinic.ImageUrl != null && !clinic.ImageUrl.Equals(""))
             {
                 list = clinic.ImageUrl.Split(';').ToList();
             }
@@ -157,6 +157,26 @@ namespace DentistBooking.Application.System.Clinics
             ClinicResponse response = new ClinicResponse();
             try
             {
+                string images = "";
+                if (request.ImageUrl.Count > 1)
+                {
+                    for (int i = 0; i < request.ImageUrl.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            images = request.ImageUrl[0];
+                        }
+                        else
+                        {
+                            images = String.Concat(images, ";", request.ImageUrl[i]);
+
+                        }
+                    }
+                }
+                else if (request.ImageUrl.Count == 1)
+                {
+                    images = request.ImageUrl[0];
+                }
                 Clinic clinic = new Clinic()
                 {
                     Name = request.Name,
@@ -164,7 +184,7 @@ namespace DentistBooking.Application.System.Clinics
                     Phone = request.Phone,
                     Description = request.Description,
                     Status = DentisBooking.Data.Enum.Status.ACTIVE,
-                    ImageUrl = null,
+                    ImageUrl = images,
                     Created_at = DateTime.Parse(DateTime.Now.ToString("yyyy/MMM/dd")),
                     Created_by = request.UserId
                 };
@@ -196,7 +216,7 @@ namespace DentistBooking.Application.System.Clinics
                 if (obj != null)
                 {
                     string images = "";
-                    if (request.ImageUrl.Count != 1)
+                    if (request.ImageUrl.Count > 1)
                     {
                         for (int i = 0; i < request.ImageUrl.Count; i++)
                         {
@@ -211,7 +231,7 @@ namespace DentistBooking.Application.System.Clinics
                             }
                         }
                     }
-                    else
+                    else if(request.ImageUrl.Count == 1)
                     {
                         images = request.ImageUrl[0];
                     }

@@ -16,5 +16,7 @@ namespace DentistBooking.ViewModels.System.Services
         
         public Status Status { get; set; }
         public decimal Price { get; set; }
+        
+        public int? DiscountId { get; set; } 
     }
 }
