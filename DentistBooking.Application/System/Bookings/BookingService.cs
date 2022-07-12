@@ -42,12 +42,12 @@ namespace DentistBooking.Application.System.Bookings
                 _context.Bookings.Add(booking);
                 await _context.SaveChangesAsync();
 
-                for (int i = 0; i < request.DentistIds.Count; i++)
+                for (int i = 0; i < request.ServiceIds.Count; i++)
                 {
                     BookingDetail detail = new BookingDetail()
                     {
                         BookingId = booking.Id,
-                        DentistId = request.DentistIds[i],
+                        DentistId = request.DentistIds[0],
                         Created_at = DateTime.Now,
                         KeyTime = request.KeyTimes[i],
                         Note = request.Note,
