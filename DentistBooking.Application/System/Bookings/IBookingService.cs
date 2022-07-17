@@ -12,7 +12,7 @@ namespace DentistBooking.Application.System.Bookings
 {
     public interface IBookingService
     {
-        Task<BookingResponse> CreateBooking(CreateBookingRequest request);
+        BookingResponse CreateBooking(CreateBookingRequest request);
         Task<ListBookingResponse> GetBookingList(PaginationFilter filter);
         Task<BookingResponse> UpdateBooking(BookingRequest request);
         Task<BookingResponse> DeleteBooking(int bookingId, Guid userId);
