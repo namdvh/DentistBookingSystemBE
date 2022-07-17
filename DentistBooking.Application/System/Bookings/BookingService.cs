@@ -24,11 +24,28 @@ namespace DentistBooking.Application.System.Bookings
             _context = context;
         }
 
-        public async Task<BookingResponse> CreateBooking(CreateBookingRequest request)
+        public BookingResponse CreateBooking(CreateBookingRequest request)
         {
             BookingResponse response = new BookingResponse();
             try
             {
+                for (int i = 0; i < request.ServiceIds.Count; i++)
+                {
+                    var existed = (from bookingDetail in _context.BookingDetails
+                                         join bookings in _context.Bookings
+                                         on bookingDetail.BookingId equals bookings.Id
+                                         where bookings.Date.Equals(request.Date) && bookingDetail.DentistId == request.DentistIds[0]
+                                         && bookingDetail.KeyTime == request.KeyTimes[i]
+                                         select new { bookingDetail }).FirstOrDefault();
+                    if(existed != null)
+                    {
+                        response.Code = "204";
+                        response.Message = "Dentist is busy at that time";
+
+                        return response;
+                    }
+                }
+
 
                 Booking booking = new Booking()
                 {
@@ -40,7 +57,7 @@ namespace DentistBooking.Application.System.Bookings
                 };
 
                 _context.Bookings.Add(booking);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 for (int i = 0; i < request.ServiceIds.Count; i++)
                 {
@@ -56,7 +73,7 @@ namespace DentistBooking.Application.System.Bookings
                         ServiceId = request.ServiceIds[i]
                     };
                     _context.BookingDetails.Add(detail);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
 
                 response.Code = "200";
