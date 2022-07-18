@@ -299,7 +299,7 @@ namespace DentistBooking.Application.System.Dentists
                 LastName = request.LastName,
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
-                ImageUrl = request.Image,
+                ImageUrl = request.ImageUrl,
                 Status = Status.ACTIVE,
                 Gender = request.Gender,
                 Dentist = newDentist
@@ -394,7 +394,7 @@ namespace DentistBooking.Application.System.Dentists
                     user.PhoneNumber = request.Phone;
                     if (request.Status != null) user.Status = (Status)request.Status;
                     if (request.Gender != null) user.Gender = (Gender)request.Gender;
-                    if (request.Image != null) user.ImageUrl = request.Image;
+                    if (request.ImageUrl != null) user.ImageUrl = request.ImageUrl;
                     user.Updated_by = request.UpdatedBy;
                 }
 
