@@ -183,6 +183,65 @@ namespace DentistBooking.Application.System.Bookings
             return response;
         }
 
+        public async Task<ListBookingResponse> GetBookingListForUser(PaginationFilter filter, Guid userId)
+        {
+            ListBookingResponse response = new();
+            List<BookingDTO> listDto = new();
+
+            PaginationDTO paginationDTO = new();
+
+            string orderBy = filter._order.ToString();
+
+            if (orderBy.Equals("1"))
+            {
+                orderBy = "descending";
+            }
+            else if (orderBy.Equals("-1"))
+            {
+                orderBy = "ascending";
+            }
+            var pagedData = await _context.Bookings
+                .Where(x => x.UserId.Equals(userId))
+                .OrderBy(filter._by + " " + orderBy)
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToListAsync();
+
+            var totalRecords = await _context.Bookings.Where(x => x.UserId == userId).CountAsync();
+
+            if (!pagedData.Any())
+            {
+                response.Content = null;
+                response.Code = "200";
+                response.Message = "There aren't any bookings in DB";
+            }
+            else
+            {
+                foreach (var x in pagedData)
+                {
+                    listDto.Add(mapToBookingDto(x));
+                }
+                response.Content = listDto;
+                response.Message = "SUCCESS";
+                response.Code = "200";
+
+            }
+            var totalPages = ((double)totalRecords / (double)filter.PageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            paginationDTO.CurrentPage = filter.PageNumber;
+            paginationDTO.PageSize = filter.PageSize;
+            paginationDTO.TotalPages = roundedTotalPages;
+            paginationDTO.TotalRecords = totalRecords;
+
+            response.Pagination = paginationDTO;
+
+
+
+            return response;
+
+        }
+
         public async Task<BookingResponse> UpdateBooking(BookingRequest request)
         {
             BookingResponse response = new BookingResponse();
