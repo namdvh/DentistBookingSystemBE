@@ -69,7 +69,7 @@ namespace DentistBooking.Application.System.Bookings
                         KeyTime = request.KeyTimes[i],
                         Note = request.Note,
                         Created_by = request.UserId,
-                        Status = 0,
+                        Status = Status.PENDING,
                         ServiceId = request.ServiceIds[i]
                     };
                     _context.BookingDetails.Add(detail);
@@ -668,7 +668,7 @@ namespace DentistBooking.Application.System.Bookings
 
                 detail.Status = request.status;
                 _context.SaveChanges();
-                var count = _context.BookingDetails.Where(x => x.BookingId == bookingId && x.Status == Status.INACTIVE).Count();
+                var count = _context.BookingDetails.Where(x => x.BookingId == bookingId && x.Status == Status.PENDING).Count();
                 if (count == 0)
                 {
                     booking.Status = Status.DONE;
