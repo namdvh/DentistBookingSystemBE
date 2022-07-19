@@ -20,6 +20,8 @@ namespace DentistBooking.ViewModels.System.Users
        
         public string role { get; set; }
 
+        public int? dentistId { get; set; }
+
         public Status Status { get; set; }
     }
 }

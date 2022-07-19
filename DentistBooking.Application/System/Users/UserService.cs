@@ -269,7 +269,8 @@ namespace DentistBooking.Application.System.Users
                 Status = user.Status,
                 Created_at = user.Created_at,
                 role = roleName,
-                ImageUrl = user.ImageUrl
+                ImageUrl = user.ImageUrl,
+                dentistId = user.DentistId
             };
             return userDto;
         }
