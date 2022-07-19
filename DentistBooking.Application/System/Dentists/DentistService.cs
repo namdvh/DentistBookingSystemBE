@@ -290,7 +290,7 @@ namespace DentistBooking.Application.System.Dentists
 
             var rs = _context.Dentists.Add(newDentist);
             await _context.SaveChangesAsync();
-
+            
             var newUser = new User()
             {
                 DOB = request.DOB,
@@ -299,10 +299,12 @@ namespace DentistBooking.Application.System.Dentists
                 LastName = request.LastName,
                 UserName = request.UserName,
                 PhoneNumber = request.Phone,
+                ImageUrl = request.ImageUrl,
                 Status = Status.ACTIVE,
                 Gender = request.Gender,
                 Dentist = newDentist
-            };
+                
+        };
 
             var result = await _userService.CreateAsync(newUser, request.Password);
 
@@ -392,7 +394,7 @@ namespace DentistBooking.Application.System.Dentists
                     user.PhoneNumber = request.Phone;
                     if (request.Status != null) user.Status = (Status)request.Status;
                     if (request.Gender != null) user.Gender = (Gender)request.Gender;
-                    if (request.Image != null) user.ImageUrl = request.Image;
+                    if (request.ImageUrl != null) user.ImageUrl = request.ImageUrl;
                     user.Updated_by = request.UpdatedBy;
                 }
 

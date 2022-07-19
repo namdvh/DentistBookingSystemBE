@@ -23,7 +23,7 @@ namespace DentistBooking.ViewModels.System.Dentists
         public Position? Position { get; set; }
         public string? Description { get; set; }
         
-        public string? Image { get; set; }
+        public string? ImageUrl { get; set; }
         public int ClinicId { get; set; }
         public Guid UpdatedBy { get; set; }
         public List<int> ServiceId { get; set; }
